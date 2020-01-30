@@ -23,7 +23,7 @@ module.exports = (function() {
     listeners : {},
     results : {},
 
-    injectJsCSS : require('./lib/injectJsCSS/injectJsCSS'),
+    injectJsCSS : require('./lib/injectJsCss/injectJsCss'),
     throttle : require('./lib/throttle/throttle'),
 
     loadModule : function(name,module,listenersList) {
