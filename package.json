@@ -1,6 +1,7 @@
 {
   "name": "this-device-info",
   "version": "1.0.0",
+  "private": true,
   "description": "Work in progress",
   "main": "index.js",
   "devDependencies": {
