@@ -13,10 +13,8 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: '12.x'
-    - run: cd src
-    - run: ls
-    - run: npm install
-    - run: npm run build --if-present
-    - run: npm test
+    - run: cd src && npm install
+    - run: cd src && npm run build --if-present
+    - run: cd src && npm test
       env:
         CI: true
