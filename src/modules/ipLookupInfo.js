@@ -18,7 +18,7 @@ module.exports = (function() {
     "https://thisdeviceinfo.herokuapp.com/iplookup",
     function(responseText) {
 
-      var UALookupInfoEvent,
+      var IPLookupInfoEvent,
           detail = responseText;
 
 
@@ -26,12 +26,12 @@ module.exports = (function() {
         detail = JSON.parse(responseText);
       }
 
-      UALookupInfoEvent = new CustomEvent("__IPLookupInfoEvent", {
+      IPLookupInfoEvent = new CustomEvent("__IPLookupInfoEvent", {
         detail: detail,
         bubbles: true,
         cancelable: true
       });
-      dispatchEvent(UALookupInfoEvent);
+      dispatchEvent(IPLookupInfoEvent);
 
       return detail;
 
