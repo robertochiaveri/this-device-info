@@ -20,6 +20,7 @@ jobs:
       with:
         name: detection.js
         path: dist/detection.js      
+    - run: cd src && npm run dist --if-present
     - name: Deploy to Firebase
       uses: lowply/deploy-firebase@v0.0.2
       env:
