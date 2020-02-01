@@ -25,7 +25,7 @@ jobs:
       uses: actions/upload-artifact@v1
       with:
         name: build output (dist)
-        path: dist/detection.js            
+        path: dist
     - name: Deploy to Firebase
       uses: lowply/deploy-firebase@v0.0.2
       env:
