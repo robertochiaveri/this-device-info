@@ -5,7 +5,7 @@ module.exports = (function() {
   var init = function(event) {
 
     var parsedUa = require("ua-parser-js")(),
-                   parsedUaInfo = {};
+        parsedUaInfo = {};
 
     try{
       parsedUaInfo.os = parsedUa.os.name +" "+parsedUa.os.version;
