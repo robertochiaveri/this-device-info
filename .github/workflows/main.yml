@@ -15,12 +15,17 @@ jobs:
         node-version: '12.x'
     - run: cd src && npm install
     - run: cd src && npm run build --if-present
-    - name: Save artifact
+    - name: Save build artifact
       uses: actions/upload-artifact@v1
       with:
-        name: detection.js
-        path: dist/detection.js      
+        name: build output (debug)
+        path: dist   
     - run: cd src && npm run dist --if-present
+    - name: Save dist artifact
+      uses: actions/upload-artifact@v1
+      with:
+        name: build output (dist)
+        path: dist/detection.js            
     - name: Deploy to Firebase
       uses: lowply/deploy-firebase@v0.0.2
       env:
