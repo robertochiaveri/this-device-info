@@ -144,7 +144,7 @@ module.exports = function() {
         container.appendChild(createGroup("deviceHardware","Hardware",deviceHardware));
 
 
-        // second column:
+        // second column
         if (results.mediaCaptureInfo) {
           deviceHardware = [];
 
