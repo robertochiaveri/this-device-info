@@ -361,35 +361,35 @@ module.exports = function() {
 
         if (results.IPLookupInfo && results.IPLookupInfo.success && results.IPLookupInfo.data) {
 
-          if (results.IPLookupInfo.city) {
-            locationInfo.push(results.IPLookupInfo.city);
+          if (results.IPLookupInfo.data.city) {
+            locationInfo.push(results.IPLookupInfo.data.city);
           }
 
-          if (results.IPLookupInfo.regionName) {
-            if (results.IPLookupInfo.city) {
+          if (results.IPLookupInfo.data.regionName) {
+            if (results.IPLookupInfo.data.city) {
               locationInfo[locationInfo.length-1] +=",";
             }
-            locationInfo.push(results.IPLookupInfo.regionName);
+            locationInfo.push(results.IPLookupInfo.data.regionName);
           }
           
-          if (results.IPLookupInfo.country) {
-            if (results.IPLookupInfo.city || results.IPLookupInfo.regionName) {
+          if (results.IPLookupInfo.data.country) {
+            if (results.IPLookupInfo.data.city || results.IPLookupInfo.data.regionName) {
               locationInfo[locationInfo.length-1] +=",";
             }
-            locationInfo.push(results.IPLookupInfo.country);
+            locationInfo.push(results.IPLookupInfo.data.country);
           }     
           
           locationInfo.push("\n");
           
-          if (results.IPLookupInfo.lat) {
-            locationInfo.push("Approximate location: " + results.IPLookupInfo.lat + " lat, " + results.IPLookupInfo.lon + " lon\n");
+          if (results.IPLookupInfo.data.lat) {
+            locationInfo.push("Approximate location: " + results.IPLookupInfo.data.lat + " lat, " + results.IPLookupInfo.data.lon + " lon\n");
           }        
           
           locationInfo = locationInfo.join(" ");
           container.appendChild(createGroup("locationInfo","Geolocation",connectionInfo,"wide"));
         }
 
-      } catch(e) {console.log(e);}    
+      } catch(e) {console.log(e); container.appendChild(createGroup("errorInfo","Error",e,"wide")); }    
 
 
       // Device Name
