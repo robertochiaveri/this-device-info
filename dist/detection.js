@@ -408,7 +408,7 @@ module.exports = (function() {
   /* public methods... */
   return {
     init : init,
-    defaultListeners : ["DOMContentLoaded","__IPLookupInfoEvent"]
+    defaultListeners : ["DOMContentLoaded","__IPLookupInfoEvent", "__ConnectionInfoEvent"]
   };
 })();
 
@@ -2396,13 +2396,34 @@ module.exports = function() {
         connectionInfo = [];
         if (results.connectionInfo && results.connectionInfo.status) {
           if (results.connectionInfo.status.toLowerCase() == "connected") {
+            
             connectionInfo.push("Connected");
+            
             if (results.connectionInfo.speed) {
               connectionInfo.push("at "+results.connectionInfo.speed);
             }  
+            
             if (results.connectionInfo.roundTripTime) {
               connectionInfo.push("with ~"+results.connectionInfo.roundTripTime+" latency\n");
             }              
+            
+            if (results.IPLookupInfo && results.IPLookupInfo.success && results.IPLookupInfo.data) {
+
+              if (results.IPLookupInfo.query) {
+                connectionInfo.push("IP address: "+results.IPLookupInfo.query+"\n");
+              }
+
+              if (results.IPLookupInfo.isp) {
+                connectionInfo.push("Provider: "+results.IPLookupInfo.isp);
+              } 
+              if (results.IPLookupInfo.as) {
+                connectionInfo.push("("+results.IPLookupInfo.as+")\n");
+              } 
+              
+            }
+
+            
+
           } else {
             connectionInfo.push("Disconnected");
           }

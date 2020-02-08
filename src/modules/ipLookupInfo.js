@@ -44,6 +44,6 @@ module.exports = (function() {
   /* public methods... */
   return {
     init : init,
-    defaultListeners : ["DOMContentLoaded","__IPLookupInfoEvent"]
+    defaultListeners : ["DOMContentLoaded","__IPLookupInfoEvent", "__ConnectionInfoEvent"]
   };
 })();
