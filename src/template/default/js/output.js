@@ -135,7 +135,7 @@ module.exports = function() {
           }
 
           if (results.batteryInfo.batteryLevel) {
-            deviceHardware.push("Battery is at " + results.batteryInfo.batteryLevel ); 
+            deviceHardware.push(results.batteryInfo.batteryLevel + " charged"); 
           }
           
         }         
