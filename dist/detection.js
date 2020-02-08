@@ -2394,6 +2394,7 @@ module.exports = function() {
       try {
 
         connectionInfo = [];
+
         if (results.connectionInfo && results.connectionInfo.status) {
           if (results.connectionInfo.status.toLowerCase() == "connected") {
             
@@ -2422,8 +2423,6 @@ module.exports = function() {
               
             }
 
-            
-
           } else {
             connectionInfo.push("Disconnected");
           }
@@ -2431,7 +2430,46 @@ module.exports = function() {
           connectionInfo = connectionInfo.join(" ");          
         }
         container.appendChild(createGroup("ConnectionInfo","Network",connectionInfo,"wide"));
-      } catch(e) {}
+      } catch(e) {console.log(e);}
+
+
+      // Geolocation
+      var locationInfo = defaultValue;
+      try {
+        
+        locationInfo = [];
+
+        if (results.IPLookupInfo && results.IPLookupInfo.success && results.IPLookupInfo.data) {
+
+          if (results.IPLookupInfo.city) {
+            locationInfo.push(results.IPLookupInfo.city);
+          }
+
+          if (results.IPLookupInfo.regionName) {
+            if (results.IPLookupInfo.city) {
+              locationInfo[locationInfo.length-1] +=",";
+            }
+            locationInfo.push(results.IPLookupInfo.regionName);
+          }
+          
+          if (results.IPLookupInfo.country) {
+            if (results.IPLookupInfo.city || results.IPLookupInfo.regionName) {
+              locationInfo[locationInfo.length-1] +=",";
+            }
+            locationInfo.push(results.IPLookupInfo.country);
+          }     
+          
+          locationInfo.push("\n");
+          
+          if (results.IPLookupInfo.lat) {
+            locationInfo.push("Approximate location: " + results.IPLookupInfo.lat + " lat, " + results.IPLookupInfo.lon + " lon\n");
+          }        
+          
+          locationInfo = locationInfo.join(" ");
+          container.appendChild(createGroup("locationInfo","Geolocation",connectionInfo,"wide"));
+        }
+
+      } catch(e) {console.log(e);}    
 
 
       // Device Name
