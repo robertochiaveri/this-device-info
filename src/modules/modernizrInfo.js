@@ -6,7 +6,7 @@ module.exports = (function() {
   var otherFunction = function () {
   }
 
-  var MD = equire("modernizr-detectizr");
+  var MD = require("modernizr-detectizr");
 
   var init = function(event) {
     return {};
