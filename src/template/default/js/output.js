@@ -306,6 +306,22 @@ module.exports = function() {
           break;
 
         }
+     
+        if (results.gyroscopeInfo && results.gyroscopeInfo.alpha) {
+          
+          displayOrientation.push("\nGyroscope rotation:");
+          displayOrientation.push("α " + results.gyroscopeInfo.alpha);
+          displayOrientation.push("β " + results.gyroscopeInfo.beta);
+          displayOrientation.push("𝛾 " + results.gyroscopeInfo.gamma);          
+        }
+
+        if (results.motionSensorsInfo && results.motionSensorsInfo.x) {
+          
+          displayOrientation.push("\nMotion:");
+          displayOrientation.push("x " + results.motionSensorsInfo.x);
+          displayOrientation.push("x " + results.motionSensorsInfo.y);
+          displayOrientation.push("x " + results.motionSensorsInfo.z);          
+        }
         
         displayOrientation = displayOrientation.join(" ");
         container.appendChild(createGroup("displayOrientation","Orientation",displayOrientation,"wide"));
