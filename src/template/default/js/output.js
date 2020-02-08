@@ -472,7 +472,7 @@ module.exports = function() {
 
         container.appendChild(createGroup("deviceName","Device name",deviceName,"wide"));
 
-      } catch(e) {console.log(e); container.appendChild(createGroup("errorInfo","Error",e,"wide")); }    
+      } catch(e) {console.log(e); }    
 
       return container;
   }
