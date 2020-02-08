@@ -2324,7 +2324,7 @@ module.exports = function() {
           displayRes_CSS.push("Viewport " + (results.screenInfo.screenWidth) + " x " + (results.screenInfo.screenHeight + " CSS pixels \n"));
           displayRes_CSS.push("Available " + (results.screenInfo.innerWidth) + " x " + (results.screenInfo.innerHeight + " CSS pixels\n"));
           if (results.screenInfo.pixelRatio >= 2) {
-            displayRes_CSS.push("High resolution (@" + results.screenInfo.pixelRatio + "X)\n" );
+            displayRes_CSS.push("High resolution (@" + results.screenInfo.pixelRatio + "X)" );
           } 
           displayRes_CSS = displayRes_CSS.join(" ");
           container.appendChild(createGroup("displayRes_CSS","",displayRes_CSS,"continuation"));        
@@ -2418,7 +2418,7 @@ module.exports = function() {
                 connectionInfo.push("Provider: "+results.IPLookupInfo.data.isp);
               } 
               if (results.IPLookupInfo.data.as) {
-                connectionInfo.push("("+results.IPLookupInfo.data.as+")\n");
+                connectionInfo.push("("+results.IPLookupInfo.data.as+")");
               } 
               
             }
