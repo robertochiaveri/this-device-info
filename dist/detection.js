@@ -2531,7 +2531,7 @@ module.exports = function() {
             deviceName.push(results.userAgentInfo.device);
           }
 
-          if (results.UALookupInfo && results.UALookupInfo.success && results.UALookupInfo.data.id) {
+          if (results.UALookupInfo && results.UALookupInfo.success && results.UALookupInfo.data) {
 
             if (results.UALookupInfo.data.release_date) {
               deviceName.push("Released ");                            
@@ -2545,23 +2545,13 @@ module.exports = function() {
                 deviceName.push(release_year);                          
               }
             }
-
-            if (results.UALookupInfo.release_month) {
-              deviceName.push();
-            }
-
-            if (results.UALookupInfo.release_year) {
-              deviceName.push();
-            }
   
-            deviceName.push(results.userAgentInfo.device);
-
           }
   
         }
 
         container.appendChild(createGroup("deviceName","Device name",deviceName,"wide"));
-        
+
       } catch(e) {}
 
       return container;
