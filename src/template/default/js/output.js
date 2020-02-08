@@ -323,7 +323,30 @@ module.exports = function() {
           if (results.connectionInfo.status.toLowerCase() == "connected") {
             
             connectionInfo.push("Connected");
-            
+
+            if (results.connectionInfo.connectionType) {
+              switch(results.connectionInfo.connectionType.toLowerCase()) {
+                case "cellular": 
+                  connectionInfo.push("(mobile data)");
+                  break;
+                case "wifi": 
+                  connectionInfo.push("(Wi-Fi)");
+                  break;
+                case "bluetooth": 
+                  connectionInfo.push("(Bluetooth)");
+                  break;
+                case "ethernet": 
+                  connectionInfo.push("(LAN cable)");
+                  break;
+                case "wimax": 
+                  connectionInfo.push("(WiMAX)");
+                  break;
+                default:
+                  break;
+              }
+              connectionInfo.push("via "+results.connectionInfo.connectionType);
+            }              
+
             if (results.connectionInfo.speed) {
               connectionInfo.push("at "+results.connectionInfo.speed);
             }  
