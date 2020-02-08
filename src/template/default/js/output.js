@@ -330,15 +330,15 @@ module.exports = function() {
             
             if (results.IPLookupInfo && results.IPLookupInfo.success && results.IPLookupInfo.data) {
 
-              if (results.IPLookupInfo.query) {
-                connectionInfo.push("IP address: "+results.IPLookupInfo.query+"\n");
+              if (results.IPLookupInfo.data.query) {
+                connectionInfo.push("IP address: "+results.IPLookupInfo.data.query+"\n");
               }
 
-              if (results.IPLookupInfo.isp) {
-                connectionInfo.push("Provider: "+results.IPLookupInfo.isp);
+              if (results.IPLookupInfo.data.isp) {
+                connectionInfo.push("Provider: "+results.IPLookupInfo.data.isp);
               } 
-              if (results.IPLookupInfo.as) {
-                connectionInfo.push("("+results.IPLookupInfo.as+")\n");
+              if (results.IPLookupInfo.data.as) {
+                connectionInfo.push("("+results.IPLookupInfo.data.as+")\n");
               } 
               
             }
