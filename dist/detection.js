@@ -2302,6 +2302,10 @@ module.exports = function() {
           displayRes_HW.push(results.screenInfo.screenRatio.approximated.str +" aspect ratio\n");
         }
 
+        if (results.screenInfo.pixelRatio >= 2) {
+          displayRes_HW.push("High resolution (@" + results.screenInfo.pixelRatio + "X)\n" );
+        }        
+
         if (results.screenInfo.hasOwnProperty("touch")) {
           if (results.screenInfo.touch) {
             displayRes_HW.push("Touchscreen: yes");
@@ -2322,9 +2326,9 @@ module.exports = function() {
         try {
           displayRes_CSS = [];
           displayRes_CSS.push("Viewport " + (results.screenInfo.screenWidth) + " x " + (results.screenInfo.screenHeight + " CSS pixels \n"));
-          displayRes_CSS.push("Available " + (results.screenInfo.innerWidth) + " x " + (results.screenInfo.innerHeight + " CSS pixels\n"));
-          if (results.screenInfo.pixelRatio >= 2) {
-            displayRes_CSS.push("High resolution (@" + results.screenInfo.pixelRatio + "X)" );
+          displayRes_CSS.push("Available " + (results.screenInfo.innerWidth) + " x " + (results.screenInfo.innerHeight + " CSS pixels\n")); 
+          if (results.screenInfo.scrollY > 0) {
+            displayRes_CSS.push("Scrolled " + results.screenInfo.scrollY + " pixels" );
           } 
           displayRes_CSS = displayRes_CSS.join(" ");
           container.appendChild(createGroup("displayRes_CSS","",displayRes_CSS,"continuation"));        
