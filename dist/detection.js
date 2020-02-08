@@ -2528,44 +2528,40 @@ module.exports = function() {
         if (results.userAgentInfo) {
 
           if (results.userAgentInfo.device) {
-            locationInfo.push(results.userAgentInfo.device);
+            deviceName.push(results.userAgentInfo.device);
           }
 
           if (results.UALookupInfo && results.UALookupInfo.success && results.UALookupInfo.data.id) {
 
             if (results.UALookupInfo.data.release_date) {
-              locationInfo.push("Released ");                            
+              deviceName.push("Released ");                            
               var release_date = results.UALookupInfo.data.release_date.split("_");
               var release_year = release_date[0];
               var release_month = release_date[1];
               if (release_month) {
-                locationInfo.push(capitalize(release_month));   
+                deviceName.push(capitalize(release_month));   
               }              
               if (release_year) {
-                locationInfo.push(release_year);                          
+                deviceName.push(release_year);                          
               }
             }
 
-            
-
-            
             if (results.UALookupInfo.release_month) {
-              locationInfo.push();
+              deviceName.push();
             }
 
             if (results.UALookupInfo.release_year) {
-              locationInfo.push();
+              deviceName.push();
             }
   
-            locationInfo.push(results.userAgentInfo.device);
+            deviceName.push(results.userAgentInfo.device);
+
           }
   
-
         }
 
-        
-
         container.appendChild(createGroup("deviceName","Device name",deviceName,"wide"));
+        
       } catch(e) {}
 
       return container;
