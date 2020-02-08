@@ -27,6 +27,10 @@ module.exports = function() {
 
   function createHTML(results) {
 
+      function capitalize(string) {
+        return string[0].toUpperCase() +  string.slice(1);
+      }
+
       function createGroup(id,property,value,className) {
 
         var DL    = _dl_.cloneNode(false);
@@ -310,17 +314,17 @@ module.exports = function() {
         if (results.gyroscopeInfo && results.gyroscopeInfo.alpha) {
           
           displayOrientation.push("\nGyroscope rotation:");
-          displayOrientation.push("α " + results.gyroscopeInfo.alpha);
-          displayOrientation.push("β " + results.gyroscopeInfo.beta);
+          displayOrientation.push("α " + results.gyroscopeInfo.alpha+",");
+          displayOrientation.push("β " + results.gyroscopeInfo.beta+",");
           displayOrientation.push("𝛾 " + results.gyroscopeInfo.gamma);          
         }
 
         if (results.motionSensorsInfo && results.motionSensorsInfo.x) {
           
           displayOrientation.push("\nMotion:");
-          displayOrientation.push("x " + results.motionSensorsInfo.x);
-          displayOrientation.push("x " + results.motionSensorsInfo.y);
-          displayOrientation.push("x " + results.motionSensorsInfo.z);          
+          displayOrientation.push("x " + results.motionSensorsInfo.x+",");
+          displayOrientation.push("y " + results.motionSensorsInfo.y+",");
+          displayOrientation.push("z " + results.motionSensorsInfo.z);          
         }
         
         displayOrientation = displayOrientation.join(" ");
@@ -436,10 +440,52 @@ module.exports = function() {
 
 
       // Device Name
-      var connectionInfo = defaultValue;
+      var deviceName = defaultValue;
       try {
-        connectionInfo = results.userAgentInfo.device;
-        container.appendChild(createGroup("deviceName","Device name",connectionInfo,"wide"));
+
+        deviceName = [];
+
+        if (results.userAgentInfo) {
+
+          if (results.userAgentInfo.device) {
+            locationInfo.push(results.userAgentInfo.device);
+          }
+
+          if (results.UALookupInfo && results.UALookupInfo.success && results.UALookupInfo.data.id) {
+
+            if (results.UALookupInfo.data.release_date) {
+              locationInfo.push("Released ");                            
+              var release_date = results.UALookupInfo.data.release_date.split("_");
+              var release_year = release_date[0];
+              var release_month = release_date[1];
+              if (release_month) {
+                locationInfo.push(capitalize(release_month));   
+              }              
+              if (release_year) {
+                locationInfo.push(release_year);                          
+              }
+            }
+
+            
+
+            
+            if (results.UALookupInfo.release_month) {
+              locationInfo.push();
+            }
+
+            if (results.UALookupInfo.release_year) {
+              locationInfo.push();
+            }
+  
+            locationInfo.push(results.userAgentInfo.device);
+          }
+  
+
+        }
+
+        
+
+        container.appendChild(createGroup("deviceName","Device name",deviceName,"wide"));
       } catch(e) {}
 
       return container;
