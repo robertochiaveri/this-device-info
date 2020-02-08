@@ -237,11 +237,20 @@ module.exports = function() {
 
       // Viewport
       var displayRes_CSS = defaultValue;
-      try {
-        displayRes_CSS = "Viewport " + (results.screenInfo.screenWidth) + " x " + (results.screenInfo.screenHeight + " CSS pixels \n");
-        displayRes_CSS += "Available " + (results.screenInfo.innerWidth) + " x " + (results.screenInfo.innerHeight + " CSS pixels");
-        container.appendChild(createGroup("displayRes_CSS","",displayRes_CSS,"continuation"));        
-      } catch(e) {console.log(".---------------",e)}
+      if (results.screenInfo) {
+
+        try {
+          displayRes_CSS = [];
+          displayRes_CSS.push("Viewport " + (results.screenInfo.screenWidth) + " x " + (results.screenInfo.screenHeight + " CSS pixels \n"));
+          displayRes_CSS.push("Available " + (results.screenInfo.innerWidth) + " x " + (results.screenInfo.innerHeight + " CSS pixels\n"));
+          if (results.screenInfo.pixelRatio >= 2) {
+            displayRes_CSS.push("High resolution (@" + results.screenInfo.pixelRatio + "X)\n" );
+          } 
+          displayRes_CSS = displayRes_CSS.join(" ");
+          container.appendChild(createGroup("displayRes_CSS","",displayRes_CSS,"continuation"));        
+        } catch(e) {console.log(".---------------",e)}
+  
+      }
 
 
       // Orientation
@@ -299,10 +308,36 @@ module.exports = function() {
 
       } catch(e) {console.log(e);}
 
-      var deviceName = defaultValue;
+
+      // Connection
+      var connectionInfo = defaultValue;
       try {
-        deviceName = results.userAgentInfo.device;
-        container.appendChild(createGroup("deviceName","Produttore e modello",deviceName,"wide"));
+
+        connectionInfo = [];
+        if (results.connectionInfo && results.connectionInfo.status) {
+          if (results.connectionInfo.status.toLowerCase() == "connected") {
+            connectionInfo.push("Connected");
+            if (results.connectionInfo.speed) {
+              connectionInfo.push("at "+results.connectionInfo.speed);
+            }  
+            if (results.connectionInfo.roundTripTime) {
+              connectionInfo.push("with ~"+results.connectionInfo.roundTripTime+" latency\n");
+            }              
+          } else {
+            connectionInfo.push("Disconnected");
+          }
+
+          connectionInfo = connectionInfo.join(" ");          
+        }
+        container.appendChild(createGroup("ConnectionInfo","Network",connectionInfo,"wide"));
+      } catch(e) {}
+
+
+      // Device Name
+      var connectionInfo = defaultValue;
+      try {
+        connectionInfo = results.userAgentInfo.device;
+        container.appendChild(createGroup("deviceName","Device name",connectionInfo,"wide"));
       } catch(e) {}
 
       return container;

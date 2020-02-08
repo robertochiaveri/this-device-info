@@ -43,7 +43,7 @@ module.exports = (function() {
 
       if ('downlink' in navigator.connection) {
         if (navigator.connection.downlink.toString().toLowerCase() !== "infinity" ) {
-          connection.speed = navigator.connection.downlink.toString() + " Mbits/s)";
+          connection.speed = navigator.connection.downlink.toString() + " Mbits/s";
         }
       }
 
