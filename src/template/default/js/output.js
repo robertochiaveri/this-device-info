@@ -248,7 +248,7 @@ module.exports = function() {
           displayRes_CSS.push("Viewport " + (results.screenInfo.screenWidth) + " x " + (results.screenInfo.screenHeight + " CSS pixels \n"));
           displayRes_CSS.push("Available " + (results.screenInfo.innerWidth) + " x " + (results.screenInfo.innerHeight + " CSS pixels\n")); 
           if (results.screenInfo.scrollY > 0) {
-            displayRes_CSS.push("Scrolled " + results.screenInfo.scrollY + " pixels" );
+            displayRes_CSS.push("Scrolled " + Math.ceil(results.screenInfo.scrollY) + " pixels" );
           } 
           displayRes_CSS = displayRes_CSS.join(" ");
           container.appendChild(createGroup("displayRes_CSS","",displayRes_CSS,"continuation"));        
@@ -344,7 +344,7 @@ module.exports = function() {
                 default:
                   break;
               }
-              connectionInfo.push("via "+results.connectionInfo.connectionType);
+
             }              
 
             if (results.connectionInfo.speed) {
@@ -409,7 +409,7 @@ module.exports = function() {
           locationInfo.push("\n");
           
           if (results.IPLookupInfo.data.lat) {
-            locationInfo.push("Approximate location: " + results.IPLookupInfo.data.lat + " lat, " + results.IPLookupInfo.data.lon + " lon\n");
+            locationInfo.push("Approximate location: " + results.IPLookupInfo.data.lat + " lat, " + results.IPLookupInfo.data.lon + " lon");
           }        
           
           locationInfo = locationInfo.join(" ");
