@@ -36,7 +36,13 @@
       Questa versione di Internet Explorer non è supportata.
     <![endif]-->
 
-    <script src="detection.js"></script>
+    <script>
+      var script = document.createElement('script');
+      script.onload = function () { console.log("main script loaded.");};
+      script.src = "detection.js?nocache="+(Math.random()*1000);
+
+      document.head.appendChild(script); //or something of the likes
+    </script>
 
   </body>
 </html>
