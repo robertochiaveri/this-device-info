@@ -1,0 +1,107 @@
+body { 
+    margin: 0;
+    padding: 0;
+    min-width: 32em;
+    background: #FFF;
+    color: #333;
+    font: 62.5%/100% sans-serif; 
+}
+
+#logo,
+#results,
+#results dl,
+#results dt,
+#results dd {
+  display: block;
+  box-sizing: border-box;
+  overflow: hidden;
+  white-space: normal;
+  word-wrap: break-word;
+  max-width: 100%;
+}
+
+
+#logo {
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  text-align: center;
+  padding: 0.5em;
+  margin: 0.5em auto;
+  font-size: 3em;
+}
+
+#results {
+  padding: 0;
+  min-width: 18em;
+  margin: 0 auto;
+  font-size: 1.6em;
+  line-height: 1.4em;
+  display: table;
+  table-layout: fixed;
+}
+
+
+#results > dl {
+  display: block;
+  margin: 0;
+  padding: 1em;
+  border-top: 1px dotted #CCC;
+  width: 50%;
+  float: left;
+}
+#results > dl.wide {
+  width: 100%;
+  float: none;
+  clear: both;
+}
+
+
+
+#results > dl {
+  display: block;
+  margin: 0;
+  padding: 1em;
+  border-top: 1px dotted #CCC;
+  width: 50%;
+  float: left;
+}
+
+#results > dl > dt {
+  font-weight: bold;
+  margin: 0 0 0.5em 0;
+}
+
+#results > dl > dd {
+  margin: 0;
+}
+
+
+@media (max-width: 420px) {
+  
+  #results > dl {
+    width: 100%;
+    float: none;
+    clear: both;
+    padding-top: 2em;
+    padding-bottom: 2em;
+  }
+
+  #results > dl > dt {
+    margin-bottom: 1em;
+  }  
+
+  #results {
+    font-size: 1.2em;
+  }
+
+  #results > dl.continuation {
+    padding-top: 0;
+    border-top: 0;
+  }
+
+  #results > dl.continuation > dt {
+    display: none;
+  }  
+
+}

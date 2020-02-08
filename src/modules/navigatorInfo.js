@@ -59,7 +59,6 @@ module.exports = (function() {
       language            : window.navigator.language,
       appMode             : !!window.navigator.standalone,
       framedMode          : (self!=top),
-      touchscreen         : (!!window.navigator.maxTouchPoints || !!window.navigator.msMaxTouchPoints || ('ontouchstart' in window)),
       hardwareConcurrency : window.navigator.hardwareConcurrency,
       deviceMemory        : (navigator.deviceMemory?navigator.deviceMemory+"Gb": undefined),
       cookieEnabled       : window.navigator.cookieEnabled,

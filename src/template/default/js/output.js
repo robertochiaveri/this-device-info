@@ -2,155 +2,310 @@ module.exports = function() {
 
   "use strict";
 
-  var config = {
-        outputContainerID : "results",
-        globalDataObjName : "thisDeviceInfo"
-      },
-      path = [],
-      maxDepth = 5,
-      $outputContainer,
-      results;
+  var path = [],
+    maxDepth = 5,
+    outputHTML = "",
+    outputContainer;
 
-  $outputContainer = document.getElementById(config.outputContainerID);
+  var _div_ = document.createElement('div'),
+      _dl_  = document.createElement('dl'),
+      _dt_  = document.createElement('dt'),
+      _dd_  = document.createElement('dd'),
+      _h1_  = document.createElement('h1'),
+      _span_  = document.createElement('span');
 
-  results = window[config.globalDataObjName]["results"];
+  outputContainer = document.getElementById("results");
 
-  if (!!$outputContainer) {
-    $outputContainer.innerHTML = createHTML();
+  if (!!outputContainer) {
+    outputContainer.innerHTML = createHTML(window.thisDeviceInfo["results"]).innerHTML;
     console.log("output rendered.");
   } else {
     console.log("ERROR: output container not found");
   };
 
-  function createHTML() {
 
-    var html ="";
-    var rows = {};
 
-    var defaultValue = "N/D";
+  function createHTML(results) {
 
-    function addRow(table_id,row_id,property,value,classname) {
+      function createGroup(id,property,value,className) {
 
-      if (!rows || !rows[table_id]) { rows[table_id] = []; }
+        var DL    = _dl_.cloneNode(false);
+        var DT    = _dt_.cloneNode(false);
+        var DD    = _dd_.cloneNode(false);
+        var SPAN  = _span_.cloneNode(false);
+        var content = value.split("\n");
 
-      var row = '<tr id="'+row_id+'" class="'+classname+'"><td>'+property+'</td><td>'+value+'</td></tr>';
 
-      rows[table_id].push(row);
+        if (typeof id == "string" && typeof property == "string" && typeof value == "string") {
 
-      return row;
+          DL.setAttribute("id",id);
 
-    }
-
-    var deviceHwArchitecture = defaultValue;
-    try {
-      deviceHwArchitecture = [];
-
-      if (results.navigatorInfo.platform) {
-        deviceHwArchitecture.push(results.navigatorInfo.platform);
-      }
-
-      if (results.userAgentInfo.cpu) {
-        deviceHwArchitecture.push("on CPU " + results.userAgentInfo.cpu);
-      }
-
-      if (results.webGLInfo.rendererUnmasked) {
-        deviceHwArchitecture.push("with GPU " + results.webGLInfo.rendererUnmasked);
-      }
-
-      if (results.webGLInfo.vendorUnmasked) {
-        deviceHwArchitecture.push("by " + results.webGLInfo.vendorUnmasked);
-      }
-      deviceHwArchitecture = deviceHwArchitecture.join(" ");
-
-      addRow("HW","deviceHwArchitecture","Hardware architecture",deviceHwArchitecture,"long");
-
-    } catch(e) { console.log()}
-
-    var deviceOS = defaultValue;
-    try {
-      deviceOS = results.userAgentInfo.os;
-      addRow("SW","deviceOS","Operating system",deviceOS);
-    } catch(e) {console.log(".---------------",e);}
-
-    var deviceBrowser = defaultValue;
-    try {
-      deviceBrowser = results.userAgentInfo.browser;
-      addRow("SW","deviceBrowser","Browser",deviceBrowser);
-    } catch(e) {console.log(".---------------",e);}
-
-    var displayRes_HW = defaultValue;
-    try {
-      displayRes_HW = Math.round(results.screenInfo.screenWidth * results.screenInfo.pixelRatio) + " x " + Math.round(results.screenInfo.screenHeight * results.screenInfo.pixelRatio) + " pixels";
-      displayRes_HW += " (" + results.screenInfo.screenRatio.approximated.str +")";
-      addRow("display","displayRes_HW","Hardware resolution",displayRes_HW);
-    } catch(e) {console.log(".---------------",e);}
-
-    var displayRes_CSS = defaultValue;
-    try {
-      displayRes_CSS = "Viewport " + (results.screenInfo.screenWidth) + " x " + (results.screenInfo.screenHeight);
-      displayRes_CSS += "; Available " + (results.screenInfo.innerWidth) + " x " + (results.screenInfo.innerHeight);
-      addRow("display","displayRes_CSS","Virtual resolution",displayRes_CSS);
-    } catch(e) {console.log(".---------------",e)}
-
-    var displayOrientation_DEFAULT = defaultValue;
-    try {
-      switch(results.screenInfo.orientation.defaultOrientation.toLowerCase()) {
-
-        case "landscape":
-          displayOrientation_DEFAULT = "Landscape";
-        break;
-
-        case "portrait":
-          displayOrientation_DEFAULT = "Portrait";
-        break;
-
-      };
-      addRow("display","displayOrientation_DEFAULT","Default orientation",displayOrientation_DEFAULT);
-    } catch(e) {console.log(".---------------",e);}
-
-    var displayOrientation_CURRENT = defaultValue;
-    try {
-
-      var angle = results.screenInfo.orientation.currentOrientation;
-
-      switch(angle) {
-
-        case 0:
-          displayOrientation_CURRENT = "(no rotation)";
-        break;
-
-        case 180:
-        case 360:
-          displayOrientation_CURRENT = "Upside down";
-        break;
-
-        default:
-          if (typeof angle == "number" ) {
-
-            if (Math.abs(angle) > 180) {
-              angle = 180 - angle;
-            }
-
-            if (angle < 0) {
-              displayOrientation_CURRENT = Math.abs(angle) + " degrees right";
-            } else {
-              displayOrientation_CURRENT = Math.abs(angle) + " degrees left";
-            }
-
+          if (typeof className != "undefined") {
+            DL.setAttribute("class",className);
           }
-        break;
+
+          if (property == "") { property = " \u00A0" }
+          DT.appendChild(document.createTextNode(property || ''));
+          DL.appendChild(DT);
+
+          for(var i=0;i<content.length;i++) {
+           DD.appendChild(document.createTextNode(content[i] || ''));
+           if (content.length > 1) { 
+             DD.appendChild(document.createElement("br"));           
+           }
+          }
+
+          DL.appendChild(DD);
+
+          return DL;
+
+        } else {
+
+          return SPAN
+
+        }
       }
-      addRow("display","displayOrientation_CURRENT","Current orientation",displayOrientation_CURRENT);
-    } catch(e) {console.log(".---------------",e);}
 
-    var deviceName = defaultValue;
-    try {
-      deviceName = results.userAgentInfo.device;
-      addRow(rows,"deviceName","Device name",deviceName);
-    } catch(e) {console.log(".---------------",e);}
+      var defaultValue = "N/D";
+      var container  = _div_.cloneNode(false);
 
-    return html;
 
- }
+      // User Agent string
+      var userAgent = defaultValue;
+      try {
+        userAgent = results.navigatorInfo.userAgent;
+        container.appendChild(createGroup("userAgent","User Agent:",userAgent,"wide"));
+      } catch(e) {console.log(e);}
+
+
+      // Hardware 
+      var deviceHardware = defaultValue;
+      try {
+
+        // first column:
+        deviceHardware = [];
+
+        if (results.navigatorInfo.platform) {
+          deviceHardware.push(results.navigatorInfo.platform);
+        }
+        
+        if ( parseInt(results.navigatorInfo.hardwareConcurrency) == 1) {
+          deviceHardware.push("single-core CPU");
+        } else if(parseInt(results.navigatorInfo.hardwareConcurrency) > 1) {
+          deviceHardware.push("multi-core CPU ("+results.navigatorInfo.hardwareConcurrency+" cores)");
+        }
+
+        if (results.userAgentInfo.cpu) {
+          deviceHardware.push(results.userAgentInfo.cpu);
+        }          
+
+        deviceHardware.push("\n");
+
+        if (results.webGLInfo.vendorUnmasked) {
+          deviceHardware.push("At least " + results.navigatorInfo.deviceMemory + " of RAM memory\n");
+        }        
+
+        if (results.webGLInfo.rendererUnmasked || results.webGLInfo.vendorUnmasked) {
+
+          if (results.webGLInfo.rendererUnmasked) {
+            deviceHardware.push("Graphics "+results.webGLInfo.rendererUnmasked);
+          }
+  
+          if (results.webGLInfo.vendorUnmasked) {
+            deviceHardware.push("by " + results.webGLInfo.vendorUnmasked);
+          }
+
+          deviceHardware.push("\n");
+
+        }
+
+        if (results.batteryInfo) {
+
+          if (results.batteryInfo.batteryStatus) {
+            switch (results.batteryInfo.batteryStatus) {
+              case "Battery": 
+                deviceHardware.push("Running on battery");
+              break;
+              case "Adapter":
+                deviceHardware.push("Plugged-in to power outlet");              
+              break;
+              default:
+              break;
+            }
+          }
+
+          if (results.batteryInfo.batteryLevel) {
+            deviceHardware.push("Battery is at " + results.batteryInfo.batteryLevel ); 
+          }
+          
+        }         
+
+        deviceHardware = deviceHardware.join(" ");
+        container.appendChild(createGroup("deviceHardware","Hardware",deviceHardware));
+
+
+        // second column:
+        if (results.mediaCaptureInfo) {
+          deviceHardware = [];
+
+          if (results.mediaCaptureInfo.Microphones) {
+            deviceHardware.push("Microphones: " + results.mediaCaptureInfo.Microphones+"\n");
+          }
+  
+          if (results.mediaCaptureInfo.Cameras) {
+            deviceHardware.push("Cameras: " + results.mediaCaptureInfo.Cameras+"\n");
+          }    
+  
+          if (results.mediaCaptureInfo.Speakers) {
+            deviceHardware.push("Speakers: " + results.mediaCaptureInfo.Speakers);
+          } 
+
+          deviceHardware = deviceHardware.join(" ");   
+
+        }
+    
+        container.appendChild(createGroup("deviceHardware","",deviceHardware,"continuation"));
+
+      } catch(e) { console.log(e); }
+
+
+      // Operating System
+      var deviceOS = defaultValue;
+      try {
+        deviceOS = [];
+
+        if (results.userAgentInfo.deviceVendor) {
+          deviceOS.push(results.userAgentInfo.deviceVendor );
+        } 
+
+        if (results.userAgentInfo.os) {
+          deviceOS.push(results.userAgentInfo.os + "\n");
+        } 
+        
+        if (results.navigatorInfo.language) {
+          deviceOS.push("Language: "+results.navigatorInfo.language);
+        }         
+        
+        deviceOS = deviceOS.join(" ");
+        container.appendChild(createGroup("deviceOS","Operating System",deviceOS,"wide"));
+      } catch(e) {}
+
+
+      // Browser 
+      var deviceBrowser = defaultValue;
+      try {
+        deviceBrowser = [];
+        
+        if (results.userAgentInfo.browser) {
+          deviceHardware.push(results.userAgentInfo.browser);
+        }
+
+        if (results.userAgentInfo.browser) {
+          deviceHardware.push(results.userAgentInfo.browser);
+        }        
+        
+        deviceBrowser = deviceBrowser.join(" "); 
+        
+        container.appendChild(createGroup("deviceBrowser","Browser",deviceBrowser));
+      } catch(e) {}
+
+
+      // Display
+      var displayRes_HW = defaultValue;
+      try {
+        displayRes_HW = [];
+        if (results.screenInfo.screenWidth && results.screenInfo.pixelRatio) {
+          displayRes_HW.push(Math.round(results.screenInfo.screenWidth * results.screenInfo.pixelRatio) + " x " + Math.round(results.screenInfo.screenHeight * results.screenInfo.pixelRatio) + " pixels\n");
+        }
+
+        if (results.screenInfo.screenRatio) {
+          displayRes_HW.push(results.screenInfo.screenRatio.approximated.str +" aspect ratio\n");
+        }
+
+        if (results.screenInfo.hasOwnProperty("touch")) {
+          if (results.screenInfo.touch) {
+            displayRes_HW.push("Touchscreen: yes");
+          } else {
+            displayRes_HW.push("Touchscreen: no");
+          }
+        }
+
+        displayRes_HW = displayRes_HW.join(" ");
+        container.appendChild(createGroup("displayRes_HW","Display",displayRes_HW));
+      } catch(e) {}
+
+
+      // Viewport
+      var displayRes_CSS = defaultValue;
+      try {
+        displayRes_CSS = "Viewport " + (results.screenInfo.screenWidth) + " x " + (results.screenInfo.screenHeight + " CSS pixels \n");
+        displayRes_CSS += "Available " + (results.screenInfo.innerWidth) + " x " + (results.screenInfo.innerHeight + " CSS pixels");
+        container.appendChild(createGroup("displayRes_CSS","",displayRes_CSS,"continuation"));        
+      } catch(e) {console.log(".---------------",e)}
+
+
+      // Orientation
+      var displayOrientation = defaultValue;
+      try {
+
+        displayOrientation = [];        
+        switch(results.screenInfo.orientation.defaultOrientation.toLowerCase()) {
+
+          case "landscape":
+            displayOrientation.push("Landscape by default");
+          break;
+
+          case "portrait":
+            displayOrientation.push("Portrait by default");
+          break;
+
+        };
+
+        var angle = results.screenInfo.orientation.currentOrientation;
+        switch(angle) {
+
+          case 0:
+            displayOrientation.push("");
+          break;
+
+          case 180:
+          case 360:
+            displayOrientation[displayOrientation.length-1] +=",";
+            displayOrientation.push("currently upside down");
+          break;
+
+          default:
+            if (typeof angle == "number" ) {
+
+              displayOrientation[displayOrientation.length-1] +=",";
+
+              if (Math.abs(angle) > 180) {
+                angle = 180 - angle;
+              }
+
+              if (angle < 0) {
+                displayOrientation.push("currently rotated by " + Math.abs(angle) + " degrees to the right");
+              } else {
+                displayOrientation.push("currently rotated by " + Math.abs(angle) + " degrees to the left");
+              }
+
+            }
+          break;
+
+        }
+        
+        displayOrientation = displayOrientation.join(" ");
+        container.appendChild(createGroup("displayOrientation","Orientation",displayOrientation,"wide"));
+
+      } catch(e) {console.log(e);}
+
+      var deviceName = defaultValue;
+      try {
+        deviceName = results.userAgentInfo.device;
+        container.appendChild(createGroup("deviceName","Produttore e modello",deviceName,"wide"));
+      } catch(e) {}
+
+      return container;
+  }
 
 }

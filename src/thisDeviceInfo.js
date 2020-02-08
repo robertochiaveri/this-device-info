@@ -115,7 +115,7 @@ module.exports = (function() {
 
     init : function(inputConfig) {
 
-      "use strict";
+      "use strict"; 
 
       if (!window.console || !window.console.log) {
         window.log = [];
@@ -152,7 +152,6 @@ module.exports = (function() {
             this.config.throttleInterval,this)
           );
       }
-
 
       console.log("INIT complete.");
     }

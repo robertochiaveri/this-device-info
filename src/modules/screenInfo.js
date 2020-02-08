@@ -68,6 +68,22 @@ module.exports = (function() {
         }
       };
 
+      var getTouch = function() {
+    
+        var prefixes = ' -webkit- -moz- -o- -ms- '.split(' ');
+        
+        var mq = function (query) {
+            return window.matchMedia(query).matches;
+        }
+    
+        if (('ontouchstart' in window) || window.DocumentTouch && document instanceof DocumentTouch) {
+            return true;
+        }
+    
+        var query = ['(', prefixes.join('touch-enabled),('), 'heartz', ')'].join('');
+        return mq(query);
+      }
+
 
       var init = function () {
 
@@ -114,7 +130,8 @@ module.exports = (function() {
           orientation:        getOrientation(),
           screenX:            window.screenX,
           screenY:            window.screenY,
-          visbilityState:     document.visbilityState
+          visbilityState:     document.visbilityState,
+          touch:              getTouch()
         };
       };
 

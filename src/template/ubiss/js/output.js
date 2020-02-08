@@ -2,10 +2,10 @@ module.exports = function() {
 
   "use strict";
 
-  var path = [], 
-    maxDepth = 5, 
+  var path = [],
+    maxDepth = 5,
     outputHTML = "",
-    outputContainer; 
+    outputContainer;
 
   var _div_ = document.createElement('div'),
       _dl_  = document.createElement('dl'),
@@ -17,7 +17,7 @@ module.exports = function() {
   outputContainer = document.getElementById("results");
 
   if (!!outputContainer) {
-    outputContainer.innerHTML = createHTML(window.thisDeviceInfo["results"]).innerHTML;    
+    outputContainer.innerHTML = createHTML(window.thisDeviceInfo["results"]).innerHTML;
     console.log("output rendered.");
   } else {
     console.log("ERROR: output container not found");
@@ -45,7 +45,7 @@ module.exports = function() {
           DL.appendChild(DT);
 
           DD.appendChild(document.createTextNode(value || ''));
-          DL.appendChild(DD);    
+          DL.appendChild(DD);
 
           return DL;
 
@@ -57,56 +57,56 @@ module.exports = function() {
       }
 
       var defaultValue = "N/D";
-      var container  = _div_.cloneNode(false);    
+      var container  = _div_.cloneNode(false);
 
       var userAgent = defaultValue;
       try {
         userAgent = results.navigatorInfo.userAgent;
-        container.appendChild(createGroup("userAgent","Stringa identificativa del dispositivo:",userAgent,"wide"));        
+        container.appendChild(createGroup("userAgent","Stringa identificativa del dispositivo:",userAgent,"wide"));
       } catch(e) {}
 
-      var deviceHwArchitecture = defaultValue;
+      var deviceHardware = defaultValue;
       try {
-        deviceHwArchitecture = [];
+        deviceHardware = [];
 
         if (results.navigatorInfo.platform) {
-          deviceHwArchitecture.push(results.navigatorInfo.platform);
-        }        
+          deviceHardware.push(results.navigatorInfo.platform);
+        }
 
         if (results.userAgentInfo.cpu) {
-          deviceHwArchitecture.push("su CPU " + results.userAgentInfo.cpu);
+          deviceHardware.push("su CPU " + results.userAgentInfo.cpu);
         }
 
         if (results.webGLInfo.rendererUnmasked) {
-          deviceHwArchitecture.push("con GPU " + results.webGLInfo.rendererUnmasked);
-        } 
+          deviceHardware.push("con GPU " + results.webGLInfo.rendererUnmasked);
+        }
 
         if (results.webGLInfo.vendorUnmasked) {
-          deviceHwArchitecture.push("by " + results.webGLInfo.vendorUnmasked);
-        }       
-        deviceHwArchitecture = deviceHwArchitecture.join(" ");
+          deviceHardware.push("by " + results.webGLInfo.vendorUnmasked);
+        }
+        deviceHardware = deviceHardware.join(" ");
 
-        container.appendChild(createGroup("deviceHwArchitecture","Architettura hardware",deviceHwArchitecture,"wide"));   
+        container.appendChild(createGroup("deviceHardware","Architettura hardware",deviceHardware,"wide"));
 
       } catch(e) { console.log()}
 
       var deviceOS = defaultValue;
       try {
         deviceOS = results.userAgentInfo.os;
-        container.appendChild(createGroup("deviceOS","Sistema operativo",deviceOS));        
+        container.appendChild(createGroup("deviceOS","Sistema operativo",deviceOS));
       } catch(e) {}
 
       var deviceBrowser = defaultValue;
       try {
         deviceBrowser = results.userAgentInfo.browser;
-        container.appendChild(createGroup("deviceBrowser","Browser in uso",deviceBrowser));        
+        container.appendChild(createGroup("deviceBrowser","Browser in uso",deviceBrowser));
       } catch(e) {}
 
       var displayRes_HW = defaultValue;
       try {
         displayRes_HW = Math.round(results.screenInfo.screenWidth * results.screenInfo.pixelRatio) + " x " + Math.round(results.screenInfo.screenHeight * results.screenInfo.pixelRatio) + " pixel";
         displayRes_HW += " (" + results.screenInfo.screenRatio.approximated.str +")";
-        container.appendChild(createGroup("displayRes_HW","Risoluzione dello schermo",displayRes_HW));        
+        container.appendChild(createGroup("displayRes_HW","Risoluzione dello schermo",displayRes_HW));
       } catch(e) {}
 
 
@@ -115,23 +115,23 @@ module.exports = function() {
       try {
         displayRes_CSS = "Viewport " + (results.screenInfo.screenWidth) + " x " + (results.screenInfo.screenHeight);
         displayRes_CSS += "; Disponibili " + (results.screenInfo.innerWidth) + " x " + (results.screenInfo.innerHeight);
-        container.appendChild(createGroup("displayRes_CSS","Risoluzione virtuale",displayRes_CSS));        
+        container.appendChild(createGroup("displayRes_CSS","Risoluzione  virtuale",displayRes_CSS));        
       } catch(e) {console.log(".---------------",e)}
 
-      var displayOrientation_DEFAULT = defaultValue;
+      var displayOrientation = defaultValue;
       try {
         switch(results.screenInfo.orientation.defaultOrientation.toLowerCase()) {
-          
+
           case "landscape":
-            displayOrientation_DEFAULT = "Orizzontale";
+            displayOrientation = "Orizzontale";
           break;
 
           case "portrait":
-            displayOrientation_DEFAULT = "Verticale";
+            displayOrientation = "Verticale";
           break;
 
         };
-        container.appendChild(createGroup("displayOrientation_DEFAULT","Orientamento predefinito",displayOrientation_DEFAULT));
+        container.appendChild(createGroup("displayOrientation","Orientamento predefinito",displayOrientation));
       } catch(e) {}
 
 
@@ -163,13 +163,13 @@ module.exports = function() {
               } else {
                 displayOrientation_CURRENT = "Ruotato di " + Math.abs(angle) + " gradi a sinistra";
               }
-            
+
             }
           break;
 
         }
 
-        container.appendChild(createGroup("displayOrientation_CURRENT","Rotazione corrente",displayOrientation_CURRENT));                  
+        container.appendChild(createGroup("displayOrientation_CURRENT","Rotazione corrente",displayOrientation_CURRENT));
 
       } catch(e) {console.log("---------------------",e,displayOrientation_CURRENT)}
 
@@ -177,13 +177,13 @@ module.exports = function() {
       var phoneGapDevice = defaultValue;
       try {
         phoneGapDevice = results.phonegapDeviceInfo.deviceName + "(phonegap version "+results.phonegapDeviceInfo.phonegapVersion + ")";
-        container.appendChild(createGroup("phoneGapDevice","Nome del dispositivo",phoneGapDevice,"wide"));                  
+        container.appendChild(createGroup("phoneGapDevice","Nome del dispositivo",phoneGapDevice,"wide"));
       } catch(e) {}
 
       var deviceName = defaultValue;
       try {
         deviceName = results.userAgentInfo.device;
-        container.appendChild(createGroup("deviceName","Produttore e modello",deviceName,"wide"));        
+        container.appendChild(createGroup("deviceName","Produttore e modello",deviceName,"wide"));
       } catch(e) {}
 
       return container;
