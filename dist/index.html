@@ -12,6 +12,16 @@
     <title>Informazioni sul dispositivo</title>
     <meta name="author" content="Roberto Chiaveri">
 
+    <script>
+      var script = document.createElement('script');
+      script.onload = function () { 
+        console.log("main script loaded, starting detection");
+      };
+      script.src = "detection.js?nocache="+(Math.random()*1000);
+
+      document.head.appendChild(script); //or something of the likes
+    </script>
+
   </head>
 
   <body>
@@ -27,13 +37,7 @@
       Questa versione di Internet Explorer non è supportata.
     <![endif]-->
 
-    <script>
-      var script = document.createElement('script');
-      script.onload = function () { console.log("main script loaded.");};
-      script.src = "detection.js?nocache="+(Math.random()*1000);
 
-      document.head.appendChild(script); //or something of the likes
-    </script>
 
   </body>
 </html>
