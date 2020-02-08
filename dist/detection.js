@@ -2466,7 +2466,7 @@ module.exports = function() {
           }        
           
           locationInfo = locationInfo.join(" ");
-          container.appendChild(createGroup("locationInfo","Geolocation",connectionInfo,"wide"));
+          container.appendChild(createGroup("locationInfo","Geolocation",locationInfo,"wide"));
         }
 
       } catch(e) {console.log(e); container.appendChild(createGroup("errorInfo","Error",e,"wide")); }    
