@@ -25,7 +25,7 @@ window.thisDeviceInfo = require("./thisDeviceInfo");
 
   3. optionally:
   --------------
-    add #debug to the URL to display raw JSON output
+    add #debug to the URL to disp()lay raw JSON output
 
 */
 

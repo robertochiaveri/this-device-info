@@ -124,10 +124,10 @@ module.exports = function() {
           if (results.batteryInfo.batteryStatus) {
             switch (results.batteryInfo.batteryStatus) {
               case "Battery": 
-                deviceHardware.push("Running on battery");
+                deviceHardware.push("Running on battery\n");
               break;
               case "Adapter":
-                deviceHardware.push("Plugged-in to power outlet");              
+                deviceHardware.push("Plugged-in to power outlet\n");              
               break;
               default:
               break;
