@@ -234,6 +234,7 @@ module.exports = function() {
 
         // second column
         if (results.mediaCaptureInfo) {
+          
           deviceHardware = [];
 
           if (results.mediaCaptureInfo.Microphones) {
@@ -250,9 +251,11 @@ module.exports = function() {
 
           deviceHardware = deviceHardware.join(" ");   
 
+          container.appendChild(createGroup("deviceHardware2","Hardware",deviceHardware,"continuation"));
+
         }
     
-        container.appendChild(createGroup("deviceHardware2","Hardware",deviceHardware,"continuation"));
+        
 
       } catch(e) { console.log(e); }
 
