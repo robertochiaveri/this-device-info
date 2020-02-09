@@ -2563,9 +2563,9 @@ module.exports = function() {
 
           } // if form factor
 
-          if (complete_device_name.toLocaleLowerCase().indexOf("generic") > -1 ) { // if not generic
+          if (complete_device_name.toLowerCase().indexOf("generic") > -1 ) { // if not generic
             
-            if (results.UALookupInfo.data.release_date) { // if release date
+            if (results.UALookupInfo.data.release_date) { // if release date 
 
               complete_device_name += "\nReleased ";  
   
@@ -2573,11 +2573,11 @@ module.exports = function() {
               var release_year = release_date[0];
               var release_month = release_date[1];
   
-              if (release_month) {
-                complete_device_name += release_month;   
+              if (release_month) { // if month
+                complete_device_name += release_month + " ";   
               }              
   
-              if (release_year) {
+              if (release_year) { // if year
                 complete_device_name += release_year;  
               }
   
