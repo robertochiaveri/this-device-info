@@ -465,24 +465,33 @@ module.exports = function() {
                 complete_device_name = "Generic " + results.userAgentInfo.osName + " computer";
               }
 
-            } else {
+            } else { // if form_factor is not desktop
 
               if (results.userAgentInfo) {
 
                 if (results.userAgentInfo.device) {
-                complete_device_name = results.userAgentInfo.device;
+                  complete_device_name = results.userAgentInfo.device;
                 }
 
                 if (results.userAgentInfo.browser && results.UALookupInfo.data.complete_device_name) {
                   
-                  if (results.UALookupInfo.data.complete_device_name.indexOf(results.userAgentInfo.browser) > -1){
+                  if (results.UALookupInfo.data.complete_device_name.indexOf(results.userAgentInfo.browser) > -1) {
                     
                     complete_device_name = "Generic " + results.userAgentInfo.osName + " computer";
-                  } else {
-                    
+
+                  } else {  
+
                     complete_device_name = results.UALookupInfo.data.complete_device_name;
 
-                    if (results.UALookupInfo.data.release_date) {
+                  } // device name is not browser name
+
+                } // if device name and browser
+
+                deviceName.push(complete_device_name);
+
+                if (complete_device_name.toLocaleLowerCase().indexOf("generic") > -1 ) {
+                  
+                  if (results.UALookupInfo.data.release_date) {
 
                       deviceName.push("\nReleased ");                            
           
@@ -498,19 +507,17 @@ module.exports = function() {
                         deviceName.push(release_year);                          
                       }
           
-                    }
-                         
-                  }
+                    } // if release_date
+                  
+                } // if not generic
 
-                }
+              } // if userAgentInfo          
 
-              }           
+            } // if form_factor is not desktop
 
-            }
+          } // if form factor
 
-          }
-
-        }
+        } // if ualookup
 
         deviceName = deviceName.join(" ");
   
