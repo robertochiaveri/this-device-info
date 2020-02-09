@@ -2153,6 +2153,83 @@ module.exports = function() {
       var defaultValue = "N/D";
       var container  = _div_.cloneNode(false);
 
+      
+      // Device Name
+      var deviceName = defaultValue;
+      var complete_device_name = "Generic computer";
+      
+      try {
+
+        deviceName = [];
+
+        if (results.userAgentInfo) {
+
+          if (results.userAgentInfo && results.userAgentInfo.osName) {
+            complete_device_name = "Generic " + results.userAgentInfo.osName + " computer";
+          }          
+
+          if (results.userAgentInfo.device) {
+            complete_device_name = results.userAgentInfo.device;
+          }
+          
+        }
+
+        if (results.UALookupInfo && results.UALookupInfo.success && results.UALookupInfo.data) { // if ualookup
+
+          if (results.UALookupInfo.data.form_factor) { // if form_factor
+
+            if (results.UALookupInfo.data.form_factor.toLowerCase() != "desktop") {  // if form_factor is not desktop
+              
+              if (results.userAgentInfo) { // if userAgentInfo
+
+                if (results.userAgentInfo.browser && results.userAgentInfo.osName && results.UALookupInfo.data.complete_device_name) {
+                  
+                  if (results.UALookupInfo.data.complete_device_name.indexOf(results.userAgentInfo.browser) == -1) {
+
+                    complete_device_name = results.UALookupInfo.data.complete_device_name;
+
+                  } // device name is not browser name
+
+                } // if device name and browser
+
+              } // if userAgentInfo          
+
+            } // if form_factor is not desktop
+
+          } // if form factor
+
+          if (complete_device_name.toLowerCase().indexOf("generic") == -1 ) { // if not generic
+            
+            if (results.UALookupInfo.data.release_date) { // if release date 
+
+              complete_device_name += "\nReleased ";  
+  
+              var release_date = results.UALookupInfo.data.release_date.split("_");
+              var release_year = release_date[0];
+              var release_month = release_date[1];
+  
+              if (release_month) { // if month
+                complete_device_name += release_month + " ";   
+              }              
+  
+              if (release_year) { // if year
+                complete_device_name += release_year;  
+              }
+  
+            } // if release_date
+            
+          } // if not generic
+
+        } // if ualookup
+
+        deviceName.push(complete_device_name);
+
+        deviceName = deviceName.join(" ");
+  
+        container.appendChild(createGroup("deviceName","Device name",deviceName,"wide"));
+
+      } catch(e) {console.log(e); }    
+
 
       // User Agent string
       var userAgent = defaultValue;
@@ -2517,83 +2594,6 @@ module.exports = function() {
         }
 
       } catch(e) {console.log(e); container.appendChild(createGroup("errorInfo","Error",e,"wide")); }    
-
-
-      // Device Name
-      var deviceName = defaultValue;
-      var complete_device_name = "Generic computer";
-      
-      try {
-
-        deviceName = [];
-
-        if (results.userAgentInfo) {
-
-          if (results.userAgentInfo && results.userAgentInfo.osName) {
-            complete_device_name = "Generic " + results.userAgentInfo.osName + " computer";
-          }          
-
-          if (results.userAgentInfo.device) {
-            complete_device_name = results.userAgentInfo.device;
-          }
-          
-        }
-
-        if (results.UALookupInfo && results.UALookupInfo.success && results.UALookupInfo.data) { // if ualookup
-
-          if (results.UALookupInfo.data.form_factor) { // if form_factor
-
-            if (results.UALookupInfo.data.form_factor.toLowerCase() != "desktop") {  // if form_factor is not desktop
-              
-              if (results.userAgentInfo) { // if userAgentInfo
-
-                if (results.userAgentInfo.browser && results.userAgentInfo.osName && results.UALookupInfo.data.complete_device_name) {
-                  
-                  if (results.UALookupInfo.data.complete_device_name.indexOf(results.userAgentInfo.browser) == -1) {
-
-                    complete_device_name = results.UALookupInfo.data.complete_device_name;
-
-                  } // device name is not browser name
-
-                } // if device name and browser
-
-              } // if userAgentInfo          
-
-            } // if form_factor is not desktop
-
-          } // if form factor
-
-          if (complete_device_name.toLowerCase().indexOf("generic") == -1 ) { // if not generic
-            
-            if (results.UALookupInfo.data.release_date) { // if release date 
-
-              complete_device_name += "\nReleased ";  
-  
-              var release_date = results.UALookupInfo.data.release_date.split("_");
-              var release_year = release_date[0];
-              var release_month = release_date[1];
-  
-              if (release_month) { // if month
-                complete_device_name += release_month + " ";   
-              }              
-  
-              if (release_year) { // if year
-                complete_device_name += release_year;  
-              }
-  
-            } // if release_date
-            
-          } // if not generic
-
-        } // if ualookup
-
-        deviceName.push(complete_device_name);
-
-        deviceName = deviceName.join(" ");
-  
-        container.appendChild(createGroup("deviceName","Device name",deviceName,"wide"));
-
-      } catch(e) {console.log(e); alert(e); }    
 
       return container;
 
