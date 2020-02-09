@@ -2153,7 +2153,7 @@ module.exports = function() {
       var defaultValue = "N/D";
       var container  = _div_.cloneNode(false);
 
-      
+
       // Device Name
       var deviceName = defaultValue;
       var complete_device_name = "Generic computer";
@@ -2384,7 +2384,7 @@ module.exports = function() {
         }
 
         if (results.screenInfo.pixelRatio >= 2) {
-          displayRes_HW.push("High resolution (@" + results.screenInfo.pixelRatio + "X)\n" );
+          displayRes_HW.push("High resolution (@" + (Math.round(results.screenInfo.pixelRatio * 100) / 100) + "X)\n" );
         }        
 
         if (results.screenInfo.hasOwnProperty("touch")) {
