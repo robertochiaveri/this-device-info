@@ -451,25 +451,32 @@ module.exports = function() {
             deviceName.push(results.userAgentInfo.device);
           }
 
-          if (results.UALookupInfo && results.UALookupInfo.success && results.UALookupInfo.data) {
-
-            if (results.UALookupInfo.data.release_date) {
-              deviceName.push("Released ");                            
-              var release_date = results.UALookupInfo.data.release_date.split("_");
-              var release_year = release_date[0];
-              var release_month = release_date[1];
-              if (release_month) {
-                deviceName.push(capitalize(release_month));   
-              }              
-              if (release_year) {
-                deviceName.push(release_year);                          
-              }
-            }
-  
-          }
-  
         }
 
+        if (results.UALookupInfo && results.UALookupInfo.success && results.UALookupInfo.data) {
+
+          if (results.UALookupInfo.data.release_date) {
+
+            deviceName.push("Released ");                            
+
+            var release_date = results.UALookupInfo.data.release_date.split("_");
+            var release_year = release_date[0];
+            var release_month = release_date[1];
+
+            if (release_month) {
+              deviceName.push(capitalize(release_month));   
+            }              
+
+            if (release_year) {
+              deviceName.push(release_year);                          
+            }
+
+          }
+
+        }
+
+        deviceName = deviceName.join(" ");
+  
         container.appendChild(createGroup("deviceName","Device name",deviceName,"wide"));
 
       } catch(e) {console.log(e); }    
