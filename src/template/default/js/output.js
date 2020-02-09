@@ -513,7 +513,7 @@ module.exports = function() {
   
         container.appendChild(createGroup("deviceName","Device name",deviceName,"wide"));
 
-      } catch(e) {console.log(e); }    
+      } catch(e) {console.log(e); alert(e); }    
 
       return container;
   }
