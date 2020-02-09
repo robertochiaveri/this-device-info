@@ -76,79 +76,90 @@ module.exports = function() {
 
       // Device Name
       var deviceName = defaultValue;
-      var complete_device_name = "Generic computer";
       
       try {
 
-        deviceName = [];
+        deviceName = {};
 
+        // Complete device name and release date
         if (results.userAgentInfo) {
 
           if (results.userAgentInfo && results.userAgentInfo.osName) {
-            complete_device_name = "Generic " + results.userAgentInfo.osName + " computer";
+            deviceName.complete_name = "Generic " + results.userAgentInfo.osName + " device";
           }          
 
           if (results.userAgentInfo.device) {
-            complete_device_name = results.userAgentInfo.device;
+            deviceName.complete_name = results.userAgentInfo.device;
+            deviceName.os_type = results.userAgentInfo.osName + " device";
           }
           
         }
-
+ 
         if (results.UALookupInfo && results.UALookupInfo.success && results.UALookupInfo.data) { // if ualookup
-
+ 
           if (results.UALookupInfo.data.form_factor) { // if form_factor
+ 
+            if (results.userAgentInfo && results.userAgentInfo.browser && results.userAgentInfo.osName) { // if device os and browser
 
-            if (results.UALookupInfo.data.form_factor.toLowerCase() != "desktop") {  // if form_factor is not desktop
-              
-              if (results.userAgentInfo) { // if userAgentInfo
+              deviceName.os_type = results.userAgentInfo.osName + " " + results.UALookupInfo.data.form_factor.toLowerCase();
 
-                if (results.userAgentInfo.browser && results.userAgentInfo.osName && results.UALookupInfo.data.complete_device_name) {
-                  
-                  if (results.UALookupInfo.data.complete_device_name.indexOf(results.userAgentInfo.browser) == -1) {
+              if (results.UALookupInfo.data.complete_device_name) {
 
-                    complete_device_name = results.UALookupInfo.data.complete_device_name;
+                if (results.UALookupInfo.data.complete_device_name.indexOf(results.userAgentInfo.browser) == -1) { // device name is not browser name
 
-                  } // device name is not browser name
+                  // complete device name from ualookup if reliable
+                  deviceName.complete_name = results.UALookupInfo.data.complete_device_name; 
 
-                } // if device name and browser
+                } // device name is not browser name
 
-              } // if userAgentInfo          
-
-            } // if form_factor is not desktop
+              } // if ualookup device name
+            
+            } // if device os and browser
 
           } // if form factor
 
-          if (complete_device_name.toLowerCase().indexOf("generic") == -1 ) { // if not generic
+          // relase date 
+          if (deviceName.complete_name.toLowerCase().indexOf("generic") == -1 ) { // if not generic
             
             if (results.UALookupInfo.data.release_date) { // if release date 
 
-              complete_device_name += "\nReleased ";  
+              deviceName.date = "Released ";  
   
               var release_date = results.UALookupInfo.data.release_date.split("_");
               var release_year = release_date[0];
               var release_month = release_date[1];
   
               if (release_month) { // if month
-                complete_device_name += release_month + " ";   
+                deviceName.date += release_month + " ";   
               }              
   
               if (release_year) { // if year
-                complete_device_name += release_year;  
+                deviceName.date += release_year;  
               }
   
             } // if release_date
             
-          } // if not generic
+          } // if device name is not generic
 
         } // if ualookup
 
-        deviceName.push(complete_device_name);
+        var complete_device_name = "";        
 
-        deviceName = deviceName.join(" ");
+        if (deviceName.complete_name) {
+          complete_device_name += deviceName.complete_name;
+        }
+
+        if (deviceName.os_type) {
+          complete_device_name += "\n"+deviceName.os_type
+        }
+
+        if (deviceName.date) {
+          complete_device_name += "\n"+deviceName.date
+        }        
   
-        container.appendChild(createGroup("deviceName","Device name",deviceName,"wide"));
+        container.appendChild(createGroup("deviceName","Device name",complete_device_name,"wide"));
 
-      } catch(e) {console.log(e); }    
+      } catch(e) {console.log(e); alert(e.toString()); }    
 
 
       // User Agent string
