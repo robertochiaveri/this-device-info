@@ -288,17 +288,13 @@ module.exports = function() {
       try {
         deviceBrowser = [];
         
-        if (results.userAgentInfo.browser) {
-          deviceHardware.push(results.userAgentInfo.browser);
-        }
-
-        if (results.userAgentInfo.browser) {
-          deviceHardware.push(results.userAgentInfo.browser);
+        if (results.userAgentInfo.browser_full) {
+          deviceBrowser.push(results.userAgentInfo.browser_full);          
         }        
         
         deviceBrowser = deviceBrowser.join(" "); 
         
-        container.appendChild(createGroup("deviceBrowser","Browser",deviceBrowser));
+        container.appendChild(createGroup("deviceBrowser","Browser",deviceBrowser,"wide"));
       } catch(e) {}
 
 

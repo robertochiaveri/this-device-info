@@ -55,6 +55,8 @@ thisDeviceInfo.loadModule("UALookupInfo", require('./modules/uaLookupInfo'));
 
 thisDeviceInfo.loadModule("IPLookupInfo", require('./modules/ipLookupInfo'));
 
+thisDeviceInfo.loadModule("UIInfo", require('./modules/uiModeInfo'));
+
 thisDeviceInfo.init({
   callbackFn: require("./template/default/js/output")
 });

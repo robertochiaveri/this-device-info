@@ -20,18 +20,22 @@ module.exports = (function() {
     } catch(e){}
 
     try{
-      parsedUaInfo.browser = parsedUa.browser.name +" "+(parsedUa.version || "");
+      parsedUaInfo.browser = parsedUa.browser.name;
     } catch(e){}
+
+    try{
+      parsedUaInfo.browserVersion = parsedUa.browser.version;
+    } catch(e){}    
 
     try{
       parsedUaInfo.cpu = parsedUa.cpu.architecture;
     } catch(e){}
 
     try{
-      if (!!parsedUa.browser.name && !!parsedUa.engine.name && !!parsedUa.engine.version) {
-        parsedUaInfo.browser += " (" + parsedUa.engine.name;
-        parsedUaInfo.browser += " "  + parsedUa.engine.version + ")";
-      }
+        parsedUaInfo.browser_full  = (parsedUa.browser.name || "");
+        parsedUaInfo.browser_full += " "  + (parsedUa.browser.version || "");
+        parsedUaInfo.browser_full += " (" + (parsedUa.engine.name || "");
+        parsedUaInfo.browser_full += " "  + (parsedUa.engine.version || "") + ")";
     } catch(e) {}
 
     try{

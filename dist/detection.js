@@ -56,11 +56,13 @@ thisDeviceInfo.loadModule("UALookupInfo", require('./modules/uaLookupInfo'));
 
 thisDeviceInfo.loadModule("IPLookupInfo", require('./modules/ipLookupInfo'));
 
+thisDeviceInfo.loadModule("UIInfo", require('./modules/uiModeInfo'));
+
 thisDeviceInfo.init({
   callbackFn: require("./template/default/js/output")
 });
 
-},{"./modules/batteryInfo":6,"./modules/connectionInfo":7,"./modules/gyroscopeInfo":8,"./modules/ipLookupInfo":9,"./modules/lightInfo":10,"./modules/mediaCaptureInfo":11,"./modules/motionSensorsInfo":12,"./modules/navigatorInfo":13,"./modules/phonegapDeviceInfo":14,"./modules/screenInfo":15,"./modules/uaLookupInfo":16,"./modules/userAgentInfo":17,"./modules/webGLInfo":18,"./template/default/js/output":20,"./thisDeviceInfo":21}],2:[function(require,module,exports){
+},{"./modules/batteryInfo":6,"./modules/connectionInfo":7,"./modules/gyroscopeInfo":8,"./modules/ipLookupInfo":9,"./modules/lightInfo":10,"./modules/mediaCaptureInfo":11,"./modules/motionSensorsInfo":12,"./modules/navigatorInfo":13,"./modules/phonegapDeviceInfo":14,"./modules/screenInfo":15,"./modules/uaLookupInfo":16,"./modules/uiModeInfo":17,"./modules/userAgentInfo":18,"./modules/webGLInfo":19,"./template/default/js/output":21,"./thisDeviceInfo":22}],2:[function(require,module,exports){
 module.exports = function(filename,filetype) {
 
   var id = filename.replace(/[^a-z0-9]/gi, '_').toLowerCase();
@@ -462,11 +464,30 @@ module.exports = (function(){
         }
       }
 
+
+      
       var init = function(event) {
 
-        if (event && event.type) {
+        var ambientLight = {};
 
-          var ambientLight = {};
+        if (typeof window.matchMedia == "function") {
+          
+          if (window.matchMedia("(luminosity: dim)")) {
+            ambientLight.luminosity = "low";
+          }
+
+          if (window.matchMedia("(luminosity: normal)")) {
+            ambientLight.luminosity = "normal";
+          }
+
+          if (window.matchMedia("(luminosity: washed)")) {
+            ambientLight.luminosity = "high";
+          }
+
+
+        }
+
+        if (event && event.type) {
 
           switch (event.type) {
 
@@ -934,6 +955,44 @@ module.exports = (function() {
 
   "use strict";
 
+  /* private vars and methods... */
+  var otherFunction = function () {
+  }
+
+
+  var init = function(event) {
+
+    var uimode = {};
+
+    if (typeof window.matchMedia == "function") {
+
+        if (window.matchMedia("screen and (prefers-color-scheme: dark)")) {
+            uimode.theme = "dark ";
+        }
+    
+        if (window.matchMedia("screen and (prefers-color-scheme: light)")) {
+            uimode.theme = "light";
+        }   
+
+        return uimode;
+
+    }
+
+  }
+
+  /* public methods... */
+  return {
+    init : init,
+    defaultListeners : ["DOMContentLoaded"]
+  };
+})();
+
+
+},{}],18:[function(require,module,exports){
+module.exports = (function() {
+
+  "use strict";
+
   var init = function(event) {
 
     var parsedUa = require("ua-parser-js")(),
@@ -952,18 +1011,22 @@ module.exports = (function() {
     } catch(e){}
 
     try{
-      parsedUaInfo.browser = parsedUa.browser.name +" "+(parsedUa.version || "");
+      parsedUaInfo.browser = parsedUa.browser.name;
     } catch(e){}
+
+    try{
+      parsedUaInfo.browserVersion = parsedUa.browser.version;
+    } catch(e){}    
 
     try{
       parsedUaInfo.cpu = parsedUa.cpu.architecture;
     } catch(e){}
 
     try{
-      if (!!parsedUa.browser.name && !!parsedUa.engine.name && !!parsedUa.engine.version) {
-        parsedUaInfo.browser += " (" + parsedUa.engine.name;
-        parsedUaInfo.browser += " "  + parsedUa.engine.version + ")";
-      }
+        parsedUaInfo.browser_full  = (parsedUa.browser.name || "");
+        parsedUaInfo.browser_full += " "  + (parsedUa.browser.version || "");
+        parsedUaInfo.browser_full += " (" + (parsedUa.engine.name || "");
+        parsedUaInfo.browser_full += " "  + (parsedUa.engine.version || "") + ")";
     } catch(e) {}
 
     try{
@@ -1000,7 +1063,7 @@ module.exports = (function() {
   };
 })();
 
-},{"ua-parser-js":19}],18:[function(require,module,exports){
+},{"ua-parser-js":20}],19:[function(require,module,exports){
 module.exports = (function() {
 
   "use strict";
@@ -1167,7 +1230,7 @@ module.exports = (function() {
   
 })()
 
-},{}],19:[function(require,module,exports){
+},{}],20:[function(require,module,exports){
 /*!
  * UAParser.js v0.7.21
  * Lightweight JavaScript-based User-Agent string parser
@@ -2077,7 +2140,7 @@ module.exports = (function() {
 
 })(typeof window === 'object' ? window : this);
 
-},{}],20:[function(require,module,exports){
+},{}],21:[function(require,module,exports){
 module.exports = function() {
 
   "use strict";
@@ -2368,17 +2431,13 @@ module.exports = function() {
       try {
         deviceBrowser = [];
         
-        if (results.userAgentInfo.browser) {
-          deviceHardware.push(results.userAgentInfo.browser);
-        }
-
-        if (results.userAgentInfo.browser) {
-          deviceHardware.push(results.userAgentInfo.browser);
+        if (results.userAgentInfo.browser_full) {
+          deviceBrowser.push(results.userAgentInfo.browser_full);          
         }        
         
         deviceBrowser = deviceBrowser.join(" "); 
         
-        container.appendChild(createGroup("deviceBrowser","Browser",deviceBrowser));
+        container.appendChild(createGroup("deviceBrowser","Browser",deviceBrowser,"wide"));
       } catch(e) {}
 
 
@@ -2612,7 +2671,7 @@ module.exports = function() {
 
 }
 
-},{}],21:[function(require,module,exports){
+},{}],22:[function(require,module,exports){
 module.exports = (function() {
 
   "use strict";

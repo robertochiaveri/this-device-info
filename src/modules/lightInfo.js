@@ -47,11 +47,30 @@ module.exports = (function(){
         }
       }
 
+
+      
       var init = function(event) {
 
-        if (event && event.type) {
+        var ambientLight = {};
 
-          var ambientLight = {};
+        if (typeof window.matchMedia == "function") {
+          
+          if (window.matchMedia("(luminosity: dim)")) {
+            ambientLight.luminosity = "low";
+          }
+
+          if (window.matchMedia("(luminosity: normal)")) {
+            ambientLight.luminosity = "normal";
+          }
+
+          if (window.matchMedia("(luminosity: washed)")) {
+            ambientLight.luminosity = "high";
+          }
+
+
+        }
+
+        if (event && event.type) {
 
           switch (event.type) {
 
