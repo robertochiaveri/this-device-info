@@ -2563,7 +2563,7 @@ module.exports = function() {
 
           } // if form factor
 
-          if (complete_device_name.toLowerCase().indexOf("generic") > -1 ) { // if not generic
+          if (complete_device_name.toLowerCase().indexOf("generic") == -1 ) { // if not generic
             
             if (results.UALookupInfo.data.release_date) { // if release date 
 
