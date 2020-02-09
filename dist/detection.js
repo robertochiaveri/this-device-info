@@ -472,15 +472,15 @@ module.exports = (function(){
 
         if (typeof window.matchMedia == "function") {
           
-          if (window.matchMedia("(luminosity: dim)")) {
+          if (window.matchMedia("(luminosity: dim)").matches) {
             ambientLight.luminosity = "low";
           }
 
-          if (window.matchMedia("(luminosity: normal)")) {
+          if (window.matchMedia("(luminosity: normal)").matches) {
             ambientLight.luminosity = "normal";
           }
 
-          if (window.matchMedia("(luminosity: washed)")) {
+          if (window.matchMedia("(luminosity: washed)").matches) {
             ambientLight.luminosity = "high";
           }
 
@@ -965,14 +965,14 @@ module.exports = (function() {
     var uimode = {};
 
     if (typeof window.matchMedia == "function") {
-
-        if (window.matchMedia("screen and (prefers-color-scheme: dark)")) {
+        
+        if (window.matchMedia("screen and (prefers-color-scheme: dark)").matches) {
             uimode.theme = "dark ";
         }
-    
-        if (window.matchMedia("screen and (prefers-color-scheme: light)")) {
+
+        if (window.matchMedia("screen and (prefers-color-scheme: light)").matches) {
             uimode.theme = "light";
-        }   
+        }  
 
         return uimode;
 
@@ -2321,36 +2321,32 @@ module.exports = function() {
         deviceHardware = [];
 
         if (results.navigatorInfo.platform) {
-          deviceHardware.push(results.navigatorInfo.platform);
+          deviceHardware.push(results.navigatorInfo.platform + " hardware platform");
         }
         
         if ( parseInt(results.navigatorInfo.hardwareConcurrency) == 1) {
-          deviceHardware.push("single-core CPU");
+          deviceHardware.push("\nSingle-core CPU");
         } else if(parseInt(results.navigatorInfo.hardwareConcurrency) > 1) {
-          deviceHardware.push("multi-core CPU ("+results.navigatorInfo.hardwareConcurrency+" cores)");
+          deviceHardware.push("\nMulti-core CPU ("+results.navigatorInfo.hardwareConcurrency+" cores)");
         }
 
-        if (results.userAgentInfo.cpu) {
+        if (results.userAgentInfo && results.userAgentInfo.cpu) {
           deviceHardware.push(results.userAgentInfo.cpu);
         }          
 
-        deviceHardware.push("\n");
-
-        if (results.webGLInfo.vendorUnmasked) {
-          deviceHardware.push("At least " + results.navigatorInfo.deviceMemory + " of RAM memory\n");
+        if (results.navigatorInfo.deviceMemory) {
+          deviceHardware.push("\nAt least " + results.navigatorInfo.deviceMemory + " of RAM memory");
         }        
 
         if (results.webGLInfo.rendererUnmasked || results.webGLInfo.vendorUnmasked) {
 
           if (results.webGLInfo.rendererUnmasked) {
-            deviceHardware.push("Graphics "+results.webGLInfo.rendererUnmasked);
+            deviceHardware.push("\nGraphics "+results.webGLInfo.rendererUnmasked);
           }
   
           if (results.webGLInfo.vendorUnmasked) {
             deviceHardware.push("by " + results.webGLInfo.vendorUnmasked);
           }
-
-          deviceHardware.push("\n");
 
         }
 
@@ -2359,10 +2355,10 @@ module.exports = function() {
           if (results.batteryInfo.batteryStatus) {
             switch (results.batteryInfo.batteryStatus) {
               case "Battery": 
-                deviceHardware.push("Running on battery\n");
+                deviceHardware.push("\nRunning on battery");
               break;
               case "Adapter":
-                deviceHardware.push("Plugged-in to power outlet\n");              
+                deviceHardware.push("\nPlugged-in to power outlet");              
               break;
               default:
               break;
@@ -2370,7 +2366,7 @@ module.exports = function() {
           }
 
           if (results.batteryInfo.batteryLevel) {
-            deviceHardware.push("Battery level " + results.batteryInfo.batteryLevel); 
+            deviceHardware.push("\nBattery level " + results.batteryInfo.batteryLevel); 
           }
           
         }         
@@ -2405,25 +2401,37 @@ module.exports = function() {
 
 
       // Operating System
-      var deviceOS = defaultValue;
+      var deviceOS = [];
       try {
-        deviceOS = [];
-
-        if (results.userAgentInfo.deviceVendor) {
+      
+        if (results.userAgentInfo && results.userAgentInfo.deviceVendor) {
           deviceOS.push(results.userAgentInfo.deviceVendor );
         } 
 
-        if (results.userAgentInfo.os) {
-          deviceOS.push(results.userAgentInfo.os + "\n");
+        if (results.userAgentInfo && results.userAgentInfo.os) {
+          deviceOS.push(results.userAgentInfo.os);
         } 
-        
-        if (results.navigatorInfo.language) {
-          deviceOS.push("Language: "+results.navigatorInfo.language);
-        }         
-        
-        deviceOS = deviceOS.join(" ");
-        container.appendChild(createGroup("deviceOS","Operating System",deviceOS,"wide"));
-      } catch(e) {}
+      } catch(e) { console.log(e);}
+
+      try {
+
+        if (results.navigatorInfo && results.navigatorInfo.language) {
+          deviceOS.push("\nLanguage: "+results.navigatorInfo.language);
+        }     
+
+      } catch(e) { console.log(e);}
+  
+      try {
+
+        if (results.UIInfo && results.UIInfo.theme) {
+          deviceOS.push("\nUI theme: "+results.UIInfo.theme);
+        }     
+            
+      } catch(e) { console.log(e);}
+   
+      deviceOS = deviceOS.join(" ");
+      container.appendChild(createGroup("deviceOS","Operating System",deviceOS,"wide"));
+
 
 
       // Browser 
@@ -2431,7 +2439,7 @@ module.exports = function() {
       try {
         deviceBrowser = [];
         
-        if (results.userAgentInfo.browser_full) {
+        if (results.userAgentInfo && results.userAgentInfo.browser_full) {
           deviceBrowser.push(results.userAgentInfo.browser_full);          
         }        
         

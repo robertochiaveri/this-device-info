@@ -55,15 +55,15 @@ module.exports = (function(){
 
         if (typeof window.matchMedia == "function") {
           
-          if (window.matchMedia("(luminosity: dim)")) {
+          if (window.matchMedia("(luminosity: dim)").matches) {
             ambientLight.luminosity = "low";
           }
 
-          if (window.matchMedia("(luminosity: normal)")) {
+          if (window.matchMedia("(luminosity: normal)").matches) {
             ambientLight.luminosity = "normal";
           }
 
-          if (window.matchMedia("(luminosity: washed)")) {
+          if (window.matchMedia("(luminosity: washed)").matches) {
             ambientLight.luminosity = "high";
           }
 
