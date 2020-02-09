@@ -441,6 +441,8 @@ module.exports = function() {
 
       // Device Name
       var deviceName = defaultValue;
+      var complete_device_name = "";
+      
       try {
 
         deviceName = [];
@@ -448,27 +450,59 @@ module.exports = function() {
         if (results.userAgentInfo) {
 
           if (results.userAgentInfo.device) {
-            deviceName.push(results.userAgentInfo.device);
+            complete_device_name = results.userAgentInfo.device;
           }
 
         }
 
         if (results.UALookupInfo && results.UALookupInfo.success && results.UALookupInfo.data) {
 
-          if (results.UALookupInfo.data.release_date) {
+          if (results.UALookupInfo.data.form_factor) {
+            if (results.UALookupInfo.data.form_factor.toLowerCase() == "desktop") {
+              if (esults.userAgentInfo && results.userAgentInfo.osName) {
+                complete_device_name = "Generic " + results.userAgentInfo.osName + " computer";
+              } 
+            } else {
 
-            deviceName.push("Released ");                            
+              if (results.userAgentInfo) {
 
-            var release_date = results.UALookupInfo.data.release_date.split("_");
-            var release_year = release_date[0];
-            var release_month = release_date[1];
+                if (results.userAgentInfo.device) {
+                complete_device_name = results.userAgentInfo.device;
+                }
 
-            if (release_month) {
-              deviceName.push(capitalize(release_month));   
-            }              
+                if (results.userAgentInfo.browser && results.UALookupInfo.data.complete_device_name) {
+                  
+                  if (results.UALookupInfo.data.complete_device_name.indexOf(results.userAgentInfo.browser) > -1){
+                    
+                    complete_device_name = "Generic " + results.userAgentInfo.osName + " computer";
+                  } else {
+                    
+                    complete_device_name = results.UALookupInfo.data.complete_device_name;
 
-            if (release_year) {
-              deviceName.push(release_year);                          
+                    if (results.UALookupInfo.data.release_date) {
+
+                      deviceName.push("\nReleased ");                            
+          
+                      var release_date = results.UALookupInfo.data.release_date.split("_");
+                      var release_year = release_date[0];
+                      var release_month = release_date[1];
+          
+                      if (release_month) {
+                        deviceName.push(release_month);   
+                      }              
+          
+                      if (release_year) {
+                        deviceName.push(release_year);                          
+                      }
+          
+                    }
+                         
+                  }
+
+                }
+
+              }           
+
             }
 
           }
