@@ -2538,10 +2538,13 @@ module.exports = function() {
         if (results.UALookupInfo && results.UALookupInfo.success && results.UALookupInfo.data) {
 
           if (results.UALookupInfo.data.form_factor) {
+
             if (results.UALookupInfo.data.form_factor.toLowerCase() == "desktop") {
-              if (esults.userAgentInfo && results.userAgentInfo.osName) {
+              
+              if (results.userAgentInfo && results.userAgentInfo.osName) {
                 complete_device_name = "Generic " + results.userAgentInfo.osName + " computer";
-              } 
+              }
+
             } else {
 
               if (results.userAgentInfo) {
