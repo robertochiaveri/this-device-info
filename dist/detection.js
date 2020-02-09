@@ -2395,7 +2395,7 @@ module.exports = function() {
 
         }
     
-        container.appendChild(createGroup("deviceHardware","",deviceHardware,"continuation"));
+        container.appendChild(createGroup("deviceHardware2","Hardware",deviceHardware,"continuation"));
 
       } catch(e) { console.log(e); }
 
