@@ -110,7 +110,11 @@ module.exports = function() {
                   // complete device name from ualookup if reliable
                   deviceName.complete_name = results.UALookupInfo.data.complete_device_name; 
                   
-                  if (results.userAgentInfo.deviceVendor) {
+                  if (
+                    results.userAgentInfo.deviceVendor 
+                    && 
+                    deviceName.complete_name.indexOf(results.userAgentInfo.deviceVendor) == -1
+                  ) {
                     deviceName.complete_name = deviceName.complete_name.replace("(","("+results.userAgentInfo.deviceVendor+" ");
                   }
 
