@@ -111,7 +111,7 @@ module.exports = function() {
                   deviceName.complete_name = results.UALookupInfo.data.complete_device_name; 
                   
                   if (results.userAgentInfo.deviceVendor) {
-                    deviceName.complete_name = deviceName.complete_name.replace("(","("+results.userAgentInfo.deviceVendo+" ");
+                    deviceName.complete_name = deviceName.complete_name.replace("(","("+results.userAgentInfo.deviceVendor+" ");
                   }
 
                 } // device name is not browser name
