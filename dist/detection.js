@@ -421,14 +421,19 @@ module.exports = (function(){
 
       /* private vars and methods... */
 
+      // ambient light sensor --- almost deprecated in 2020
       if ("AmbientLightSensor" in window) {
         try{
-          var lightSensor = new AmbientLightSensor(),
+
+          var lightSensor = new AmbientLightSensor({frequency: 1}),
               ambientLightInfoEvent,
               detail = {};
 
-          lightSensor.start();
-          lightSensor.addEventListener('change', function(event) {
+          console.log("Starting AmbientLightSensor...",lightSensor);
+
+          lightSensor.onReading = function(event) {
+
+            console.log("--- AmbientLightInfoEvent ---",e);
 
             if (event.target) {
 
@@ -458,12 +463,14 @@ module.exports = (function(){
               cancelable: true
             });
             dispatchEvent(ambientLightInfoEvent);
-          });
+
+          };
+          lightSensor.start();
+
         } catch(e) {
           console.log("ERROR: can't access AmbientLightSensor",e)
         }
       }
-
 
       
       var init = function(event) {
@@ -483,7 +490,6 @@ module.exports = (function(){
           if (window.matchMedia("(luminosity: washed)").matches) {
             ambientLight.luminosity = "high";
           }
-
 
         }
 
