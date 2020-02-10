@@ -76,6 +76,9 @@ body {
   margin: 0;
 }
 
+#results > dl.continuation > dt {
+  visibility: hidden;
+}  
 
 @media (max-width: 420px) {
   
@@ -99,9 +102,5 @@ body {
     padding-top: 0;
     border-top: 0;
   }
-
-  #results > dl.continuation > dt {
-    display: none;
-  }  
 
 }

@@ -243,29 +243,48 @@ module.exports = function() {
 
 
         // second column
+        
+        deviceHardware = [];
+        
         if (results.mediaCaptureInfo) {
-          
-          deviceHardware = [];
 
           if (results.mediaCaptureInfo.Microphones) {
-            deviceHardware.push("Microphones: " + results.mediaCaptureInfo.Microphones+"\n");
+            deviceHardware.push(results.mediaCaptureInfo.Microphones+" microphone"+(results.mediaCaptureInfo.Microphones>1?"s":"")+"\n");
           }
   
           if (results.mediaCaptureInfo.Cameras) {
-            deviceHardware.push("Cameras: " + results.mediaCaptureInfo.Cameras+"\n");
+            deviceHardware.push(results.mediaCaptureInfo.Cameras+" camera"+(results.mediaCaptureInfo.Cameras>1?"s":"")+"\n");
           }    
   
           if (results.mediaCaptureInfo.Speakers) {
-            deviceHardware.push("Speakers: " + results.mediaCaptureInfo.Speakers);
+            deviceHardware.push(results.mediaCaptureInfo.Speakers+" speaker"+(results.mediaCaptureInfo.Speakers>1?"s":"")+"\n");
           } 
 
-          deviceHardware = deviceHardware.join(" ");   
-
-          container.appendChild(createGroup("deviceHardware2","Hardware",deviceHardware,"continuation"));
-
         }
-    
-        
+
+        var ambientLight = defaultValue;
+
+        if (results.ambientLightInfo) {
+           
+          ambientLight = "";
+
+          if (results.ambientLightInfo.illuminance) {
+            ambientLight += results.ambientLightInfo.illuminance;
+          } 
+          
+          if (results.ambientLightInfo.luminosity) {
+            if (results.ambientLightInfo.illuminance) {
+              ambientLight += ", ";  
+            }
+            ambientLight += results.ambientLightInfo.luminosity;            
+          }
+
+          deviceHardware.push("A light sensor (reading " + ambientLight+")");
+        } 
+
+        deviceHardware = deviceHardware.join(" ");   
+
+        container.appendChild(createGroup("deviceHardware2","Hardware",deviceHardware,"continuation"));
 
       } catch(e) { console.log(e); }
 

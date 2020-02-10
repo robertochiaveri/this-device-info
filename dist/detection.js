@@ -48,7 +48,7 @@ thisDeviceInfo.loadModule("connectionInfo", require('./modules/connectionInfo'))
 
 thisDeviceInfo.loadModule("mediaCaptureInfo", require('./modules/mediaCaptureInfo'));
 
-thisDeviceInfo.loadModule("lightInfo", require('./modules/lightInfo'));
+thisDeviceInfo.loadModule("ambientLightInfo", require('./modules/ambientLightInfo'));
 
 thisDeviceInfo.loadModule("userAgentInfo", require('./modules/userAgentInfo'));
 
@@ -62,7 +62,7 @@ thisDeviceInfo.init({
   callbackFn: require("./template/default/js/output")
 });
 
-},{"./modules/batteryInfo":6,"./modules/connectionInfo":7,"./modules/gyroscopeInfo":8,"./modules/ipLookupInfo":9,"./modules/lightInfo":10,"./modules/mediaCaptureInfo":11,"./modules/motionSensorsInfo":12,"./modules/navigatorInfo":13,"./modules/phonegapDeviceInfo":14,"./modules/screenInfo":15,"./modules/uaLookupInfo":16,"./modules/uiModeInfo":17,"./modules/userAgentInfo":18,"./modules/webGLInfo":19,"./template/default/js/output":21,"./thisDeviceInfo":22}],2:[function(require,module,exports){
+},{"./modules/ambientLightInfo":6,"./modules/batteryInfo":7,"./modules/connectionInfo":8,"./modules/gyroscopeInfo":9,"./modules/ipLookupInfo":10,"./modules/mediaCaptureInfo":11,"./modules/motionSensorsInfo":12,"./modules/navigatorInfo":13,"./modules/phonegapDeviceInfo":14,"./modules/screenInfo":15,"./modules/uaLookupInfo":16,"./modules/uiModeInfo":17,"./modules/userAgentInfo":18,"./modules/webGLInfo":19,"./template/default/js/output":21,"./thisDeviceInfo":22}],2:[function(require,module,exports){
 module.exports = function(filename,filetype) {
 
   var id = filename.replace(/[^a-z0-9]/gi, '_').toLowerCase();
@@ -145,6 +145,92 @@ module.exports = function(url, callback, method, params, timeout) {
 }
 
 },{}],6:[function(require,module,exports){
+module.exports = (function() {
+
+  "use strict";
+
+  /* private vars and methods... */
+
+  function getAmbientLight(event) {
+
+    var ambientLightInfoEvent,
+        detail = {
+          luminosity: false,
+          illuminance: false
+        };
+
+    if (event && event.target && typeof event.target.illuminance !== "undefined") {
+      detail.illuminance = event.target.illuminance + " lux";
+    } 
+
+    // ambient light media queries
+    if (typeof window.matchMedia == "function") {
+              
+      if (window.matchMedia("(luminosity: dim)").matches) {
+        detail.luminosity = "dark";
+      }
+
+      if (window.matchMedia("(luminosity: normal)").matches) {
+        detail.luminosity = "bright";
+      }
+
+      if (window.matchMedia("(luminosity: washed)").matches) {
+        detail.luminosity = "very bright";
+      }
+
+    }
+
+    ambientLightInfoEvent = new CustomEvent("__AmbientLightInfoEvent", {
+      detail: detail,
+      bubbles: true,
+      cancelable: true
+    });
+    dispatchEvent(ambientLightInfoEvent);
+
+    return detail;
+
+  }
+
+
+  var init = function(event) {
+
+    if (typeof event !== "undefined") {
+      if (typeof event.detail !== "undefined" && event.type == "__AmbientLightInfoEvent") {
+        return event.detail;
+      }
+    }
+
+  };
+
+
+  // ambient light sensor 
+  if ("AmbientLightSensor" in window) {
+  
+    console.log("AmbientLight seems supported...");
+
+    var lightSensor = new AmbientLightSensor({frequency:10});
+
+    console.log("...adding AmbientLight event listener");
+    lightSensor.addEventListener("reading",getAmbientLight);
+    console.log("...Starting AmbientLight sensor");
+    lightSensor.start();
+
+
+  } else {
+    console.log("AmbientLightSensor is not supported")        
+  }
+
+
+
+  /* public methods... */
+  return {
+    init : init,
+    defaultListeners : ["DOMContentLoaded","__AmbientLightInfoEvent","reading"]
+  };
+  
+})();
+
+},{}],7:[function(require,module,exports){
 module.exports = (function() {
 
   "use strict";
@@ -237,7 +323,7 @@ module.exports = (function() {
   
 })();
 
-},{}],7:[function(require,module,exports){
+},{}],8:[function(require,module,exports){
 module.exports = (function() {
 
   "use strict";
@@ -322,7 +408,7 @@ module.exports = (function() {
   };
 })();
 
-},{}],8:[function(require,module,exports){
+},{}],9:[function(require,module,exports){
 module.exports = (function() {
 
   "use strict";
@@ -363,7 +449,7 @@ module.exports = (function() {
 
 })();
 
-},{}],9:[function(require,module,exports){
+},{}],10:[function(require,module,exports){
 module.exports = (function() {
 
   "use strict";
@@ -414,132 +500,7 @@ module.exports = (function() {
   };
 })();
 
-},{"../lib/xhttpGetAsync/xhttpGetAsync":5}],10:[function(require,module,exports){
-module.exports = (function(){
-
-      "use strict";
-
-      /* private vars and methods... */
-
-      // ambient light sensor --- almost deprecated in 2020
-      if ("AmbientLightSensor" in window) {
-        try {
-
-          var lightSensor = new AmbientLightSensor({frequency: 1}),
-              ambientLightInfoEvent,
-              detail = {};
-
-          lightSensor.addEventListener('reading', function(event) {
-
-            console.log("--- AmbientLightInfoEvent ---",event);
-            alert("lux")
-
-            if (event.target) {
-
-              if (event.target.state) {
-                detail.state = event.target.state;
-              }
-
-              if (event.target.illuminance) {
-                detail.illuminance = event.target.illuminance + " lux";
-              }
-
-              if (event.target.reading) {
-                if (event.target.reading.illuminance) {
-                  detail.illuminance = event.target.reading.illuminance + " lux";
-                }
-              }
-
-            }
-
-            lightSensor.start();
-            console.log("Starting AmbientLight sensor",lightSensor);
-  
-            ambientLightInfoEvent = new CustomEvent("__AmbientLightInfoEvent", {
-              detail: detail,
-              bubbles: true,
-              cancelable: true
-            });
-            dispatchEvent(ambientLightInfoEvent);
-
-          });
-
-
-
-        } catch(e) {
-          console.log("ERROR: can't access AmbientLightSensor",e)
-        }
-      } else {
-        console.log("ERROR: AmbientLightSensor is not supported")        
-      }
-
-      
-      var init = function(event) {
-
-        // var ambientLight = {};
-
-        // if (typeof window.matchMedia == "function") {
-          
-        //   if (window.matchMedia("(luminosity: dim)").matches) {
-        //     ambientLight.luminosity = "low";
-        //   }
-
-        //   if (window.matchMedia("(luminosity: normal)").matches) {
-        //     ambientLight.luminosity = "normal";
-        //   }
-
-        //   if (window.matchMedia("(luminosity: washed)").matches) {
-        //     ambientLight.luminosity = "high";
-        //   }
-
-        // }
-
-        // if (event && event.type) {
-
-        //   switch (event.type) {
-
-        //     case "devicelight":
-        //       if (event.value) {
-        //         ambientLight["Intensity"] = event.value +" lux";
-        //       }
-        //       break;
-
-        //     case "lightlevel":
-        //       if (event.lux) {
-        //         ambientLight["Level"] = event.value;
-        //       }
-        //       break;
-
-        //     case "__AmbientLightInfoEvent":
-        //       if (event.detail) {
-
-        //         if (event.detail.illuminance) {
-        //           ambientLight["Illuminance"] = event.detail.illuminance;
-        //         }
-        //         if (event.detail.state) {
-        //           ambientLight["Sensor"] = event.detail.state;
-        //         }
-        //       }
-        //     break;
-
-        //     default:
-        //       break;
-        //   }
-
-        //   return ambientLight;
-
-        // }
-
-      }
-
-      /* public methods... */
-      return {
-        init : init,
-        defaultListeners : ["__AmbientLightInfoEvent","devicelight","lightlevel"]
-      };
-  })()
-
-},{}],11:[function(require,module,exports){
+},{"../lib/xhttpGetAsync/xhttpGetAsync":5}],11:[function(require,module,exports){
 module.exports = (function() {
 
   "use strict";
@@ -2393,29 +2354,48 @@ module.exports = function() {
 
 
         // second column
+        
+        deviceHardware = [];
+        
         if (results.mediaCaptureInfo) {
-          
-          deviceHardware = [];
 
           if (results.mediaCaptureInfo.Microphones) {
-            deviceHardware.push("Microphones: " + results.mediaCaptureInfo.Microphones+"\n");
+            deviceHardware.push(results.mediaCaptureInfo.Microphones+" microphone"+(results.mediaCaptureInfo.Microphones>1?"s":"")+"\n");
           }
   
           if (results.mediaCaptureInfo.Cameras) {
-            deviceHardware.push("Cameras: " + results.mediaCaptureInfo.Cameras+"\n");
+            deviceHardware.push(results.mediaCaptureInfo.Cameras+" camera"+(results.mediaCaptureInfo.Cameras>1?"s":"")+"\n");
           }    
   
           if (results.mediaCaptureInfo.Speakers) {
-            deviceHardware.push("Speakers: " + results.mediaCaptureInfo.Speakers);
+            deviceHardware.push(results.mediaCaptureInfo.Speakers+" speaker"+(results.mediaCaptureInfo.Speakers>1?"s":"")+"\n");
           } 
 
-          deviceHardware = deviceHardware.join(" ");   
-
-          container.appendChild(createGroup("deviceHardware2","Hardware",deviceHardware,"continuation"));
-
         }
-    
-        
+
+        var ambientLight = defaultValue;
+
+        if (results.ambientLightInfo) {
+           
+          ambientLight = "";
+
+          if (results.ambientLightInfo.illuminance) {
+            ambientLight += results.ambientLightInfo.illuminance;
+          } 
+          
+          if (results.ambientLightInfo.luminosity) {
+            if (results.ambientLightInfo.illuminance) {
+              ambientLight += ", ";  
+            }
+            ambientLight += results.ambientLightInfo.luminosity;            
+          }
+
+          deviceHardware.push("A light sensor (reading " + ambientLight+")");
+        } 
+
+        deviceHardware = deviceHardware.join(" ");   
+
+        container.appendChild(createGroup("deviceHardware2","Hardware",deviceHardware,"continuation"));
 
       } catch(e) { console.log(e); }
 

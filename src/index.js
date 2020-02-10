@@ -47,7 +47,7 @@ thisDeviceInfo.loadModule("connectionInfo", require('./modules/connectionInfo'))
 
 thisDeviceInfo.loadModule("mediaCaptureInfo", require('./modules/mediaCaptureInfo'));
 
-thisDeviceInfo.loadModule("lightInfo", require('./modules/lightInfo'));
+thisDeviceInfo.loadModule("ambientLightInfo", require('./modules/ambientLightInfo'));
 
 thisDeviceInfo.loadModule("userAgentInfo", require('./modules/userAgentInfo'));
 
