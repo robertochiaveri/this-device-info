@@ -113,7 +113,7 @@ module.exports = function() {
                   if (
                     results.userAgentInfo.deviceVendor 
                     && 
-                    deviceName.complete_name.indexOf(results.userAgentInfo.deviceVendor) == -1
+                    (deviceName.complete_name.toLowerCase().indexOf(results.userAgentInfo.deviceVendor.toLowerCase()) < 0)
                   ) {
                     deviceName.complete_name = deviceName.complete_name.replace("(","("+results.userAgentInfo.deviceVendor+" ");
                   }
