@@ -48,7 +48,7 @@ module.exports = function() {
             DL.setAttribute("class",className);
           }
 
-          if (property == "") { property = " \u00A0" }
+          if (property == "") { property = " \u00A0"; };
           DT.appendChild(document.createTextNode(property || ''));
           DL.appendChild(DT);
 
@@ -109,6 +109,10 @@ module.exports = function() {
 
                   // complete device name from ualookup if reliable
                   deviceName.complete_name = results.UALookupInfo.data.complete_device_name; 
+                  
+                  if (results.userAgentInfo.deviceVendor) {
+                    deviceName.complete_name = deviceName.complete_name.replace("(","("+results.userAgentInfo.deviceVendo+" ");
+                  }
 
                 } // device name is not browser name
 
