@@ -3,9 +3,9 @@ module.exports = (function() {
   "use strict";
 
   var getRenderer = require("../lib/51degrees/renderer.min.js");
-  
+
   getRenderer(function(renderer) { 
-  
+    
     console.log("getRenderer completed");
 
     var WebGLRendererInfoEvent = new CustomEvent("__WebGLRendererInfoEvent", {
@@ -13,6 +13,7 @@ module.exports = (function() {
       bubbles: true,
       cancelable: true
     });
+    
     dispatchEvent(WebGLRendererInfoEvent);
     
   });
