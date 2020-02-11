@@ -150,17 +150,17 @@ module.exports = function() {
             } // if release_date
             
           } // if device name is not generic
-
-          if (results.userAgentInfo.osName.toLowerCase() == "ios") {
-
-            if (results.iOSClientInfo && results.iOSClientInfo.complete_device_name) {
-              deviceName.marketing_name = results.iOSClientInfo.complete_device_name;
-              deviceName.date = results.iOSClientInfo.release_date || false;
-            }
-
-          } 
           
         } // if ualookup
+
+        if (results.userAgentInfo && results.userAgentInfo.osName.toLowerCase() == "ios") {
+
+          if (results.iOSClientInfo && results.iOSClientInfo.complete_device_name) {
+            deviceName.marketing_name = results.iOSClientInfo.complete_device_name;
+            deviceName.date = results.iOSClientInfo.release_date || false;
+          }
+
+        } 
 
         var complete_device_name = "";        
 
