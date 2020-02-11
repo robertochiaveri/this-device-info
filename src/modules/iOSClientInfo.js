@@ -22,7 +22,7 @@ module.exports = (function() {
   var webgl = false;
 
   var checkWebGL = function(fragment) {
-    if (!webgl) { 
+    if (!webgl || webgl == "unknown") { 
       return false; 
     } else {
       return webgl.rendererUnmasked && (webgl.rendererUnmasked.indexOf(fragment) >= 0)
@@ -296,7 +296,8 @@ module.exports = (function() {
         return {
           complete_device_name : devices[i].name,
           form_factory: devices[i].type,
-          zoom: !!devices[i].zoom
+          zoom: !!devices[i].zoom,
+          renderer: event.detail
         }
       }
     }

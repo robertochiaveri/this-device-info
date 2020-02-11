@@ -123,10 +123,14 @@ module.exports = function() {
                 } // device name is not browser name
 
               } // if ualookup device name
-            
+
             } // if device os and browser
 
           } // if form factor
+
+          if (results.userAgentInfo.osName.toLowerCase() == "ios" && results.iOSClientInfo && results.iOSClientInfo.complete_device_name) {
+            deviceName.marketing_name = results.iOSClientInfo.complete_device_name;
+          }          
 
           // relase date 
           if (deviceName.complete_name.toLowerCase().indexOf("generic") == -1 ) { // if not generic
