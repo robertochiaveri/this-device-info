@@ -804,7 +804,8 @@ module.exports = (function() {
           (window.devicePixelRatio == 3),
           checkWebGL("a13 gpu")
         ]
-      },{
+      },
+      {
         name: "Apple iPhone 11 Pro Max",
         type: "Smartphone",  
         release_date: "September 2019",            
@@ -828,6 +829,7 @@ module.exports = (function() {
       if (ok == devices[i].tests.length) {
         return {
           complete_device_name : devices[i].name,
+          release_date: devices[i].release_date,
           form_factory: devices[i].type,
           zoom: !!devices[i].zoom,
           renderer: event.detail
