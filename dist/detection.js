@@ -496,10 +496,10 @@ module.exports = (function() {
   var webgl = false;
 
   var checkWebGL = function(fragment) {
-    if (!webgl || webgl == "unknown") { 
+    if (!webgl || (webgl == "unknown") ) { 
       return false; 
     } else {
-      return webgl.rendererUnmasked && (webgl.rendererUnmasked.indexOf(fragment) >= 0)
+      return (webgl.indexOf(fragment) >= 0)
     }
   }
   
@@ -513,7 +513,7 @@ module.exports = (function() {
     }
 
     if (!!navigator.platform && !(/iPad|iPhone|iPod/.test(navigator.platform))) {
-      return false;
+  //    return false;
     }
 
     var devices = [
@@ -781,7 +781,7 @@ module.exports = (function() {
   /* public methods... */
   return {
     init : init,
-    defaultListeners : ["__WebGLRendererInfoEvent"]
+    defaultListeners : ["__WebGLRendererInfoEvent","DOMContentLoaded"]
   };
 })();
 
