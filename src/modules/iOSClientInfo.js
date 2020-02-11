@@ -42,7 +42,7 @@ module.exports = (function() {
     }
 
     if (!!navigator.platform && !(/iPad|iPhone|iPod/.test(navigator.platform))) {
-      return false;
+      // return false;
     }
 
     var devices = [
