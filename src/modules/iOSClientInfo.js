@@ -19,6 +19,7 @@ module.exports = (function() {
 
   /* private vars and methods... */
 
+
   var webgl = false;
 
   var checkWebGL = function(fragment) {
@@ -35,11 +36,13 @@ module.exports = (function() {
     if (typeof event !== "undefined") {
       if (typeof event.detail !== "undefined" || event.type == "__WebGLRendererInfoEvent") {
         webgl = event.detail.toLowerCase();
-      }
+      } else { return false; }
+    } else {
+      return false
     }
 
     if (!!navigator.platform && !(/iPad|iPhone|iPod/.test(navigator.platform))) {
-  //    return false;
+      return false;
     }
 
     var devices = [
@@ -307,7 +310,7 @@ module.exports = (function() {
   /* public methods... */
   return {
     init : init,
-    defaultListeners : ["__WebGLRendererInfoEvent","DOMContentLoaded"]
+    defaultListeners : ["__WebGLRendererInfoEvent"]
   };
 })();
 

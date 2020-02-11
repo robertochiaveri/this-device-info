@@ -128,10 +128,6 @@ module.exports = function() {
 
           } // if form factor
 
-          if (results.userAgentInfo.osName.toLowerCase() == "ios" && results.iOSClientInfo && results.iOSClientInfo.complete_device_name) {
-            deviceName.marketing_name = results.iOSClientInfo.complete_device_name;
-          }          
-
           // relase date 
           if (deviceName.complete_name.toLowerCase().indexOf("generic") == -1 ) { // if not generic
             
@@ -155,6 +151,15 @@ module.exports = function() {
             
           } // if device name is not generic
 
+          if (results.userAgentInfo.osName.toLowerCase() == "ios") {
+
+            if (results.iOSClientInfo && results.iOSClientInfo.complete_device_name) {
+              deviceName.marketing_name = results.iOSClientInfo.complete_device_name;
+              deviceName.date = results.iOSClientInfo.release_date || false;
+            }
+
+          } 
+          
         } // if ualookup
 
         var complete_device_name = "";        
