@@ -5,9 +5,10 @@ module.exports = (function() {
   var getRenderer = require("../lib/51degrees/renderer.min.js");
   
   getRenderer(function(renderer) { 
-    
-    var WebGLRendererInfoEvent;
-    WebGLRendererInfoEvent = new CustomEvent("__WebGLRendererInfoEvent", {
+  
+    console.log("getRenderer completed");
+
+    var WebGLRendererInfoEvent = new CustomEvent("__WebGLRendererInfoEvent", {
       detail: renderer,
       bubbles: true,
       cancelable: true
@@ -42,7 +43,7 @@ module.exports = (function() {
     }
 
     if (!!navigator.platform && !(/iPad|iPhone|iPod/.test(navigator.platform))) {
-      // return false;
+      return false;
     }
 
     var devices = [
@@ -358,7 +359,7 @@ module.exports = (function() {
           release_date: devices[i].release_date,
           form_factory: devices[i].type,
           zoom: !!devices[i].zoom,
-          renderer: event.detail
+          gpu_renderer: event.detail
         }
       }
     }
