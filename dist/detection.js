@@ -213,9 +213,15 @@ module.exports = (function() {
     console.log("...adding AmbientLight event listener");
     lightSensor.addEventListener("reading",getAmbientLight);
     console.log("...Starting AmbientLight sensor");
-    lightSensor.start();
+    lightSensor.start();  
 
-
+    var ambientLightInfoEvent = new CustomEvent("reading", {
+      detail: {},
+      bubbles: true,
+      cancelable: true
+    });
+    lightSensor.dispatchEvent(ambientLightInfoEvent);
+    
   } else {
     console.log("AmbientLightSensor is not supported")        
   }
@@ -225,7 +231,7 @@ module.exports = (function() {
   /* public methods... */
   return {
     init : init,
-    defaultListeners : ["DOMContentLoaded","__AmbientLightInfoEvent","reading"]
+    defaultListeners : ["__AmbientLightInfoEvent","reading"]
   };
   
 })();
