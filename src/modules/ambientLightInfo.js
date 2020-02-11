@@ -67,13 +67,6 @@ module.exports = (function() {
     lightSensor.addEventListener("reading",getAmbientLight);
     console.log("...Starting AmbientLight sensor");
     lightSensor.start();  
-
-    var ambientLightInfoEvent = new CustomEvent("reading", {
-      detail: {},
-      bubbles: true,
-      cancelable: true
-    });
-    lightSensor.dispatchEvent(ambientLightInfoEvent);
     
   } else {
     console.log("AmbientLightSensor is not supported")        
