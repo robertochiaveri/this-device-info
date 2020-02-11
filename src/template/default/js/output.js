@@ -312,11 +312,19 @@ module.exports = function() {
   
       try {
 
+        if (results.iOSClientInfo && results.iOSClientInfo.zoom) {
+          deviceOS.push("\nUI zoom mode enabled");
+        }     
+            
+      } catch(e) { console.log(e);}
+
+      try {
+
         if (results.UIInfo && results.UIInfo.theme) {
           deviceOS.push("\nUI theme: "+results.UIInfo.theme);
         }     
             
-      } catch(e) { console.log(e);}
+      } catch(e) { console.log(e);}      
    
       deviceOS = deviceOS.join(" ");
       container.appendChild(createGroup("deviceOS","Operating System",deviceOS,"wide"));
@@ -333,7 +341,21 @@ module.exports = function() {
         }        
 
         if (results.navigatorInfo) {
-          deviceBrowser.push("\n" + (results.navigatorInfo.cookieEnabled?"Accepting cookies":"Not accepting cookies")); 
+          
+          if (results.navigatorInfo.cookieEnabled){
+            deviceBrowser.push("\n" + "Accepting cookies"); 
+          } else {
+            deviceBrowser.push("\n" + "Not accepting cookies"); 
+          }
+          
+          if (results.navigatorInfo.javaEnabled) {
+            deviceBrowser.push("\n" + "Runs Java"); 
+          }
+
+          if (results.navigatorInfo.flashSupported) {
+            deviceBrowser.push("\n" + "Runs Adobe Flash"); 
+          }
+
         } 
 
         deviceBrowser = deviceBrowser.join(" "); 

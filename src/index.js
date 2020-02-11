@@ -37,6 +37,8 @@ thisDeviceInfo.loadModule("gyroscopeInfo", require('./modules/gyroscopeInfo'));
 
 thisDeviceInfo.loadModule("motionSensorsInfo", require('./modules/motionSensorsInfo'));
 
+thisDeviceInfo.loadModule("iOSClientInfo", require('./modules/iOSClientInfo'));
+
 thisDeviceInfo.loadModule("webGLInfo", require('./modules/webGLInfo'));
 
 thisDeviceInfo.loadModule("phonegapDeviceInfo", require('./modules/phonegapDeviceInfo'));

@@ -153,6 +153,13 @@ module.exports = (function() {
 
     }
 
+    var webGLInfoEvent = new CustomEvent("__WebGLInfoEvent", {
+      detail: webGLInfo,
+      bubbles: true,
+      cancelable: true
+    });
+    dispatchEvent(webGLInfoEvent);
+
     return webGLInfo;
   }
 

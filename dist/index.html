@@ -30,7 +30,6 @@
     <script>
       var script = document.createElement('script');
       script.onload = function () { 
-        console.log("main script loaded, starting detection");
         window.document.dispatchEvent(new Event("DOMContentLoaded", {
           bubbles: true,
           cancelable: true

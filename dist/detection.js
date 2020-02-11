@@ -38,6 +38,8 @@ thisDeviceInfo.loadModule("gyroscopeInfo", require('./modules/gyroscopeInfo'));
 
 thisDeviceInfo.loadModule("motionSensorsInfo", require('./modules/motionSensorsInfo'));
 
+thisDeviceInfo.loadModule("iOSClientInfo", require('./modules/iOSClientInfo'));
+
 thisDeviceInfo.loadModule("webGLInfo", require('./modules/webGLInfo'));
 
 thisDeviceInfo.loadModule("phonegapDeviceInfo", require('./modules/phonegapDeviceInfo'));
@@ -62,7 +64,7 @@ thisDeviceInfo.init({
   callbackFn: require("./template/default/js/output")
 });
 
-},{"./modules/ambientLightInfo":6,"./modules/batteryInfo":7,"./modules/connectionInfo":8,"./modules/gyroscopeInfo":9,"./modules/ipLookupInfo":10,"./modules/mediaCaptureInfo":11,"./modules/motionSensorsInfo":12,"./modules/navigatorInfo":13,"./modules/phonegapDeviceInfo":14,"./modules/screenInfo":15,"./modules/uaLookupInfo":16,"./modules/uiModeInfo":17,"./modules/userAgentInfo":18,"./modules/webGLInfo":19,"./template/default/js/output":21,"./thisDeviceInfo":22}],2:[function(require,module,exports){
+},{"./modules/ambientLightInfo":6,"./modules/batteryInfo":7,"./modules/connectionInfo":8,"./modules/gyroscopeInfo":9,"./modules/iOSClientInfo":10,"./modules/ipLookupInfo":11,"./modules/mediaCaptureInfo":12,"./modules/motionSensorsInfo":13,"./modules/navigatorInfo":14,"./modules/phonegapDeviceInfo":15,"./modules/screenInfo":16,"./modules/uaLookupInfo":17,"./modules/uiModeInfo":18,"./modules/userAgentInfo":19,"./modules/webGLInfo":20,"./template/default/js/output":22,"./thisDeviceInfo":23}],2:[function(require,module,exports){
 module.exports = function(filename,filetype) {
 
   var id = filename.replace(/[^a-z0-9]/gi, '_').toLowerCase();
@@ -462,6 +464,194 @@ module.exports = (function() {
 
   /* private vars and methods... */
 
+  var webgl = false;
+
+  var checkWebGL = function(fragment) {
+    if (!webgl) { 
+      return false; 
+    } else {
+      return webgl.rendererUnmasked && (webgl.rendererUnmasked.indexOf(fragment) >= 0)
+    }
+  }
+  
+  var devices = [{
+      name: "Apple iPhone 5 / 5S / 5C",
+      type: "Smartphone",
+      tests: [
+        (window.screen.width == 320),
+        (window.screen.height == 568),
+        (window.devicePixelRatio == 2)
+      ]
+    },
+    {
+      name: "Apple iPhone 5 / 5C",
+      type: "Smartphone",
+      tests: [
+        (window.screen.width == 320),
+        (window.screen.height == 568),
+        (window.devicePixelRatio == 2),
+        checkWebGL("543") 
+      ]
+    },
+    {
+      name: "Apple iPhone 5S",
+      type: "Smartphone",        
+      tests: [
+        (window.screen.width == 320),
+        (window.screen.height == 568),
+        (window.devicePixelRatio == 2),
+        checkWebGL("a7 gpu")
+      ]
+    },
+
+
+    {
+      name: "Apple iPhone 6",
+      type: "Smartphone",  
+      zoom: true,      
+      tests: [
+        (window.screen.width == 320),
+        (window.screen.height == 568),
+        (window.devicePixelRatio == 2),
+        checkWebGL("a8 gpu")
+      ]
+    },
+    {
+      name: "Apple iPhone 6",
+      type: "Smartphone",  
+      tests: [
+        (window.screen.width == 375),
+        (window.screen.height == 667),
+        (window.devicePixelRatio == 2),
+        checkWebGL("a8 gpu")
+      ]
+    },
+    {
+      name: "Apple iPhone 6 Plus",
+      type: "Smartphone",  
+      zoom: true,
+      tests: [
+        (window.screen.width == 375),
+        (window.screen.height == 667),
+        (window.devicePixelRatio == 3),
+        checkWebGL("a8 gpu")
+      ]
+    },
+    
+    
+    {
+      name: "Apple iPhone 6S",
+      type: "Smartphone",  
+      tests: [
+        (window.screen.width == 375),
+        (window.screen.height == 667),
+        (window.devicePixelRatio == 2),
+        checkWebGL("a9 gpu")
+      ]
+    },
+    {
+      name: "Apple iPhone 6S Plus",
+      type: "Smartphone",  
+      tests: [
+        (window.screen.width == 414),
+        (window.screen.height == 736),
+        (window.devicePixelRatio == 3),
+        checkWebGL("a9 gpu")
+      ]
+    },
+    {
+      name: "Apple iPhone 6S Plus",
+      type: "Smartphone",  
+      zoom: true,
+      tests: [
+        (window.screen.width == 375),
+        (window.screen.height == 667),
+        (window.devicePixelRatio == 3),
+        checkWebGL("a9 gpu")
+      ]
+    },
+
+    
+    {
+      name: "Apple iPhone 7",
+      type: "Smartphone",  
+      tests: [
+        (window.screen.width == 375),
+        (window.screen.height == 667),
+        (window.devicePixelRatio == 2),
+        checkWebGL("a10 gpu")
+      ]
+    },
+    {
+      name: "Apple iPhone 7 Plus",
+      type: "Smartphone",  
+      tests: [
+        (window.screen.width == 414),
+        (window.screen.height == 736),
+        (window.devicePixelRatio == 3),
+        checkWebGL("a10 gpu")
+      ]
+    },
+    {
+      name: "Apple iPhone 7 Plus",
+      type: "Smartphone",  
+      zoom: true,
+      tests: [
+        (window.screen.width == 375),
+        (window.screen.height == 667),
+        (window.devicePixelRatio == 3),
+        checkWebGL("a10 gpu")
+      ]
+    }
+
+  ];
+
+
+  var init = function(event) {
+
+    if (typeof event !== "undefined") {
+      if (typeof event.detail !== "undefined" || event.type == "__WebGLInfoEvent") {
+        webgl = event.detail;
+      }
+    }
+
+    if (!!navigator.platform && !(/iPad|iPhone|iPod/.test(navigator.platform))) {
+      return false;
+    }
+    
+    var count;
+    for (var i = 0; i < devices.length; i++) {
+      ok = 0;
+      for (var j = 0; j < devices[i].tests.length; j++) {
+        if (!devices[i].tests[j]) { continue; }
+        ok++;
+      }
+      if (ok == devices[i].tests.length) {
+        return {
+          complete_device_name : devices[i].name,
+          form_factory: devices[i].type,
+          zoom: !!devices[i].zoom
+        }
+      }
+    }
+    return;
+  }
+
+  /* public methods... */
+  return {
+    init : init,
+    defaultListeners : ["DOMContentLoaded","__WebGLInfoEvent"]
+  };
+})();
+
+
+},{}],11:[function(require,module,exports){
+module.exports = (function() {
+
+  "use strict";
+
+  /* private vars and methods... */
+
   var init = function(event) {
     if (typeof event !== "undefined") {
       if (typeof event.detail !== "undefined" && event.type == "__IPLookupInfoEvent") {
@@ -506,7 +696,7 @@ module.exports = (function() {
   };
 })();
 
-},{"../lib/xhttpGetAsync/xhttpGetAsync":5}],11:[function(require,module,exports){
+},{"../lib/xhttpGetAsync/xhttpGetAsync":5}],12:[function(require,module,exports){
 module.exports = (function() {
 
   "use strict";
@@ -578,7 +768,7 @@ module.exports = (function() {
   };
 })();
 
-},{}],12:[function(require,module,exports){
+},{}],13:[function(require,module,exports){
 module.exports = (function() {
 
   "use strict";
@@ -629,7 +819,7 @@ module.exports = (function() {
 
 })();
 
-},{}],13:[function(require,module,exports){
+},{}],14:[function(require,module,exports){
 module.exports = (function() {
 
   "use strict";
@@ -706,7 +896,7 @@ module.exports = (function() {
   };
 })();
 
-},{}],14:[function(require,module,exports){
+},{}],15:[function(require,module,exports){
 module.exports = (function(){
 
       "use strict";
@@ -729,7 +919,7 @@ module.exports = (function(){
       };
   })()
 
-},{}],15:[function(require,module,exports){
+},{}],16:[function(require,module,exports){
 module.exports = (function() {
 
       "use strict";
@@ -873,7 +1063,7 @@ module.exports = (function() {
         defaultListeners : ["DOMContentLoaded","resize","orientationchange","scroll","visibilitychange"]
       };
     })()
-},{}],16:[function(require,module,exports){
+},{}],17:[function(require,module,exports){
 module.exports = (function() {
 
   "use strict";
@@ -924,7 +1114,7 @@ module.exports = (function() {
   };
 })();
 
-},{"../lib/xhttpGetAsync/xhttpGetAsync":5}],17:[function(require,module,exports){
+},{"../lib/xhttpGetAsync/xhttpGetAsync":5}],18:[function(require,module,exports){
 module.exports = (function() {
 
   "use strict";
@@ -962,7 +1152,7 @@ module.exports = (function() {
 })();
 
 
-},{}],18:[function(require,module,exports){
+},{}],19:[function(require,module,exports){
 module.exports = (function() {
 
   "use strict";
@@ -1037,7 +1227,7 @@ module.exports = (function() {
   };
 })();
 
-},{"ua-parser-js":20}],19:[function(require,module,exports){
+},{"ua-parser-js":21}],20:[function(require,module,exports){
 module.exports = (function() {
 
   "use strict";
@@ -1193,6 +1383,13 @@ module.exports = (function() {
 
     }
 
+    var webGLInfoEvent = new CustomEvent("__WebGLInfoEvent", {
+      detail: webGLInfo,
+      bubbles: true,
+      cancelable: true
+    });
+    dispatchEvent(webGLInfoEvent);
+
     return webGLInfo;
   }
 
@@ -1204,7 +1401,7 @@ module.exports = (function() {
   
 })()
 
-},{}],20:[function(require,module,exports){
+},{}],21:[function(require,module,exports){
 /*!
  * UAParser.js v0.7.21
  * Lightweight JavaScript-based User-Agent string parser
@@ -2114,7 +2311,7 @@ module.exports = (function() {
 
 })(typeof window === 'object' ? window : this);
 
-},{}],21:[function(require,module,exports){
+},{}],22:[function(require,module,exports){
 module.exports = function() {
 
   "use strict";
@@ -2429,11 +2626,19 @@ module.exports = function() {
   
       try {
 
+        if (results.iOSClientInfo && results.iOSClientInfo.zoom) {
+          deviceOS.push("\nUI zoom mode enabled");
+        }     
+            
+      } catch(e) { console.log(e);}
+
+      try {
+
         if (results.UIInfo && results.UIInfo.theme) {
           deviceOS.push("\nUI theme: "+results.UIInfo.theme);
         }     
             
-      } catch(e) { console.log(e);}
+      } catch(e) { console.log(e);}      
    
       deviceOS = deviceOS.join(" ");
       container.appendChild(createGroup("deviceOS","Operating System",deviceOS,"wide"));
@@ -2450,7 +2655,21 @@ module.exports = function() {
         }        
 
         if (results.navigatorInfo) {
-          deviceBrowser.push("\n" + (results.navigatorInfo.cookieEnabled?"Accepting cookies":"Not accepting cookies")); 
+          
+          if (results.navigatorInfo.cookieEnabled){
+            deviceBrowser.push("\n" + "Accepting cookies"); 
+          } else {
+            deviceBrowser.push("\n" + "Not accepting cookies"); 
+          }
+          
+          if (results.navigatorInfo.javaEnabled) {
+            deviceBrowser.push("\n" + "Runs Java"); 
+          }
+
+          if (results.navigatorInfo.flashSupported) {
+            deviceBrowser.push("\n" + "Runs Adobe Flash"); 
+          }
+
         } 
 
         deviceBrowser = deviceBrowser.join(" "); 
@@ -2689,7 +2908,7 @@ module.exports = function() {
 
 }
 
-},{}],22:[function(require,module,exports){
+},{}],23:[function(require,module,exports){
 module.exports = (function() {
 
   "use strict";
