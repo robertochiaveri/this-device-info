@@ -619,7 +619,7 @@ module.exports = (function() {
       return false;
     }
     
-    var count;
+    var count, ok;
     for (var i = 0; i < devices.length; i++) {
       ok = 0;
       for (var j = 0; j < devices[i].tests.length; j++) {
