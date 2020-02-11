@@ -474,15 +474,7 @@ module.exports = (function() {
     }
   }
   
-  var devices = [{
-      name: "Apple iPhone 5 / 5S / 5C",
-      type: "Smartphone",
-      tests: [
-        (window.screen.width == 320),
-        (window.screen.height == 568),
-        (window.devicePixelRatio == 2)
-      ]
-    },
+  var devices = [
     {
       name: "Apple iPhone 5 / 5C",
       type: "Smartphone",
@@ -601,6 +593,17 @@ module.exports = (function() {
         (window.screen.height == 667),
         (window.devicePixelRatio == 3),
         checkWebGL("a10 gpu")
+      ]
+    },
+
+
+    {
+      name: "Apple iPhone 5 / 5S / 5C",
+      type: "Smartphone",
+      tests: [
+        (window.screen.width == 320),
+        (window.screen.height == 568),
+        (window.devicePixelRatio == 2)
       ]
     }
 
