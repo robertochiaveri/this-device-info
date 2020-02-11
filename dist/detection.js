@@ -523,6 +523,7 @@ module.exports = (function() {
       {
         name: "Apple iPhone 5",
         type: "Smartphone",
+        release_date: "September 2012",
         tests: [
           (window.screen.width == 320),
           (window.screen.height == 568),
@@ -532,7 +533,8 @@ module.exports = (function() {
       },
       {
         name: "Apple iPhone 5S",
-        type: "Smartphone",        
+        type: "Smartphone",  
+        release_date: "September 2013",      
         tests: [
           (window.screen.width == 320),
           (window.screen.height == 568),
@@ -546,6 +548,7 @@ module.exports = (function() {
         name: "Apple iPhone 6",
         type: "Smartphone",  
         zoom: true,      
+        release_date: "September 2014",
         tests: [
           (window.screen.width == 320),
           (window.screen.height == 568),
@@ -556,6 +559,7 @@ module.exports = (function() {
       {
         name: "Apple iPhone 6",
         type: "Smartphone",  
+        release_date: "September 2014",        
         tests: [
           (window.screen.width == 375),
           (window.screen.height == 667),
@@ -567,6 +571,7 @@ module.exports = (function() {
         name: "Apple iPhone 6 Plus",
         type: "Smartphone",  
         zoom: true,
+        release_date: "September 2014",        
         tests: [
           (window.screen.width == 375),
           (window.screen.height == 667),
@@ -577,6 +582,7 @@ module.exports = (function() {
       {
         name: "Apple iPhone 6 Plus",
         type: "Smartphone",  
+        release_date: "September 2014",        
         tests: [
           (window.screen.width == 414),
           (window.screen.height == 736),
@@ -590,6 +596,7 @@ module.exports = (function() {
         name: "Apple iPhone 6S",
         type: "Smartphone",  
         zoom: true,      
+        release_date: "September 2015",        
         tests: [
           (window.screen.width == 320),
           (window.screen.height == 568),
@@ -600,6 +607,7 @@ module.exports = (function() {
       {
         name: "Apple iPhone 6S",
         type: "Smartphone",  
+        release_date: "September 2015",        
         tests: [
           (window.screen.width == 375),
           (window.screen.height == 667),
@@ -611,6 +619,7 @@ module.exports = (function() {
         name: "Apple iPhone 6S Plus",
         type: "Smartphone",  
         zoom: true,
+        release_date: "September 2015",        
         tests: [
           (window.screen.width == 375),
           (window.screen.height == 667),
@@ -620,6 +629,7 @@ module.exports = (function() {
       },
       {
         name: "Apple iPhone 6S Plus",
+        release_date: "September 2015",        
         type: "Smartphone",  
         tests: [
           (window.screen.width == 414),
@@ -634,6 +644,7 @@ module.exports = (function() {
         name: "Apple iPhone 7",
         type: "Smartphone",  
         zoom: true,      
+        release_date: "September 2016",        
         tests: [
           (window.screen.width == 320),
           (window.screen.height == 568),
@@ -644,6 +655,7 @@ module.exports = (function() {
       {
         name: "Apple iPhone 7",
         type: "Smartphone",  
+        release_date: "September 2016",        
         tests: [
           (window.screen.width == 375),
           (window.screen.height == 667),
@@ -655,6 +667,7 @@ module.exports = (function() {
         name: "Apple iPhone 7 Plus",
         type: "Smartphone",  
         zoom: true,
+        release_date: "September 2016",        
         tests: [
           (window.screen.width == 375),
           (window.screen.height == 667),
@@ -665,6 +678,7 @@ module.exports = (function() {
       {
         name: "Apple iPhone 7 Plus",
         type: "Smartphone",  
+        release_date: "September 2016",        
         tests: [
           (window.screen.width == 414),
           (window.screen.height == 736),
@@ -676,8 +690,9 @@ module.exports = (function() {
 
       {
         name: "Apple iPhone 8",
-        type: "Smartphone",  
+        type: "Smartphone",     
         zoom: true,      
+        release_date: "September 2017",             
         tests: [
           (window.screen.width == 320),
           (window.screen.height == 568),
@@ -688,6 +703,7 @@ module.exports = (function() {
       {
         name: "Apple iPhone 8",
         type: "Smartphone",  
+        release_date: "September 2017",                
         tests: [
           (window.screen.width == 375),
           (window.screen.height == 667),
@@ -699,6 +715,7 @@ module.exports = (function() {
         name: "Apple iPhone 8 Plus",
         type: "Smartphone",  
         zoom: true,
+        release_date: "September 2017",             
         tests: [
           (window.screen.width == 375),
           (window.screen.height == 667),
@@ -708,7 +725,8 @@ module.exports = (function() {
       },
       {
         name: "Apple iPhone 8 Plus",
-        type: "Smartphone",  
+        type: "Smartphone", 
+        release_date: "September 2017",              
         tests: [
           (window.screen.width == 414),
           (window.screen.height == 736),
@@ -720,6 +738,7 @@ module.exports = (function() {
       {
         name: "Apple iPhone X",
         type: "Smartphone",  
+        release_date: "November 2017",             
         tests: [
           (window.screen.width == 375),
           (window.screen.height == 812),
@@ -731,6 +750,7 @@ module.exports = (function() {
       {
         name: "Apple iPhone XS",
         type: "Smartphone",  
+        release_date: "September 2018",            
         tests: [
           (window.screen.width == 375),
           (window.screen.height == 812),
@@ -742,6 +762,7 @@ module.exports = (function() {
       {
         name: "Apple iPhone XS Max",
         type: "Smartphone",  
+        release_date: "September 2018",            
         tests: [
           (window.screen.width == 414),
           (window.screen.height == 896),
@@ -752,13 +773,48 @@ module.exports = (function() {
       {
         name: "Apple iPhone XR",
         type: "Smartphone",  
+        release_date: "September 2018",                    
         tests: [
           (window.screen.width == 414),
           (window.screen.height == 896),
           (window.devicePixelRatio == 2),
           checkWebGL("a12 gpu")
         ]
-      }     
+      },    
+      
+
+      {
+        name: "Apple iPhone 11",
+        type: "Smartphone",  
+        release_date: "September 2018",                    
+        tests: [
+          (window.screen.width == 414),
+          (window.screen.height == 896),
+          (window.devicePixelRatio == 2),
+          checkWebGL("a13 gpu")
+        ]
+      },
+      {
+        name: "Apple iPhone 11 Pro",
+        type: "Smartphone",  
+        release_date: "September 2019",            
+        tests: [
+          (window.screen.width == 375),
+          (window.screen.height == 812),
+          (window.devicePixelRatio == 3),
+          checkWebGL("a13 gpu")
+        ]
+      },{
+        name: "Apple iPhone 11 Pro Max",
+        type: "Smartphone",  
+        release_date: "September 2019",            
+        tests: [
+          (window.screen.width == 414),
+          (window.screen.height == 896),
+          (window.devicePixelRatio == 3),
+          checkWebGL("a13 gpu")
+        ]
+      },        
   
     ];
     
