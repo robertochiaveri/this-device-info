@@ -331,7 +331,11 @@ module.exports = function() {
         if (results.userAgentInfo && results.userAgentInfo.browser_full) {
           deviceBrowser.push(results.userAgentInfo.browser_full);          
         }        
-        
+
+        if (results.navigatorInfo) {
+          deviceBrowser.push("\n" + (results.navigatorInfo.cookieEnabled?"Accepting cookies":"Not accepting cookies")); 
+        } 
+
         deviceBrowser = deviceBrowser.join(" "); 
         
         container.appendChild(createGroup("deviceBrowser","Browser",deviceBrowser,"wide"));
