@@ -836,7 +836,7 @@ module.exports = (function() {
         }
       }
     }
-    return;
+    return false;
   }
 
   /* public methods... */
