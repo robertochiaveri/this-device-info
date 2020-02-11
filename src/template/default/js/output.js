@@ -156,7 +156,7 @@ module.exports = function() {
         if (results.userAgentInfo && results.userAgentInfo.osName.toLowerCase() == "ios") {
 
           if (results.iOSClientInfo && results.iOSClientInfo.complete_device_name) {
-            deviceName.marketing_name = results.iOSClientInfo.complete_device_name;
+            deviceName.complete_name = results.iOSClientInfo.complete_device_name || false;
             deviceName.date = results.iOSClientInfo.release_date || false;
           }
 
@@ -178,7 +178,7 @@ module.exports = function() {
   
         container.appendChild(createGroup("deviceName","Device name",complete_device_name,"wide"));
 
-      } catch(e) {console.log(e); alert(e.toString()); }    
+      } catch(e) {console.log(e); }    
 
 
       // User Agent string

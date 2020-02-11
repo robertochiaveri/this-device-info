@@ -3,7 +3,7 @@ module.exports = (function() {
   "use strict";
 
   try{
-    if (typeof window.navigator.connection && typeof window.navigator.connection.addEventListener == "function") {
+    if (typeof window.navigator.connection !== "undefined" && typeof window.navigator.connection.addEventListener == "function") {
       navigator.connection.addEventListener('change', function(event) { detectConnection(event); });
     }
   } catch(e) { console.log("Unable to add an event listener to connection object")}

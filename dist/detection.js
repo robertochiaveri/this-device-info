@@ -351,7 +351,7 @@ module.exports = (function() {
   "use strict";
 
   try{
-    if (typeof window.navigator.connection && typeof window.navigator.connection.addEventListener == "function") {
+    if (typeof window.navigator.connection !== "undefined" && typeof window.navigator.connection.addEventListener == "function") {
       navigator.connection.addEventListener('change', function(event) { detectConnection(event); });
     }
   } catch(e) { console.log("Unable to add an event listener to connection object")}
@@ -2674,7 +2674,7 @@ module.exports = function() {
         if (results.userAgentInfo && results.userAgentInfo.osName.toLowerCase() == "ios") {
 
           if (results.iOSClientInfo && results.iOSClientInfo.complete_device_name) {
-            deviceName.marketing_name = results.iOSClientInfo.complete_device_name;
+            deviceName.complete_name = results.iOSClientInfo.complete_device_name || false;
             deviceName.date = results.iOSClientInfo.release_date || false;
           }
 
@@ -2696,7 +2696,7 @@ module.exports = function() {
   
         container.appendChild(createGroup("deviceName","Device name",complete_device_name,"wide"));
 
-      } catch(e) {console.log(e); alert(e.toString()); }    
+      } catch(e) {console.log(e); }    
 
 
       // User Agent string
