@@ -36,7 +36,7 @@ module.exports = (function() {
   var init = function(event) {
 
     if (typeof event !== "undefined") {
-      if (typeof event.detail !== "undefined" || event.type == "__WebGLRendererInfoEvent") {
+      if (typeof event.detail !== "undefined" && event.type == "__WebGLRendererInfoEvent") {
         webgl = event.detail.toLowerCase();
       } else { return false; }
     } else {

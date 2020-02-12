@@ -510,7 +510,7 @@ module.exports = (function() {
   var init = function(event) {
 
     if (typeof event !== "undefined") {
-      if (typeof event.detail !== "undefined" || event.type == "__WebGLRendererInfoEvent") {
+      if (typeof event.detail !== "undefined" && event.type == "__WebGLRendererInfoEvent") {
         webgl = event.detail.toLowerCase();
       } else { return false; }
     } else {
@@ -2647,7 +2647,11 @@ module.exports = function() {
           } // if form factor
 
           // relase date 
-          if (deviceName.complete_name.toLowerCase().indexOf("generic") == -1 ) { // if not generic
+          if (
+            deviceName.complete_name.toLowerCase().indexOf("generic") == -1
+            && 
+            deviceName.complete_name.toLowerCase().indexOf("apple iphone") == -1            
+          ) { // if not generic
             
             if (results.UALookupInfo.data.release_date) { // if release date 
 
