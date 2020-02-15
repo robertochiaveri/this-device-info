@@ -488,7 +488,10 @@ module.exports = (function() {
       cancelable: true
     });
     
-    dispatchEvent(WebGLRendererInfoEvent);
+    setTimeout(function() { 
+      console.log("delayed getRenderer event dispatched",renderer);
+      dispatchEvent(WebGLRendererInfoEvent); 
+    },500);
     
   });
 
@@ -844,7 +847,6 @@ module.exports = (function() {
   /* public methods... */
   return {
     init : init,
-    getRenderer: getRenderer,
     defaultListeners : ["__WebGLRendererInfoEvent"]
   };
 })();
