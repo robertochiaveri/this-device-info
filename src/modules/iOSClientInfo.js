@@ -2,7 +2,7 @@ module.exports = (function() {
 
   "use strict";
 
- window.getRenderer = require("../lib/51degrees/renderer.min.js");
+  var getRenderer = require("../lib/51degrees/renderer.min.js");
 
   getRenderer(function(renderer) { 
     
