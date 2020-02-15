@@ -2,11 +2,11 @@ module.exports = (function() {
 
   "use strict";
 
-  var getRenderer = require("../lib/51degrees/renderer.min.js");
+ window.getRenderer = require("../lib/51degrees/renderer.min.js");
 
   getRenderer(function(renderer) { 
     
-    console.log("getRenderer completed");
+    console.log("getRenderer completed",renderer);
 
     var WebGLRendererInfoEvent = new CustomEvent("__WebGLRendererInfoEvent", {
       detail: renderer,
