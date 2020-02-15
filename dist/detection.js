@@ -844,6 +844,7 @@ module.exports = (function() {
   /* public methods... */
   return {
     init : init,
+    getRenderer: getRenderer,
     defaultListeners : ["__WebGLRendererInfoEvent"]
   };
 })();
