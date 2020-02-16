@@ -2,6 +2,10 @@ module.exports = (function() {
 
   "use strict";
 
+  if (!!navigator.platform && !(/iPad|iPhone|iPod/.test(navigator.platform))) {
+    return false;
+  }  
+
   var getRenderer = require("../lib/51degrees/renderer.min.js");
 
   getRenderer(function(renderer) { 
@@ -38,32 +42,16 @@ module.exports = (function() {
 
   var init = function(event) {
 
-    if (typeof event !== "undefined") {
-      if (typeof event.detail !== "undefined" && event.type == "__WebGLRendererInfoEvent") {
-        webgl = event.detail.toLowerCase();
-      } else { return false; }
+    if (typeof event == "undefined" || typeof event.detail == "undefined" || event.type !== "__WebGLRendererInfoEvent") {
+      return false; 
     } else {
-      return false
+      webgl = event.detail.toLowerCase();    
     }
-
-    if (!!navigator.platform && !(/iPad|iPhone|iPod/.test(navigator.platform))) {
-      return false;
-    }
+    
 
     var devices = [
       {
-        name: "Apple iPhone 5",
-        type: "Smartphone",
-        release_date: "September 2012",
-        tests: [
-          (window.screen.width == 320),
-          (window.screen.height == 568),
-          (window.devicePixelRatio == 2),
-          checkWebGL("543") 
-        ]
-      },
-      {
-        name: "Apple iPhone 5S",
+        name: "Apple iPhone 5 series",
         type: "Smartphone",  
         release_date: "September 2013",      
         tests: [

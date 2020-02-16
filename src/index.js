@@ -37,8 +37,6 @@ thisDeviceInfo.loadModule("gyroscopeInfo", require('./modules/gyroscopeInfo'));
 
 thisDeviceInfo.loadModule("motionSensorsInfo", require('./modules/motionSensorsInfo'));
 
-thisDeviceInfo.loadModule("iOSClientInfo", require('./modules/iOSClientInfo'));
-
 thisDeviceInfo.loadModule("webGLInfo", require('./modules/webGLInfo'));
 
 thisDeviceInfo.loadModule("phonegapDeviceInfo", require('./modules/phonegapDeviceInfo'));
@@ -58,6 +56,9 @@ thisDeviceInfo.loadModule("UALookupInfo", require('./modules/uaLookupInfo'));
 thisDeviceInfo.loadModule("IPLookupInfo", require('./modules/ipLookupInfo'));
 
 thisDeviceInfo.loadModule("UIInfo", require('./modules/uiModeInfo'));
+
+thisDeviceInfo.loadModule("iOSClientInfo", require('./modules/iOSClientInfo'));
+
 
 thisDeviceInfo.init({
   callbackFn: require("./template/default/js/output")
