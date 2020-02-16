@@ -62,12 +62,14 @@ thisDeviceInfo.loadModule("iOSClientInfo", require('./modules/iOSClientInfo'));
 
 thisDeviceInfo.loadModule("bluetoothInfo", require('./modules/bluetoothInfo'));
 
+thisDeviceInfo.loadModule("dateTimeInfo", require('./modules/dateTimeInfo'));
+
 
 thisDeviceInfo.init({
   callbackFn: require("./template/default/js/output")
 });
 
-},{"./modules/ambientLightInfo":7,"./modules/batteryInfo":8,"./modules/bluetoothInfo":9,"./modules/connectionInfo":10,"./modules/gyroscopeInfo":11,"./modules/iOSClientInfo":12,"./modules/ipLookupInfo":13,"./modules/mediaCaptureInfo":14,"./modules/motionSensorsInfo":15,"./modules/navigatorInfo":16,"./modules/phonegapDeviceInfo":17,"./modules/screenInfo":18,"./modules/uaLookupInfo":19,"./modules/uiModeInfo":20,"./modules/userAgentInfo":21,"./modules/webGLInfo":22,"./template/default/js/output":24,"./thisDeviceInfo":25}],2:[function(require,module,exports){
+},{"./modules/ambientLightInfo":7,"./modules/batteryInfo":8,"./modules/bluetoothInfo":9,"./modules/connectionInfo":10,"./modules/dateTimeInfo":11,"./modules/gyroscopeInfo":12,"./modules/iOSClientInfo":13,"./modules/ipLookupInfo":14,"./modules/mediaCaptureInfo":15,"./modules/motionSensorsInfo":16,"./modules/navigatorInfo":17,"./modules/phonegapDeviceInfo":18,"./modules/screenInfo":19,"./modules/uaLookupInfo":20,"./modules/uiModeInfo":21,"./modules/userAgentInfo":22,"./modules/webGLInfo":23,"./template/default/js/output":25,"./thisDeviceInfo":26}],2:[function(require,module,exports){
 /*!*********************************************************************
  * This Source Code Form is copyright of 51 Degrees Mobile Experts Limited.
  * Copyright 2019 51 Degrees Mobile Experts Limited, 9 Greyfriars Rd,
@@ -523,6 +525,73 @@ module.exports = (function() {
 })();
 
 },{}],11:[function(require,module,exports){
+
+module.exports = (function() {
+
+  "use strict";
+
+  var getDST = function() {
+    Date.prototype.stdTimezoneOffset = function () {
+        var jan = new Date(this.getFullYear(), 0, 1);
+        var jul = new Date(this.getFullYear(), 6, 1);
+        return Math.max(jan.getTimezoneOffset(), jul.getTimezoneOffset());
+    }
+    
+    Date.prototype.isDstObserved = function () {
+        return this.getTimezoneOffset() < this.stdTimezoneOffset();
+    }
+    
+    var today = new Date();
+    if (today.isDstObserved()) { 
+       return true
+    }
+    return false;
+  }
+
+  var getFullDate = function() {
+    return new Date(Date.UTC(2012, 11, 20, 3, 0, 0)).toLocaleDateString(
+        undefined, 
+        { 
+            weekday: 'long', 
+            year: 'numeric', 
+            month: 'long', 
+            day: 'numeric' 
+        }
+    );
+  }
+
+  var getTimezone = function() {
+    if (window.Intl && window.Intl.DateTimeFormat) {
+      return new window.Intl.DateTimeFormat().resolvedOptions().timeZone
+    } 
+  }
+
+  var getTimezoneOffset = function() {
+    return "GMT "+(new Date().getTimezoneOffset()/60)
+  }
+
+
+  var init = function(event) {   
+      
+    return {
+      date: getFullDate(),
+      timezone: getTimezone(),
+      timezoneOffset: getTimezoneOffset(),
+      daylightSavingTime: getDST()
+    } 
+
+  }
+
+  
+  /* public methods... */
+  return {
+    init : init,
+    defaultListeners : ["DOMContentLoaded"]
+  };
+})();
+
+
+},{}],12:[function(require,module,exports){
 module.exports = (function() {
 
   "use strict";
@@ -563,7 +632,7 @@ module.exports = (function() {
 
 })();
 
-},{}],12:[function(require,module,exports){
+},{}],13:[function(require,module,exports){
 module.exports = (function() {
 
   "use strict";
@@ -598,7 +667,7 @@ module.exports = (function() {
   var webgl = false;
 
   var checkWebGL = function(fragment) {
-    if (!webgl || (webgl == "unknown") ) { 
+    if (!webgl) { 
       return false; 
     } else {
       return (webgl.indexOf(fragment) >= 0)
@@ -932,7 +1001,7 @@ module.exports = (function() {
 })();
 
 
-},{"../lib/51degrees/renderer.min.js":2}],13:[function(require,module,exports){
+},{"../lib/51degrees/renderer.min.js":2}],14:[function(require,module,exports){
 module.exports = (function() {
 
   "use strict";
@@ -983,7 +1052,7 @@ module.exports = (function() {
   };
 })();
 
-},{"../lib/xhttpGetAsync/xhttpGetAsync":6}],14:[function(require,module,exports){
+},{"../lib/xhttpGetAsync/xhttpGetAsync":6}],15:[function(require,module,exports){
 module.exports = (function() {
 
   "use strict";
@@ -1055,7 +1124,7 @@ module.exports = (function() {
   };
 })();
 
-},{}],15:[function(require,module,exports){
+},{}],16:[function(require,module,exports){
 module.exports = (function() {
 
   "use strict";
@@ -1106,7 +1175,7 @@ module.exports = (function() {
 
 })();
 
-},{}],16:[function(require,module,exports){
+},{}],17:[function(require,module,exports){
 module.exports = (function() {
 
   "use strict";
@@ -1183,7 +1252,7 @@ module.exports = (function() {
   };
 })();
 
-},{}],17:[function(require,module,exports){
+},{}],18:[function(require,module,exports){
 module.exports = (function(){
 
       "use strict";
@@ -1206,7 +1275,7 @@ module.exports = (function(){
       };
   })()
 
-},{}],18:[function(require,module,exports){
+},{}],19:[function(require,module,exports){
 module.exports = (function() {
 
       "use strict";
@@ -1350,7 +1419,7 @@ module.exports = (function() {
         defaultListeners : ["DOMContentLoaded","resize","orientationchange","scroll","visibilitychange"]
       };
     })()
-},{}],19:[function(require,module,exports){
+},{}],20:[function(require,module,exports){
 module.exports = (function() {
 
   "use strict";
@@ -1401,7 +1470,7 @@ module.exports = (function() {
   };
 })();
 
-},{"../lib/xhttpGetAsync/xhttpGetAsync":6}],20:[function(require,module,exports){
+},{"../lib/xhttpGetAsync/xhttpGetAsync":6}],21:[function(require,module,exports){
 module.exports = (function() {
 
   "use strict";
@@ -1439,7 +1508,7 @@ module.exports = (function() {
 })();
 
 
-},{}],21:[function(require,module,exports){
+},{}],22:[function(require,module,exports){
 module.exports = (function() {
 
   "use strict";
@@ -1514,7 +1583,7 @@ module.exports = (function() {
   };
 })();
 
-},{"ua-parser-js":23}],22:[function(require,module,exports){
+},{"ua-parser-js":24}],23:[function(require,module,exports){
 module.exports = (function() {
 
   "use strict";
@@ -1688,7 +1757,7 @@ module.exports = (function() {
   
 })()
 
-},{}],23:[function(require,module,exports){
+},{}],24:[function(require,module,exports){
 /*!
  * UAParser.js v0.7.21
  * Lightweight JavaScript-based User-Agent string parser
@@ -2598,7 +2667,7 @@ module.exports = (function() {
 
 })(typeof window === 'object' ? window : this);
 
-},{}],24:[function(require,module,exports){
+},{}],25:[function(require,module,exports){
 module.exports = function() {
 
   "use strict";
@@ -2944,6 +3013,31 @@ module.exports = function() {
         }     
             
       } catch(e) { console.log(e);}      
+
+      try {
+
+        if (results.dateTimeInfo) {
+
+          if (results.dateTimeInfo.date) {
+            deviceOS.push("\nDate: "+results.dateTimeInfo.date);
+          }
+
+          var timezone = "";
+          if (results.dateTimeInfo.timezone) {
+            timezone += results.dateTimeInfo.timezone;            
+          }
+          if (results.dateTimeInfo.timezoneOffset) {
+            timezone += " ("+results.dateTimeInfo.timezoneOffset+")";
+          }
+          if (typeof results.dateTimeInfo.daylightSavingTime !== "undefined") {
+            timezone += "\nDaylight saving: "+(results.dateTimeInfo.daylightSavingTime?"yes":"no");
+          }          
+
+          deviceOS.push("\nTimezone: "+timezone);
+
+        }     
+            
+      } catch(e) { console.log(e);}      
    
       deviceOS = deviceOS.join(" ");
       container.appendChild(createGroup("deviceOS","Operating System",deviceOS,"wide"));
@@ -3213,7 +3307,7 @@ module.exports = function() {
 
 }
 
-},{}],25:[function(require,module,exports){
+},{}],26:[function(require,module,exports){
 module.exports = (function() {
 
   "use strict";

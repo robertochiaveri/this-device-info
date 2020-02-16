@@ -61,6 +61,8 @@ thisDeviceInfo.loadModule("iOSClientInfo", require('./modules/iOSClientInfo'));
 
 thisDeviceInfo.loadModule("bluetoothInfo", require('./modules/bluetoothInfo'));
 
+thisDeviceInfo.loadModule("dateTimeInfo", require('./modules/dateTimeInfo'));
+
 
 thisDeviceInfo.init({
   callbackFn: require("./template/default/js/output")

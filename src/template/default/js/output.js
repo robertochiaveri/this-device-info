@@ -343,6 +343,31 @@ module.exports = function() {
         }     
             
       } catch(e) { console.log(e);}      
+
+      try {
+
+        if (results.dateTimeInfo) {
+
+          if (results.dateTimeInfo.date) {
+            deviceOS.push("\nDate: "+results.dateTimeInfo.date);
+          }
+
+          var timezone = "";
+          if (results.dateTimeInfo.timezone) {
+            timezone += results.dateTimeInfo.timezone;            
+          }
+          if (results.dateTimeInfo.timezoneOffset) {
+            timezone += " ("+results.dateTimeInfo.timezoneOffset+")";
+          }
+          if (typeof results.dateTimeInfo.daylightSavingTime !== "undefined") {
+            timezone += "\nDaylight saving: "+(results.dateTimeInfo.daylightSavingTime?"yes":"no");
+          }          
+
+          deviceOS.push("\nTimezone: "+timezone);
+
+        }     
+            
+      } catch(e) { console.log(e);}      
    
       deviceOS = deviceOS.join(" ");
       container.appendChild(createGroup("deviceOS","Operating System",deviceOS,"wide"));
