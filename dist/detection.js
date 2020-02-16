@@ -397,13 +397,10 @@ module.exports = (function() {
   var init = function(event) {
 
     if (
-      typeof navigator.bluetooth == "undefined"
-      || 
-      typeof navigator.bluetooth.getAvailability == "undefined"
+      typeof navigator.bluetooth !== "undefined"
+      && 
+      typeof navigator.bluetooth.getAvailability !== "undefined"
     ) {
-      // bluetooth detection not supported
-      return;
-    } else {
       // bluetooth detection supported
       if (
         typeof event != "undefined" 
@@ -415,8 +412,14 @@ module.exports = (function() {
         // bt detection event
         return event.detail;
       }
+    } else {
+      return {
+        error: "bluetooth detection not supported"
+      }
     }
-  
+
+
+
   }
 
 
