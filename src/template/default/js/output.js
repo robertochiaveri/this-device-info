@@ -339,7 +339,7 @@ module.exports = function() {
       try {
 
         if (results.UIInfo && results.UIInfo.theme) {
-          deviceOS.push("\nUI theme: "+results.UIInfo.theme+"\n");
+          deviceOS.push("\nUI theme: "+results.UIInfo.theme);
         }     
             
       } catch(e) { console.log(e);}      
