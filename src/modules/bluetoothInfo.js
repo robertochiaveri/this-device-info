@@ -7,6 +7,7 @@ module.exports = (function() {
     if (navigator.bluetooth && navigator.bluetooth.getAvailability) {
       navigator.bluetooth.getAvailability().then(
         function(value) {
+          
           console.log("bluetooth detection supported, result: ",value);
   
           var BluetoothInfoEvent = new CustomEvent("__BluetoothInfoEvent", {
@@ -16,7 +17,21 @@ module.exports = (function() {
             bubbles: true,
             cancelable: true
           })
-          dispatchEvent(BluetoothInfoEvent);         
+          dispatchEvent(BluetoothInfoEvent);   
+                
+        }, 
+        function(error) {
+
+          console.log("bluetooth detection failed, reason: ",error);
+
+          var BluetoothInfoEvent = new CustomEvent("__BluetoothInfoEvent", {
+            detail: {
+              error: error
+            },
+            bubbles: true,
+            cancelable: true
+          })
+          dispatchEvent(BluetoothInfoEvent); 
         }
       );
     } else {
