@@ -60,12 +60,14 @@ thisDeviceInfo.loadModule("UIInfo", require('./modules/uiModeInfo'));
 
 thisDeviceInfo.loadModule("iOSClientInfo", require('./modules/iOSClientInfo'));
 
+thisDeviceInfo.loadModule("bluetoothInfo", require('./modules/bluetoothInfo'));
+
 
 thisDeviceInfo.init({
   callbackFn: require("./template/default/js/output")
 });
 
-},{"./modules/ambientLightInfo":7,"./modules/batteryInfo":8,"./modules/connectionInfo":9,"./modules/gyroscopeInfo":10,"./modules/iOSClientInfo":11,"./modules/ipLookupInfo":12,"./modules/mediaCaptureInfo":13,"./modules/motionSensorsInfo":14,"./modules/navigatorInfo":15,"./modules/phonegapDeviceInfo":16,"./modules/screenInfo":17,"./modules/uaLookupInfo":18,"./modules/uiModeInfo":19,"./modules/userAgentInfo":20,"./modules/webGLInfo":21,"./template/default/js/output":23,"./thisDeviceInfo":24}],2:[function(require,module,exports){
+},{"./modules/ambientLightInfo":7,"./modules/batteryInfo":8,"./modules/bluetoothInfo":9,"./modules/connectionInfo":10,"./modules/gyroscopeInfo":11,"./modules/iOSClientInfo":12,"./modules/ipLookupInfo":13,"./modules/mediaCaptureInfo":14,"./modules/motionSensorsInfo":15,"./modules/navigatorInfo":16,"./modules/phonegapDeviceInfo":17,"./modules/screenInfo":18,"./modules/uaLookupInfo":19,"./modules/uiModeInfo":20,"./modules/userAgentInfo":21,"./modules/webGLInfo":22,"./template/default/js/output":24,"./thisDeviceInfo":25}],2:[function(require,module,exports){
 /*!*********************************************************************
  * This Source Code Form is copyright of 51 Degrees Mobile Experts Limited.
  * Copyright 2019 51 Degrees Mobile Experts Limited, 9 Greyfriars Rd,
@@ -351,6 +353,50 @@ module.exports = (function() {
 
   "use strict";
 
+  /* private vars and methods... */
+  navigator.bluetooth.getAvailability().then(
+      function(value) {
+        console.log("bluetooth detection supported, result: ",value);
+
+        var BluetoothInfoEvent = new CustomEvent("__BluetoothInfoEvent", {
+          detail: {
+            radio_present: value
+          },
+          bubbles: true,
+          cancelable: true
+        })
+        dispatchEvent(BluetoothInfoEvent);         
+      }
+  );
+  
+  var init = function(event) {
+
+    if (
+      typeof event == "undefined" 
+      || 
+      typeof event.detail == "undefined" 
+      || 
+      event.type !== "__BluetoothInfoEvent"
+    ) {
+      return; 
+    } else {
+      return event.detail;
+    }
+  }
+
+  /* public methods... */
+  return {
+    init : init,
+    defaultListeners : ["DOMContentLoaded","__BluetoothInfoEvent", "availabilitychanged"]
+  };
+})();
+
+
+},{}],10:[function(require,module,exports){
+module.exports = (function() {
+
+  "use strict";
+
   try{
     if (typeof window.navigator.connection !== "undefined" && typeof window.navigator.connection.addEventListener == "function") {
       navigator.connection.addEventListener('change', function(event) { detectConnection(event); });
@@ -431,7 +477,7 @@ module.exports = (function() {
   };
 })();
 
-},{}],10:[function(require,module,exports){
+},{}],11:[function(require,module,exports){
 module.exports = (function() {
 
   "use strict";
@@ -472,7 +518,7 @@ module.exports = (function() {
 
 })();
 
-},{}],11:[function(require,module,exports){
+},{}],12:[function(require,module,exports){
 module.exports = (function() {
 
   "use strict";
@@ -485,7 +531,7 @@ module.exports = (function() {
 
   getRenderer(function(renderer) { 
     
-    console.log("getRenderer completed",renderer);
+    console.log("WebGL detection getRenderer() completed",renderer);
 
     var WebGLRendererInfoEvent = new CustomEvent("__WebGLRendererInfoEvent", {
       detail: renderer,
@@ -841,7 +887,7 @@ module.exports = (function() {
 })();
 
 
-},{"../lib/51degrees/renderer.min.js":2}],12:[function(require,module,exports){
+},{"../lib/51degrees/renderer.min.js":2}],13:[function(require,module,exports){
 module.exports = (function() {
 
   "use strict";
@@ -892,7 +938,7 @@ module.exports = (function() {
   };
 })();
 
-},{"../lib/xhttpGetAsync/xhttpGetAsync":6}],13:[function(require,module,exports){
+},{"../lib/xhttpGetAsync/xhttpGetAsync":6}],14:[function(require,module,exports){
 module.exports = (function() {
 
   "use strict";
@@ -964,7 +1010,7 @@ module.exports = (function() {
   };
 })();
 
-},{}],14:[function(require,module,exports){
+},{}],15:[function(require,module,exports){
 module.exports = (function() {
 
   "use strict";
@@ -1015,7 +1061,7 @@ module.exports = (function() {
 
 })();
 
-},{}],15:[function(require,module,exports){
+},{}],16:[function(require,module,exports){
 module.exports = (function() {
 
   "use strict";
@@ -1092,7 +1138,7 @@ module.exports = (function() {
   };
 })();
 
-},{}],16:[function(require,module,exports){
+},{}],17:[function(require,module,exports){
 module.exports = (function(){
 
       "use strict";
@@ -1115,7 +1161,7 @@ module.exports = (function(){
       };
   })()
 
-},{}],17:[function(require,module,exports){
+},{}],18:[function(require,module,exports){
 module.exports = (function() {
 
       "use strict";
@@ -1259,7 +1305,7 @@ module.exports = (function() {
         defaultListeners : ["DOMContentLoaded","resize","orientationchange","scroll","visibilitychange"]
       };
     })()
-},{}],18:[function(require,module,exports){
+},{}],19:[function(require,module,exports){
 module.exports = (function() {
 
   "use strict";
@@ -1310,7 +1356,7 @@ module.exports = (function() {
   };
 })();
 
-},{"../lib/xhttpGetAsync/xhttpGetAsync":6}],19:[function(require,module,exports){
+},{"../lib/xhttpGetAsync/xhttpGetAsync":6}],20:[function(require,module,exports){
 module.exports = (function() {
 
   "use strict";
@@ -1348,7 +1394,7 @@ module.exports = (function() {
 })();
 
 
-},{}],20:[function(require,module,exports){
+},{}],21:[function(require,module,exports){
 module.exports = (function() {
 
   "use strict";
@@ -1423,7 +1469,7 @@ module.exports = (function() {
   };
 })();
 
-},{"ua-parser-js":22}],21:[function(require,module,exports){
+},{"ua-parser-js":23}],22:[function(require,module,exports){
 module.exports = (function() {
 
   "use strict";
@@ -1597,7 +1643,7 @@ module.exports = (function() {
   
 })()
 
-},{}],22:[function(require,module,exports){
+},{}],23:[function(require,module,exports){
 /*!
  * UAParser.js v0.7.21
  * Lightweight JavaScript-based User-Agent string parser
@@ -2507,7 +2553,7 @@ module.exports = (function() {
 
 })(typeof window === 'object' ? window : this);
 
-},{}],23:[function(require,module,exports){
+},{}],24:[function(require,module,exports){
 module.exports = function() {
 
   "use strict";
@@ -3117,7 +3163,7 @@ module.exports = function() {
 
 }
 
-},{}],24:[function(require,module,exports){
+},{}],25:[function(require,module,exports){
 module.exports = (function() {
 
   "use strict";

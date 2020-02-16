@@ -10,7 +10,7 @@ module.exports = (function() {
 
   getRenderer(function(renderer) { 
     
-    console.log("getRenderer completed",renderer);
+    console.log("WebGL detection getRenderer() completed",renderer);
 
     var WebGLRendererInfoEvent = new CustomEvent("__WebGLRendererInfoEvent", {
       detail: renderer,
