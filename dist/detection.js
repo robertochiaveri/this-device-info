@@ -220,9 +220,15 @@ module.exports = (function() {
 
   var init = function(event) {
 
-    if (typeof event !== "undefined") {
-      if (typeof event.detail !== "undefined" && event.type == "__AmbientLightInfoEvent") {
-        return event.detail;
+    if ("AmbientLightSensor" in window) {
+      if (typeof event !== "undefined") {
+        if (typeof event.detail !== "undefined" && event.type == "__AmbientLightInfoEvent") {
+          return event.detail;
+        }
+      }
+    } else {
+      return {
+        error: "ambient light sensor is not supported"
       }
     }
 
@@ -3306,7 +3312,7 @@ module.exports = (function() {
       if (window.location.hash == "#debug") {
 
         if (window.JSON) {
-          document.body.innerHTML = '<div style="background:black;color: #FFF;white-space:pre-wrap;font:14px/1.2em monospace;">'+JSON.stringify(this.results,null,2)+'</div>';
+          document.body.innerHTML = '<div style="background:black;color: #FFF;white-space:pre-wrap;font:12px/1.2em monospace;">'+JSON.stringify(this.results,null,2)+'</div>';
         } else {
           console.log("JSON output not supported")
         }

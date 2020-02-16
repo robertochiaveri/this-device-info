@@ -47,9 +47,15 @@ module.exports = (function() {
 
   var init = function(event) {
 
-    if (typeof event !== "undefined") {
-      if (typeof event.detail !== "undefined" && event.type == "__AmbientLightInfoEvent") {
-        return event.detail;
+    if ("AmbientLightSensor" in window) {
+      if (typeof event !== "undefined") {
+        if (typeof event.detail !== "undefined" && event.type == "__AmbientLightInfoEvent") {
+          return event.detail;
+        }
+      }
+    } else {
+      return {
+        error: "ambient light sensor is not supported"
       }
     }
 
