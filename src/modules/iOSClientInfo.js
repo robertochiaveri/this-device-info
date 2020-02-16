@@ -32,7 +32,7 @@ module.exports = (function() {
   var webgl = false;
 
   var checkWebGL = function(fragment) {
-    if (!webgl || (webgl == "unknown") ) { 
+    if (!webgl ) { 
       return false; 
     } else {
       return (webgl.indexOf(fragment) >= 0)
