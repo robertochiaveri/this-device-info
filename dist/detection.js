@@ -2877,7 +2877,7 @@ module.exports = function() {
         }
 
         if (results.bluetoothInfo && results.bluetoothInfo.radio_present) {
-          deviceHardware.push("\nBluetooth");
+          deviceHardware.push("Bluetooth\n");
         }          
 
 
