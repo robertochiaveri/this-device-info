@@ -354,7 +354,8 @@ module.exports = (function() {
   "use strict";
 
   /* private vars and methods... */
-  navigator.bluetooth.getAvailability().then(
+  if (navigator.bluetooth && navigator.bluetooth.getAvailability) {
+    navigator.bluetooth.getAvailability().then(
       function(value) {
         console.log("bluetooth detection supported, result: ",value);
 
@@ -367,22 +368,37 @@ module.exports = (function() {
         })
         dispatchEvent(BluetoothInfoEvent);         
       }
-  );
+    );
+  } else {
+    console.log("bluetooth detection is not supported");
+  }
+
   
   var init = function(event) {
 
     if (
-      typeof event == "undefined" 
+      typeof navigator.bluetooth == "undefined"
       || 
-      typeof event.detail == "undefined" 
-      || 
-      event.type !== "__BluetoothInfoEvent"
+      typeof navigator.bluetooth.getAvailability == "undefined"
     ) {
-      return; 
+      // bluetooth detection not supported
+      return false;
     } else {
-      return event.detail;
+      // bluetooth detection supported
+      if (
+        typeof event != "undefined" 
+        && 
+        typeof event.detail != "undefined" 
+        && 
+        event.type == "__BluetoothInfoEvent"
+      ) {
+        // bt detection event
+        return event.detail;
+      }
     }
+  
   }
+
 
   /* public methods... */
   return {
