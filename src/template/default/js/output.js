@@ -479,7 +479,7 @@ module.exports = function() {
           displayOrientation.push("\nGyroscope rotation:");
           displayOrientation.push("α " + results.gyroscopeInfo.alpha+",");
           displayOrientation.push("β " + results.gyroscopeInfo.beta+",");
-          displayOrientation.push("𝛾 " + results.gyroscopeInfo.gamma);          
+          displayOrientation.push("γ " + results.gyroscopeInfo.gamma);          
         }
 
         if (results.motionSensorsInfo && results.motionSensorsInfo.x) {
