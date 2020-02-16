@@ -218,7 +218,7 @@ module.exports = function() {
           deviceHardware.push("\nAt least " + results.navigatorInfo.deviceMemory + " of RAM memory");
         }        
 
-        if (results.webGLInfo.rendererUnmasked || results.webGLInfo.vendorUnmasked) {
+        if (results.webGLInfo && (results.webGLInfo.rendererUnmasked || results.webGLInfo.vendorUnmasked)) {
 
           if (results.webGLInfo.rendererUnmasked) {
             deviceHardware.push("\nGraphics "+results.webGLInfo.rendererUnmasked);
@@ -274,6 +274,11 @@ module.exports = function() {
           } 
 
         }
+
+        if (results.bluetoothInfo && results.bluetoothInfo.radio_present) {
+          deviceHardware.push("\nBluetooth");
+        }          
+
 
         var ambientLight = defaultValue;
 
