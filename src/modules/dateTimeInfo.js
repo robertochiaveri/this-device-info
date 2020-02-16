@@ -22,7 +22,7 @@ module.exports = (function() {
   }
 
   var getFullDate = function() {
-    return new Date(Date.UTC(2012, 11, 20, 3, 0, 0)).toLocaleDateString(
+    return new Date().toLocaleDateString(
         undefined, 
         { 
             weekday: 'long', 

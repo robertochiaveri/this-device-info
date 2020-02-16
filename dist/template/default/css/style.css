@@ -48,15 +48,17 @@ body {
   padding: 1em;
   border-top: 1px dotted #CCC;
   width: 50%;
-  float: left;
+  clear: both;
+}
+#results > dl.continuation {
+  clear: none;
+  float: left;  
 }
 #results > dl.wide {
   width: 100%;
   float: none;
   clear: both;
 }
-
-
 
 #results > dl {
   display: block;
@@ -80,7 +82,7 @@ body {
   visibility: hidden;
 }  
 
-@media (max-width: 420px) {
+@media (max-width: 760px) {
   
   #results > dl {
     width: 100%;

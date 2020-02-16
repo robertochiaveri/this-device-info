@@ -339,18 +339,23 @@ module.exports = function() {
       try {
 
         if (results.UIInfo && results.UIInfo.theme) {
-          deviceOS.push("\nUI theme: "+results.UIInfo.theme);
+          deviceOS.push("\nUI theme: "+results.UIInfo.theme+"\n");
         }     
             
       } catch(e) { console.log(e);}      
+
+      deviceOS = deviceOS.join(" ");
+      container.appendChild(createGroup("deviceOS","Operating System",deviceOS));
+
+      deviceOS = [];
 
       try {
 
         if (results.dateTimeInfo) {
 
-          if (results.dateTimeInfo.date) {
-            deviceOS.push("\nDate: "+results.dateTimeInfo.date);
-          }
+          // if (results.dateTimeInfo.date) {
+          //   deviceOS.push("Date: "+results.dateTimeInfo.date);
+          // }
 
           var timezone = "";
           if (results.dateTimeInfo.timezone) {
@@ -363,15 +368,14 @@ module.exports = function() {
             timezone += "\nDaylight saving: "+(results.dateTimeInfo.daylightSavingTime?"yes":"no");
           }          
 
-          deviceOS.push("\nTimezone: "+timezone);
+          deviceOS.push("Timezone: "+timezone);
 
         }     
             
-      } catch(e) { console.log(e);}      
-   
-      deviceOS = deviceOS.join(" ");
-      container.appendChild(createGroup("deviceOS","Operating System",deviceOS,"wide"));
+      } catch(e) { console.log(e);} 
 
+      deviceOS = deviceOS.join(" ");   
+      container.appendChild(createGroup("deviceOS2","Operating System",deviceOS,"continuation"));
 
 
       // Browser 
