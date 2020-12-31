@@ -394,7 +394,9 @@ module.exports = (function() {
         if (!devices[i].tests[j]) { continue; }
         ok++;
       }
-      debugger;      
+      
+      debugger;
+
       if (ok == devices[i].tests.length) {
         return {
           complete_device_name : devices[i].name,
