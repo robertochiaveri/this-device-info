@@ -1027,7 +1027,7 @@ module.exports = (function() {
           (window.screen.width == 375),
           (window.screen.height == 667),
           (window.devicePixelRatio == 2),
-          checkWebGL("a11 gpu")
+          checkWebGL("a13 gpu")
         ]
       },      
       
@@ -1086,7 +1086,7 @@ module.exports = (function() {
         }
       } else {
         return {
-          fail: ":( An unrecognized device width a "+window.screen.width+"x"+window.screen.height+" screen @"+window.devicePixelRatio,
+          fail: ":( An unrecognized device width a "+window.screen.width+"x"+window.screen.height+" screen @"+window.devicePixelRatio+"X",
           gpu_renderer: event.detail
         }
       }
