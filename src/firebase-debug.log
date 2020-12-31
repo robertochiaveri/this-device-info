@@ -1,0 +1,22 @@
+[debug] [2020-12-31T17:20:56.640Z] ----------------------------------------------------------------------
+[debug] [2020-12-31T17:20:56.642Z] Command:       /usr/local/bin/node /usr/local/bin/firebase deploy --project thisdeviceinfo
+[debug] [2020-12-31T17:20:56.642Z] CLI Version:   3.13.1
+[debug] [2020-12-31T17:20:56.642Z] Platform:      darwin
+[debug] [2020-12-31T17:20:56.642Z] Node Version:  v12.14.1
+[debug] [2020-12-31T17:20:56.643Z] Time:          Thu Dec 31 2020 18:20:56 GMT+0100 (Central European Standard Time)
+[debug] [2020-12-31T17:20:56.643Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2020-12-31T17:20:56.654Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2020-12-31T17:20:56.654Z] > authorizing via signed-in user
+[debug] [2020-12-31T17:20:56.656Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
+[debug] [2020-12-31T17:20:56.656Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token {
+  refresh_token: '1//09kQFl0wJSSSMCgYIARAAGAkSNwF-L9IrK-_c-Ij4dKJ4GBhvTgwXvNx6WZMXdhBgailAN7HJWEoTFZC-K-JnQNnEhf7tlcJoDIc',
+  client_id: '563584335869-fgrhgmd47bqnekij5i8b5pr03ho849e6.apps.googleusercontent.com',
+  client_secret: 'j9iVZfS8kkCEFUPaAeJV0sAi',
+  grant_type: 'refresh_token',
+  scope: 'email https://www.googleapis.com/auth/cloud-platform https://www.googleapis.com/auth/cloudplatformprojects.readonly https://www.googleapis.com/auth/firebase openid'
+} 
+ Thu Dec 31 2020 18:20:56 GMT+0100 (Central European Standard Time)
+[debug] [2020-12-31T17:20:56.905Z] <<< HTTP RESPONSE 200
+[debug] [2020-12-31T17:20:56.912Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/projects/thisdeviceinfo  
+ Thu Dec 31 2020 18:20:56 GMT+0100 (Central European Standard Time)
