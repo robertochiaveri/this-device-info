@@ -403,6 +403,11 @@ module.exports = (function() {
           zoom: !!devices[i].zoom,
           gpu_renderer: event.detail
         }
+      } else {
+        return {
+          fail: ":( An unrecognized device width a "+window.screen.width+"x"+window.screen.height+" screen @"+window.devicePixelRatio,
+          gpu_renderer: event.detail
+        }
       }
     }
     return false;

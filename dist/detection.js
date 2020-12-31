@@ -178,6 +178,13 @@ module.exports = (function() {
 
   "use strict";
 
+  /*
+
+    not as reliable as 51degrees script (in /lib/) --- it reports the wrong GPU for many devices..
+
+   */
+
+
   /* private vars and methods... */
 
   var detectGPU = require('./../node_modules/detect-gpu/dist/detect-gpu.umd.js');
@@ -1075,6 +1082,11 @@ module.exports = (function() {
           release_date: devices[i].release_date,
           form_factory: devices[i].type,
           zoom: !!devices[i].zoom,
+          gpu_renderer: event.detail
+        }
+      } else {
+        return {
+          fail: ":( An unrecognized device width a "+window.screen.width+"x"+window.screen.height+" screen @"+window.devicePixelRatio,
           gpu_renderer: event.detail
         }
       }
