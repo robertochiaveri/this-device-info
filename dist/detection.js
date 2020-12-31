@@ -1070,13 +1070,13 @@ module.exports = (function() {
     
     var ok;
     for (var i = 0; i < devices.length; i++) {
+
       ok = 0;
+      
       for (var j = 0; j < devices[i].tests.length; j++) {
         if (!devices[i].tests[j]) { continue; }
         ok++;
       }
-      
-      debugger;
 
       if (ok == devices[i].tests.length) {
         return {
@@ -1086,14 +1086,14 @@ module.exports = (function() {
           zoom: !!devices[i].zoom,
           gpu_renderer: event.detail
         }
-      } else {
-        return {
-          fail: ":( An unrecognized device width a "+window.screen.width+"x"+window.screen.height+" screen @"+window.devicePixelRatio+"X",
-          gpu_renderer: event.detail
-        }
-      }
+      } 
+      
     }
-    return false;
+    return {
+      fail: ":( An unrecognized device width a "+window.screen.width+"x"+window.screen.height+" screen @"+window.devicePixelRatio+"X",
+      gpu_renderer: event.detail
+    }
+
   }
 
   /* public methods... */
