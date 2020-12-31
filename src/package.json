@@ -15,7 +15,6 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "watch": "watchify index.js -o ../dist/detection.js -v",
-    "livereload": "watchify -p [ browserify-livereload --host 127.0.0.1 --port 8080 ] index.js -o ../dist/detection.js -v",
     "build": "browserify index.js -o ../dist/detection.js",
     "dist": "browserify index.js | uglifyjs --support-ie8 -c --pure-funcs console.log > ../dist/detection.js"
   },
