@@ -63,7 +63,6 @@ thisDeviceInfo.loadModule("bluetoothInfo", require('./modules/bluetoothInfo'));
 
 thisDeviceInfo.loadModule("dateTimeInfo", require('./modules/dateTimeInfo'));
 
-thisDeviceInfo.loadModule("GPUInfo", require('./modules/GPUInfo'));
 
 thisDeviceInfo.init({
   callbackFn: require("./template/default/js/output")
