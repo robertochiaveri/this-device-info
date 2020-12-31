@@ -334,7 +334,43 @@ module.exports = (function() {
           (window.devicePixelRatio == 3),
           checkWebGL("a13 gpu")
         ]
-      },        
+      },   
+      
+
+      {
+        name: "Apple iPhone 12 mini",
+        type: "Smartphone",  
+        release_date: "November 2020",                    
+        tests: [
+          (window.screen.width == 360),
+          (window.screen.height == 780),
+          (window.devicePixelRatio == 3),
+          checkWebGL("a14 gpu")
+        ]
+      },    
+      {
+        name: "Apple iPhone 12 / 12 Pro",
+        type: "Smartphone",  
+        release_date: "October 2020",                    
+        tests: [
+          (window.screen.width == 390),
+          (window.screen.height == 844),
+          (window.devicePixelRatio == 3),
+          checkWebGL("a14 gpu")
+        ]
+      },    
+      {
+        name: "Apple iPhone 12 Pro Max",
+        type: "Smartphone",  
+        release_date: "November 2020",            
+        tests: [
+          (window.screen.width == 428),
+          (window.screen.height == 926),
+          (window.devicePixelRatio == 3),
+          checkWebGL("a14 gpu")
+        ]
+      },   
+      
   
     ];
     
