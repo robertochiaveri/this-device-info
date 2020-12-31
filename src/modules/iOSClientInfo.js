@@ -391,10 +391,10 @@ module.exports = (function() {
     for (var i = 0; i < devices.length; i++) {
       ok = 0;
       for (var j = 0; j < devices[i].tests.length; j++) {
-        debugger;
         if (!devices[i].tests[j]) { continue; }
         ok++;
       }
+      debugger;      
       if (ok == devices[i].tests.length) {
         return {
           complete_device_name : devices[i].name,
