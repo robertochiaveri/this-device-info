@@ -20,7 +20,7 @@ jobs:
       with:
         name: build output (debug)
         path: dist   
-    - run: cd src && npm run dist --if-present
+    - run: cd src && npm run build --if-present
     - name: Save dist artifact
       uses: actions/upload-artifact@v1
       with:
