@@ -64,12 +64,13 @@ thisDeviceInfo.loadModule("bluetoothInfo", require('./modules/bluetoothInfo'));
 
 thisDeviceInfo.loadModule("dateTimeInfo", require('./modules/dateTimeInfo'));
 
+thisDeviceInfo.loadModule("GPUInfo", require('./modules/GPUInfo'));
 
 thisDeviceInfo.init({
   callbackFn: require("./template/default/js/output")
 });
 
-},{"./modules/ambientLightInfo":7,"./modules/batteryInfo":8,"./modules/bluetoothInfo":9,"./modules/connectionInfo":10,"./modules/dateTimeInfo":11,"./modules/gyroscopeInfo":12,"./modules/iOSClientInfo":13,"./modules/ipLookupInfo":14,"./modules/mediaCaptureInfo":15,"./modules/motionSensorsInfo":16,"./modules/navigatorInfo":17,"./modules/phonegapDeviceInfo":18,"./modules/screenInfo":19,"./modules/uaLookupInfo":20,"./modules/uiModeInfo":21,"./modules/userAgentInfo":22,"./modules/webGLInfo":23,"./template/default/js/output":25,"./thisDeviceInfo":26}],2:[function(require,module,exports){
+},{"./modules/GPUInfo":7,"./modules/ambientLightInfo":8,"./modules/batteryInfo":9,"./modules/bluetoothInfo":10,"./modules/connectionInfo":11,"./modules/dateTimeInfo":12,"./modules/gyroscopeInfo":13,"./modules/iOSClientInfo":14,"./modules/ipLookupInfo":15,"./modules/mediaCaptureInfo":16,"./modules/motionSensorsInfo":17,"./modules/navigatorInfo":18,"./modules/phonegapDeviceInfo":19,"./modules/screenInfo":20,"./modules/uaLookupInfo":21,"./modules/uiModeInfo":22,"./modules/userAgentInfo":23,"./modules/webGLInfo":24,"./template/default/js/output":27,"./thisDeviceInfo":28}],2:[function(require,module,exports){
 /*!*********************************************************************
  * This Source Code Form is copyright of 51 Degrees Mobile Experts Limited.
  * Copyright 2019 51 Degrees Mobile Experts Limited, 9 Greyfriars Rd,
@@ -179,6 +180,44 @@ module.exports = (function() {
 
   /* private vars and methods... */
 
+  var detectGPU = require('./../node_modules/detect-gpu/dist/detect-gpu.umd.js');
+
+  detectGPU.getGPUTier().then(function(GPUInfo){
+      
+    console.log("GPUInfo has completed the GPU benchmark",GPUInfo)
+    var GPUInfoEvent = new CustomEvent("__GPUInfoEvent", {
+      detail: GPUInfo,
+      bubbles: true,
+      cancelable: true
+    });
+    dispatchEvent(GPUInfoEvent);
+
+  })
+
+  var init = function(event) {
+
+    if (typeof event !== "undefined") {
+      if (typeof event.detail !== "undefined" && event.type == "__GPUInfoEvent") {
+        return event.detail;
+      }
+    }
+
+  };
+
+  /* public methods... */
+  return {
+    init : init,
+    defaultListeners : ["__GPUInfoEvent"]
+  };
+})();
+
+},{"./../node_modules/detect-gpu/dist/detect-gpu.umd.js":25}],8:[function(require,module,exports){
+module.exports = (function() {
+
+  "use strict";
+
+  /* private vars and methods... */
+
   function getAmbientLight(event) {
 
     var ambientLightInfoEvent,
@@ -263,7 +302,7 @@ module.exports = (function() {
   
 })();
 
-},{}],8:[function(require,module,exports){
+},{}],9:[function(require,module,exports){
 module.exports = (function() {
 
   "use strict";
@@ -356,7 +395,7 @@ module.exports = (function() {
   
 })();
 
-},{}],9:[function(require,module,exports){
+},{}],10:[function(require,module,exports){
 module.exports = (function() {
 
   "use strict";
@@ -439,7 +478,7 @@ module.exports = (function() {
 })();
 
 
-},{}],10:[function(require,module,exports){
+},{}],11:[function(require,module,exports){
 module.exports = (function() {
 
   "use strict";
@@ -524,7 +563,7 @@ module.exports = (function() {
   };
 })();
 
-},{}],11:[function(require,module,exports){
+},{}],12:[function(require,module,exports){
 
 module.exports = (function() {
 
@@ -591,7 +630,7 @@ module.exports = (function() {
 })();
 
 
-},{}],12:[function(require,module,exports){
+},{}],13:[function(require,module,exports){
 module.exports = (function() {
 
   "use strict";
@@ -632,7 +671,7 @@ module.exports = (function() {
 
 })();
 
-},{}],13:[function(require,module,exports){
+},{}],14:[function(require,module,exports){
 module.exports = (function() {
 
   "use strict";
@@ -1001,7 +1040,7 @@ module.exports = (function() {
 })();
 
 
-},{"../lib/51degrees/renderer.min.js":2}],14:[function(require,module,exports){
+},{"../lib/51degrees/renderer.min.js":2}],15:[function(require,module,exports){
 module.exports = (function() {
 
   "use strict";
@@ -1052,7 +1091,7 @@ module.exports = (function() {
   };
 })();
 
-},{"../lib/xhttpGetAsync/xhttpGetAsync":6}],15:[function(require,module,exports){
+},{"../lib/xhttpGetAsync/xhttpGetAsync":6}],16:[function(require,module,exports){
 module.exports = (function() {
 
   "use strict";
@@ -1124,7 +1163,7 @@ module.exports = (function() {
   };
 })();
 
-},{}],16:[function(require,module,exports){
+},{}],17:[function(require,module,exports){
 module.exports = (function() {
 
   "use strict";
@@ -1175,7 +1214,7 @@ module.exports = (function() {
 
 })();
 
-},{}],17:[function(require,module,exports){
+},{}],18:[function(require,module,exports){
 module.exports = (function() {
 
   "use strict";
@@ -1252,7 +1291,7 @@ module.exports = (function() {
   };
 })();
 
-},{}],18:[function(require,module,exports){
+},{}],19:[function(require,module,exports){
 module.exports = (function(){
 
       "use strict";
@@ -1275,7 +1314,7 @@ module.exports = (function(){
       };
   })()
 
-},{}],19:[function(require,module,exports){
+},{}],20:[function(require,module,exports){
 module.exports = (function() {
 
       "use strict";
@@ -1419,7 +1458,7 @@ module.exports = (function() {
         defaultListeners : ["DOMContentLoaded","resize","orientationchange","scroll","visibilitychange"]
       };
     })()
-},{}],20:[function(require,module,exports){
+},{}],21:[function(require,module,exports){
 module.exports = (function() {
 
   "use strict";
@@ -1470,7 +1509,7 @@ module.exports = (function() {
   };
 })();
 
-},{"../lib/xhttpGetAsync/xhttpGetAsync":6}],21:[function(require,module,exports){
+},{"../lib/xhttpGetAsync/xhttpGetAsync":6}],22:[function(require,module,exports){
 module.exports = (function() {
 
   "use strict";
@@ -1508,7 +1547,7 @@ module.exports = (function() {
 })();
 
 
-},{}],22:[function(require,module,exports){
+},{}],23:[function(require,module,exports){
 module.exports = (function() {
 
   "use strict";
@@ -1583,7 +1622,7 @@ module.exports = (function() {
   };
 })();
 
-},{"ua-parser-js":24}],23:[function(require,module,exports){
+},{"ua-parser-js":26}],24:[function(require,module,exports){
 module.exports = (function() {
 
   "use strict";
@@ -1757,9 +1796,13 @@ module.exports = (function() {
   
 })()
 
-},{}],24:[function(require,module,exports){
+},{}],25:[function(require,module,exports){
+!function(e,r){"object"==typeof exports&&"undefined"!=typeof module?r(exports):"function"==typeof define&&define.amd?define(["exports"],r):r((e="undefined"!=typeof globalThis?globalThis:e||self).DetectGPU={})}(this,(function(e){"use strict";function r(e,r,n,t){return new(n||(n=Promise))((function(o,a){function i(e){try{l(t.next(e))}catch(e){a(e)}}function d(e){try{l(t.throw(e))}catch(e){a(e)}}function l(e){var r;e.done?o(e.value):(r=e.value,r instanceof n?r:new n((function(e){e(r)}))).then(i,d)}l((t=t.apply(e,r||[])).next())}))}function n(e,r){var n,t,o,a,i={label:0,sent:function(){if(1&o[0])throw o[1];return o[1]},trys:[],ops:[]};return a={next:d(0),throw:d(1),return:d(2)},"function"==typeof Symbol&&(a[Symbol.iterator]=function(){return this}),a;function d(a){return function(d){return function(a){if(n)throw new TypeError("Generator is already executing.");for(;i;)try{if(n=1,t&&(o=2&a[0]?t.return:a[0]?t.throw||((o=t.return)&&o.call(t),0):t.next)&&!(o=o.call(t,a[1])).done)return o;switch(t=0,o&&(a=[2&a[0],o.value]),a[0]){case 0:case 1:o=a;break;case 4:return i.label++,{value:a[1],done:!1};case 5:i.label++,t=a[1],a=[0];continue;case 7:a=i.ops.pop(),i.trys.pop();continue;default:if(!(o=i.trys,(o=o.length>0&&o[o.length-1])||6!==a[0]&&2!==a[0])){i=0;continue}if(3===a[0]&&(!o||a[1]>o[0]&&a[1]<o[3])){i.label=a[1];break}if(6===a[0]&&i.label<o[1]){i.label=o[1],o=a;break}if(o&&i.label<o[2]){i.label=o[2],i.ops.push(a);break}o[2]&&i.ops.pop(),i.trys.pop();continue}a=r.call(e,i)}catch(e){a=[6,e],t=0}finally{n=o=0}if(5&a[0])throw a[1];return{value:a[0]?a[1]:void 0,done:!0}}([a,d])}}}var t=["geforce 320m","geforce 8600","geforce 8600m gt","geforce 8800 gs","geforce 8800 gt","geforce 9400","geforce 9400m g","geforce 9400m","geforce 9600m gt","geforce 9600m","geforce fx go5200","geforce gt 120","geforce gt 130","geforce gt 330m","geforce gtx 285","google swiftshader","intel g41","intel g45","intel gma 4500mhd","intel gma x3100","intel hd 3000","intel q45","legacy","mali-2","mali-3","mali-4","quadro fx 1500","quadro fx 4","quadro fx 5","radeon hd 2400","radeon hd 2600","radeon hd 4670","radeon hd 4850","radeon hd 4870","radeon hd 5670","radeon hd 5750","radeon hd 6290","radeon hd 6300","radeon hd 6310","radeon hd 6320","radeon hd 6490m","radeon hd 6630m","radeon hd 6750m","radeon hd 6770m","radeon hd 6970m","radeon r9 200","sgx 543","sgx543"],o=function(e){return e=e.toLowerCase().replace(/angle \((.+)\)*$/,"$1").replace(/\s+([0-9]+gb|direct3d.+$)|\(r\)| \([^\)]+\)$/g,"")};var a="undefined"==typeof window,i=function(){if(!a){var e=window.navigator,r=e.userAgent,n=e.platform,t=e.maxTouchPoints,o=/(iphone|ipod|ipad)/i.test(r),i="iPad"===n||"MacIntel"===n&&t>0&&!window.MSStream;return{isIpad:i,isMobile:/android/i.test(r)||o||i,isSafari12:/Version\/12.+Safari/.test(r)}}}(),d=function(e,r,n){return"apple gpu"===r?function(e,r,n){var t=[r];if(n){var o=e.createShader(35633),a=e.createShader(35632),d=e.createProgram();if(a&&o&&d){e.shaderSource(o,"\n      precision highp float;\n      attribute vec3 aPosition;\n      varying float vvv;\n      void main() {\n        vvv = 0.31622776601683794;\n        gl_Position = vec4(aPosition, 1.0);\n      }\n    "),e.shaderSource(a,"\n      precision highp float;\n      varying float vvv;\n      void main() {\n        vec4 enc = vec4(1.0, 255.0, 65025.0, 16581375.0) * vvv;\n        enc = fract(enc);\n        enc -= enc.yzww * vec4(1.0 / 255.0, 1.0 / 255.0, 1.0 / 255.0, 0.0);\n        gl_FragColor = enc;\n      }\n    "),e.compileShader(o),e.compileShader(a),e.attachShader(d,o),e.attachShader(d,a),e.linkProgram(d),e.detachShader(d,o),e.detachShader(d,a),e.deleteShader(o),e.deleteShader(a),e.useProgram(d);var l=e.createBuffer();e.bindBuffer(34962,l),e.bufferData(34962,new Float32Array([-1,-1,0,3,-1,0,-1,3,0]),35044);var c=e.getAttribLocation(d,"aPosition");e.vertexAttribPointer(c,3,5126,!1,0,0),e.enableVertexAttribArray(c),e.clearColor(1,1,1,1),e.clear(16384),e.viewport(0,0,1,1),e.drawArrays(4,0,3);var u=new Uint8Array(4);e.readPixels(0,0,1,1,6408,5121,u),e.deleteProgram(d),e.deleteBuffer(l),t={801621810:(null==i?void 0:i.isIpad)?["apple a12x gpu"]:["apple a11 gpu","apple a12 gpu","apple a13 gpu"],8016218135:(null==i?void 0:i.isIpad)?["apple a9x gpu","apple a10 gpu","apple a10x gpu"]:["apple a9 gpu","apple a10 gpu"]}[u.join("")]||t}}return t}(e,r,n):[r]},l=[],c=[],u=function(e,r){if(e===r)return 0;var n=e;e.length>r.length&&(e=r,r=n);for(var t=e.length,o=r.length;t>0&&e.charCodeAt(~-t)===r.charCodeAt(~-o);)t--,o--;for(var a,i=0;i<t&&e.charCodeAt(i)===r.charCodeAt(i);)i++;if(o-=i,0===(t-=i))return o;for(var d,u,f=0,s=0,h=0;s<t;)c[s]=e.charCodeAt(i+s),l[s]=++s;for(;h<o;)for(a=r.charCodeAt(i+h),d=h++,f=h,s=0;s<t;s++)u=a===c[s]?d:d+1,d=l[s],f=l[s]=d>f?u>f?f+1:u:u>d?d+1:u;return f};e.getGPUTier=function(e){var l=void 0===e?{}:e,c=l.mobileTiers,f=void 0===c?[0,15,30,60]:c,s=l.desktopTiers,h=void 0===s?[0,15,30,60]:s,p=l.override,v=void 0===p?{}:p,g=l.glContext,m=l.failIfMajorPerformanceCaveat,b=void 0!==m&&m,w=l.benchmarksURL,x=void 0===w?"https://unpkg.com/detect-gpu@3.0.0/dist/benchmarks":w;return r(void 0,void 0,void 0,(function(){var e,l,c,s,p,m,w,y,A,S,P,C,E,L,M,_,B,k,I,T,U,j,O,R,D;return n(this,(function(N){switch(N.label){case 0:if(e={},a)return[2,{tier:0,type:"SSR"}];if(l=v.isIpad,c=void 0===l?!!(null==i?void 0:i.isIpad):l,s=v.isMobile,p=void 0===s?!!(null==i?void 0:i.isMobile):s,m=v.screenSize,w=void 0===m?window.screen:m,y=v.loadBenchmarks,A=void 0===y?function(e){return r(void 0,void 0,void 0,(function(){var r;return n(this,(function(n){switch(n.label){case 0:return[4,fetch(x+"/"+e).then((function(e){return e.json()}))];case 1:return(r=n.sent()).shift(),[2,r]}}))}))}:y,S=v.renderer,P=function(e){for(var r=0,n=p?["adreno","apple","mali-t","mali","nvidia","powervr"]:["intel","amd","radeon","nvidia","geforce"];r<n.length;r++){var t=n[r];if(e.indexOf(t)>-1)return t}},C=function(t){return r(void 0,void 0,void 0,(function(){var r,o,a,i,d,l,f,s,h,v,g,m,b,x,y,S,C,E,L,M,_,B,k,I,T,U;return n(this,(function(n){switch(n.label){case 0:if(!(r=P(t)))return[2];a=e[o=(p?"m":"d")+"-"+r+".json"]=e[o]||A(o),n.label=1;case 1:return n.trys.push([1,3,,4]),[4,a];case 2:return i=n.sent(),[3,4];case 3:return d=n.sent(),console.log(d),[2];case 4:if(l=function(e){var r,n=(e=e.replace(/\([^\)]+\)/,"")).match(/[\d]+/)||e.match(/(\W|^)([a-zA-Z]{1,3})(\W|$)/g);return null!==(r=null==n?void 0:n.join("").replace(/\W|amd/g,""))&&void 0!==r?r:""}(t),f="apple"===r,(s=i.filter((function(e){return e[1]===l}))).length||(s=i.filter((function(e){return e[0].indexOf(t)>-1}))),0===(h=s.length))return[2];for(v=h>1?s.map((function(e){return[e,u(t,e[0])]})).sort((function(e,r){return e[1]-r[1]}))[0][0]:s[0],g=v[0],m=v[3],b=Number.MAX_VALUE,y=window.devicePixelRatio,S=w.width*y*(w.height*y),f&&p&&(m=m.filter((function(e){var r,n=e[3];return(null!==(r=null==n?void 0:n.indexOf(c?"ipad":"iphone"))&&void 0!==r?r:-1)>-1}))),C=0,E=m;C<E.length;C++)L=E[C],M=L[0],_=L[1],B=M*_,(k=Math.abs(S-B))<b&&(b=k,x=L);return T=(I=x)[2],U=I[3],[2,[b,T,g,U]]}}))}))},E=function(e,r,n,t,o){return{device:o,fps:t,gpu:n,isMobile:p,tier:e,type:r}},S)S=o(S),L=[S];else{if(!(M=g||function(e,r){void 0===r&&(r=!1);var n={alpha:!1,antialias:!1,depth:!1,failIfMajorPerformanceCaveat:r,powerPreference:"high-performance",stencil:!1};e&&delete n.powerPreference;var t=window.document.createElement("canvas"),o=t.getContext("webgl",n)||t.getContext("experimental-webgl",n);return null!=o?o:void 0}(null==i?void 0:i.isSafari12,b)))return[2,E(0,"WEBGL_UNSUPPORTED")];if((_=M.getExtension("WEBGL_debug_renderer_info"))&&(S=M.getParameter(_.UNMASKED_RENDERER_WEBGL)),!S)return[2,E(1,"FALLBACK")];S=o(S),L=d(M,S,p)}return[4,Promise.all(L.map(C))];case 1:if(!(B=N.sent().filter((function(e){return!!e}))).length)return[2,(k=t.filter((function(e){return S.indexOf(e)>-1}))[0])?E(0,"BLOCKLISTED",k):E(1,"FALLBACK")];if(I=B.sort((function(e,r){var n=e[0],t=void 0===n?Number.MAX_VALUE:n,o=r[0];return t-(void 0===o?Number.MAX_VALUE:o)}))[0],T=I[1],U=I[2],j=I[3],-1===T)return[2,E(0,"BLOCKLISTED",U,T,j)];for(O=p?f:h,R=0,D=0;D<O.length;D++)T>=O[D]&&(R=D);return[2,E(R,"BENCHMARK",U,T,j)]}}))}))},Object.defineProperty(e,"__esModule",{value:!0})}));
+
+
+},{}],26:[function(require,module,exports){
 /*!
- * UAParser.js v0.7.21
+ * UAParser.js v0.7.23
  * Lightweight JavaScript-based User-Agent string parser
  * https://github.com/faisalman/ua-parser-js
  *
@@ -1776,7 +1819,7 @@ module.exports = (function() {
     /////////////
 
 
-    var LIBVERSION  = '0.7.21',
+    var LIBVERSION  = '0.7.23',
         EMPTY       = '',
         UNKNOWN     = '?',
         FUNC_TYPE   = 'function',
@@ -1982,7 +2025,7 @@ module.exports = (function() {
 
             // Presto based
             /(opera\smini)\/([\w\.-]+)/i,                                       // Opera Mini
-            /(opera\s[mobiletab]+).+version\/([\w\.-]+)/i,                      // Opera Mobi/Tablet
+            /(opera\s[mobiletab]{3,6}).+version\/([\w\.-]+)/i,                  // Opera Mobi/Tablet
             /(opera).+version\/([\w\.]+)/i,                                     // Opera > 9.80
             /(opera)[\/\s]+([\w\.]+)/i                                          // Opera < 9.80
             ], [NAME, VERSION], [
@@ -2012,7 +2055,7 @@ module.exports = (function() {
             /(konqueror)\/([\w\.]+)/i                                           // Konqueror
             ], [[NAME, 'Konqueror'], VERSION], [
 
-            /(trident).+rv[:\s]([\w\.]+).+like\sgecko/i                         // IE11
+            /(trident).+rv[:\s]([\w\.]{1,9}).+like\sgecko/i                     // IE11
             ], [[NAME, 'IE'], VERSION], [
 
             /(edge|edgios|edga|edg)\/((\d+)?[\w\.]+)/i                          // Microsoft Edge
@@ -2051,6 +2094,9 @@ module.exports = (function() {
             /(brave)\/([\w\.]+)/i                                               // Brave browser
             ], [[NAME, 'Brave'], VERSION], [
 
+            /(whale)\/([\w\.]+)/i                                               // Whale browser
+            ], [[NAME, 'Whale'], VERSION], [
+
             /(qqbrowserlite)\/([\w\.]+)/i                                       // QQBrowserLite
             ], [NAME, VERSION], [
 
@@ -2075,8 +2121,11 @@ module.exports = (function() {
             /xiaomi\/miuibrowser\/([\w\.]+)/i                                   // MIUI Browser
             ], [VERSION, [NAME, 'MIUI Browser']], [
 
-            /;fbav\/([\w\.]+);/i                                                // Facebook App for iOS & Android
+            /;fbav\/([\w\.]+);/i                                                // Facebook App for iOS & Android with version
             ], [VERSION, [NAME, 'Facebook']], [
+            
+            /FBAN\/FBIOS|FB_IAB\/FB4A/i                                         // Facebook App for iOS & Android without version
+            ], [[NAME, 'Facebook']], [
 
             /safari\s(line)\/([\w\.]+)/i,                                       // Line App for iOS
             /android.+(line)\/([\w\.]+)\/iab/i                                  // Line App for Android
@@ -2116,13 +2165,13 @@ module.exports = (function() {
             /fxios\/([\w\.-]+)/i                                                // Firefox for iOS
             ], [VERSION, [NAME, 'Firefox']], [
 
-            /version\/([\w\.]+).+?mobile\/\w+\s(safari)/i                       // Mobile Safari
+            /version\/([\w\.]+)\s.*mobile\/\w+\s(safari)/i                      // Mobile Safari
             ], [VERSION, [NAME, 'Mobile Safari']], [
 
-            /version\/([\w\.]+).+?(mobile\s?safari|safari)/i                    // Safari & Safari Mobile
+            /version\/([\w\.]+)\s.*(mobile\s?safari|safari)/i                   // Safari & Safari Mobile
             ], [VERSION, NAME], [
 
-            /webkit.+?(gsa)\/([\w\.]+).+?(mobile\s?safari|safari)(\/[\w\.]+)/i  // Google Search Appliance on iOS
+            /webkit.+?(gsa)\/([\w\.]+)\s.*(mobile\s?safari|safari)(\/[\w\.]+)/i // Google Search Appliance on iOS
             ], [[NAME, 'GSA'], VERSION], [
 
             /webkit.+?(mobile\s?safari|safari)(\/[\w\.]+)/i                     // Safari < 3.0
@@ -2140,7 +2189,8 @@ module.exports = (function() {
             /(firefox|seamonkey|k-meleon|icecat|iceape|firebird|phoenix|palemoon|basilisk|waterfox)\/([\w\.-]+)$/i,
 
                                                                                 // Firefox/SeaMonkey/K-Meleon/IceCat/IceApe/Firebird/Phoenix
-            /(mozilla)\/([\w\.]+).+rv\:.+gecko\/\d+/i,                          // Mozilla
+            /(firefox)\/([\w\.]+)\s[\w\s\-]+\/[\w\.]+$/i,                       // Other Firefox-based
+            /(mozilla)\/([\w\.]+)\s.+rv\:.+gecko\/\d+/i,                        // Mozilla
 
             // Other
             /(polaris|lynx|dillo|icab|doris|amaya|w3m|netsurf|sleipnir)[\/\s]?([\w\.]+)/i,
@@ -2197,9 +2247,9 @@ module.exports = (function() {
             /(dell)\s(strea[kpr\s\d]*[\dko])/i                                  // Dell Streak
             ], [VENDOR, MODEL, [TYPE, TABLET]], [
 
-            /(kf[A-z]+)\sbuild\/.+silk\//i                                      // Kindle Fire HD
+            /(kf[A-z]+)(\sbuild\/|\)).+silk\//i                                 // Kindle Fire HD
             ], [MODEL, [VENDOR, 'Amazon'], [TYPE, TABLET]], [
-            /(sd|kf)[0349hijorstuw]+\sbuild\/.+silk\//i                         // Fire Phone
+            /(sd|kf)[0349hijorstuw]+(\sbuild\/|\)).+silk\//i                    // Fire Phone
             ], [[MODEL, mapper.str, maps.device.amazon.model], [VENDOR, 'Amazon'], [TYPE, MOBILE]], [
             /android.+aft([bms])\sbuild/i                                       // Fire TV
             ], [MODEL, [VENDOR, 'Amazon'], [TYPE, SMARTTV]], [
@@ -2240,7 +2290,7 @@ module.exports = (function() {
             /(sprint\s(\w+))/i                                                  // Sprint Phones
             ], [[VENDOR, mapper.str, maps.device.sprint.vendor], [MODEL, mapper.str, maps.device.sprint.model], [TYPE, MOBILE]], [
 
-            /(htc)[;_\s-]+([\w\s]+(?=\)|\sbuild)|\w+)/i,                        // HTC
+            /(htc)[;_\s-]{1,2}([\w\s]+(?=\)|\sbuild)|\w+)/i,                    // HTC
             /(zte)-(\w*)/i,                                                     // ZTE
             /(alcatel|geeksphone|nexian|panasonic|(?=;\s)sony)[_\s-]?([\w-]*)/i
                                                                                 // Alcatel/GeeksPhone/Nexian/Panasonic/Sony
@@ -2249,8 +2299,9 @@ module.exports = (function() {
             /(nexus\s9)/i                                                       // HTC Nexus 9
             ], [MODEL, [VENDOR, 'HTC'], [TYPE, TABLET]], [
 
-            /d\/huawei([\w\s-]+)[;\)]/i,
-            /(nexus\s6p|vog-l29|ane-lx1|eml-l29)/i                              // Huawei
+            /d\/huawei([\w\s-]+)[;\)]/i,                                        // Huawei
+            /android.+\s(nexus\s6p|vog-[at]?l\d\d|ane-[at]?l[x\d]\d|eml-a?l\d\da?|lya-[at]?l\d[\dc]|clt-a?l\d\di?)/i
+
             ], [MODEL, [VENDOR, 'Huawei'], [TYPE, MOBILE]], [
 
             /android.+(bah2?-a?[lw]\d{2})/i                                     // Huawei MediaPad
@@ -2282,7 +2333,7 @@ module.exports = (function() {
             /\(dtv[\);].+(aquos)/i                                              // Sharp
             ], [MODEL, [VENDOR, 'Sharp'], [TYPE, SMARTTV]], [
 
-            /android.+((sch-i[89]0\d|shw-m380s|gt-p\d{4}|gt-n\d+|sgh-t8[56]9|nexus 10))/i,
+            /android.+((sch-i[89]0\d|shw-m380s|SM-P605|SM-P610|gt-p\d{4}|gt-n\d+|sgh-t8[56]9|nexus 10))/i,
             /((SM-T\w+))/i
             ], [[VENDOR, 'Samsung'], MODEL, [TYPE, TABLET]], [                  // Samsung
             /smart-tv.+(samsung)/i
@@ -2306,8 +2357,9 @@ module.exports = (function() {
             ], [MODEL, [VENDOR, 'LG'], [TYPE, TABLET]], [
             /android\s3\.[\s\w;-]{10}(lg?)-([06cv9]{3,4})/i                     // LG Tablet
             ], [[VENDOR, 'LG'], MODEL, [TYPE, TABLET]], [
-            /(lg) netcast\.tv/i                                                 // LG SmartTV
-            ], [VENDOR, MODEL, [TYPE, SMARTTV]], [
+            /linux;\snetcast.+smarttv/i,                                        // LG SmartTV
+            /lg\snetcast\.tv-201\d/i
+            ], [[VENDOR, 'LG'], MODEL, [TYPE, SMARTTV]], [
             /(nexus\s[45])/i,                                                   // LG
             /lg[e;\s\/-]+(\w*)/i,
             /android.+lg(\-?[\d\w]+)\s+build/i
@@ -2338,16 +2390,17 @@ module.exports = (function() {
             /android.+;\s(pixel c)[\s)]/i                                       // Google Pixel C
             ], [MODEL, [VENDOR, 'Google'], [TYPE, TABLET]], [
 
-            /android.+;\s(pixel( [23])?( xl)?)[\s)]/i                              // Google Pixel
+            /android.+;\s(pixel( [2-9]a?)?( xl)?)[\s)]/i                        // Google Pixel
             ], [MODEL, [VENDOR, 'Google'], [TYPE, MOBILE]], [
 
             /android.+;\s(\w+)\s+build\/hm\1/i,                                 // Xiaomi Hongmi 'numeric' models
-            /android.+(hm[\s\-_]*note?[\s_]*(?:\d\w)?)\s+build/i,               // Xiaomi Hongmi
-            /android.+(mi[\s\-_]*(?:a\d|one|one[\s_]plus|note lte)?[\s_]*(?:\d?\w?)[\s_]*(?:plus)?)\s+build/i,    
+            /android.+(hm[\s\-_]?note?[\s_]?(?:\d\w)?)\sbuild/i,                // Xiaomi Hongmi
+            /android.+(redmi[\s\-_]?(?:note|k)?(?:[\s_]?[\w\s]+))(?:\sbuild|\))/i,      
+                                                                                // Xiaomi Redmi
+            /android.+(mi[\s\-_]?(?:a\d|one|one[\s_]plus|note lte)?[\s_]?(?:\d?\w?)[\s_]?(?:plus)?)\sbuild/i    
                                                                                 // Xiaomi Mi
-            /android.+(redmi[\s\-_]*(?:note)?(?:[\s_]*[\w\s]+))\s+build/i       // Redmi Phones
             ], [[MODEL, /_/g, ' '], [VENDOR, 'Xiaomi'], [TYPE, MOBILE]], [
-            /android.+(mi[\s\-_]*(?:pad)(?:[\s_]*[\w\s]+))\s+build/i            // Mi Pad tablets
+            /android.+(mi[\s\-_]?(?:pad)(?:[\s_]?[\w\s]+))(?:\sbuild|\))/i     // Mi Pad tablets
             ],[[MODEL, /_/g, ' '], [VENDOR, 'Xiaomi'], [TYPE, TABLET]], [
             /android.+;\s(m[1-5]\snote)\sbuild/i                                // Meizu
             ], [MODEL, [VENDOR, 'Meizu'], [TYPE, MOBILE]], [
@@ -2361,7 +2414,7 @@ module.exports = (function() {
             /android.+[;\/]\s*(RCT[\d\w]+)\s+build/i                            // RCA Tablets
             ], [MODEL, [VENDOR, 'RCA'], [TYPE, TABLET]], [
 
-            /android.+[;\/\s]+(Venue[\d\s]{2,7})\s+build/i                      // Dell Venue Tablets
+            /android.+[;\/\s](Venue[\d\s]{2,7})\s+build/i                       // Dell Venue Tablets
             ], [MODEL, [VENDOR, 'Dell'], [TYPE, TABLET]], [
 
             /android.+[;\/]\s*(Q[T|M][\d\w]+)\s+build/i                         // Verizon Tablet
@@ -2410,7 +2463,7 @@ module.exports = (function() {
             /android.+[;\/]\s*(Le[\s\-]+Pan)[\s\-]+(\w{1,9})\s+build/i          // Le Pan Tablets
             ], [VENDOR, MODEL, [TYPE, TABLET]], [
 
-            /android.+[;\/]\s*(Trio[\s\-]*.*)\s+build/i                         // MachSpeed Tablets
+            /android.+[;\/]\s*(Trio[\s\w\-\.]+)\s+build/i                       // MachSpeed Tablets
             ], [MODEL, [VENDOR, 'MachSpeed'], [TYPE, TABLET]], [
 
             /android.+[;\/]\s*(Trinity)[\-\s]*(T\d{3})\s+build/i                // Trinity Tablets
@@ -2419,11 +2472,17 @@ module.exports = (function() {
             /android.+[;\/]\s*TU_(1491)\s+build/i                               // Rotor Tablets
             ], [MODEL, [VENDOR, 'Rotor'], [TYPE, TABLET]], [
 
-            /android.+(KS(.+))\s+build/i                                        // Amazon Kindle Tablets
-            ], [MODEL, [VENDOR, 'Amazon'], [TYPE, TABLET]], [
+            //android.+(KS(.+))\s+build/i                                        // Amazon Kindle Tablets
+            //], [MODEL, [VENDOR, 'Amazon'], [TYPE, TABLET]], [
 
             /android.+(Gigaset)[\s\-]+(Q\w{1,9})\s+build/i                      // Gigaset Tablets
             ], [VENDOR, MODEL, [TYPE, TABLET]], [
+                                                                                // Android Phones from Unidentified Vendors
+            /android .+?; ([^;]+?)(?: build|\) applewebkit).+? mobile safari/i
+            ], [MODEL, [TYPE, MOBILE]], [
+                                                                                // Android Tablets from Unidentified Vendors
+            /android .+?;\s([^;]+?)(?: build|\) applewebkit).+?(?! mobile) safari/i
+            ], [MODEL, [TYPE, TABLET]], [
 
             /\s(tablet|tab)[;\/]/i,                                             // Unidentifiable Tablet
             /\s(mobile)(?:[;\/]|\ssafari)/i                                     // Unidentifiable Mobile
@@ -2445,7 +2504,7 @@ module.exports = (function() {
             ], [VERSION, [NAME, 'Blink']], [
 
             /(presto)\/([\w\.]+)/i,                                             // Presto
-            /(webkit|trident|netfront|netsurf|amaya|lynx|w3m|goanna)\/([\w\.]+)/i,     
+            /(webkit|trident|netfront|netsurf|amaya|lynx|w3m|goanna)\/([\w\.]+)/i,
                                                                                 // WebKit/Trident/NetFront/NetSurf/Amaya/Lynx/w3m/Goanna
             /(khtml|tasman|links)[\/\s]\(?([\w\.]+)/i,                          // KHTML/Tasman/Links
             /(icab)[\/\s]([23]\.[\d\.]+)/i                                      // iCab
@@ -2481,6 +2540,10 @@ module.exports = (function() {
             ], [NAME], [
             /mozilla.+\(mobile;.+gecko.+firefox/i                               // Firefox OS
             ], [[NAME, 'Firefox OS'], VERSION], [
+
+            // Google Chromecast
+            /crkey\/([\d\.]+)/i                                                 // Google Chromecast
+            ], [VERSION, [NAME, 'Chromecast']], [
 
             // Console
             /(nintendo|playstation)\s([wids34portablevu]+)/i,                   // Nintendo/Playstation
@@ -2667,7 +2730,7 @@ module.exports = (function() {
 
 })(typeof window === 'object' ? window : this);
 
-},{}],25:[function(require,module,exports){
+},{}],27:[function(require,module,exports){
 module.exports = function() {
 
   "use strict";
@@ -3311,7 +3374,7 @@ module.exports = function() {
 
 }
 
-},{}],26:[function(require,module,exports){
+},{}],28:[function(require,module,exports){
 module.exports = (function() {
 
   "use strict";
