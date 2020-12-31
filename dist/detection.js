@@ -1008,7 +1008,21 @@ module.exports = (function() {
           (window.devicePixelRatio == 3),
           checkWebGL("a13 gpu")
         ]
-      },   
+      },
+      
+
+      {
+        name: "Apple iPhone SE (2020)",
+        type: "Smartphone",     
+        zoom: true,      
+        release_date: "April 2020",             
+        tests: [
+          (window.screen.width == 375),
+          (window.screen.height == 667),
+          (window.devicePixelRatio == 2),
+          checkWebGL("a11 gpu")
+        ]
+      },      
       
 
       {
@@ -2989,7 +3003,11 @@ module.exports = function() {
 
         if (results.webGLInfo && (results.webGLInfo.rendererUnmasked || results.webGLInfo.vendorUnmasked)) {
 
-          if (results.webGLInfo.rendererUnmasked) {
+          if (results.iOSClientInfo && results.iOSClientInfo.gpu_renderer) {
+            deviceHardware.push("\nGraphics "+results.iOSClientInfo.gpu_renderer);
+
+          } else if (results.webGLInfo.rendererUnmasked) {
+            
             deviceHardware.push("\nGraphics "+results.webGLInfo.rendererUnmasked);
           }
   

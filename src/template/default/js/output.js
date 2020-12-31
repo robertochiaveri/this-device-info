@@ -220,7 +220,11 @@ module.exports = function() {
 
         if (results.webGLInfo && (results.webGLInfo.rendererUnmasked || results.webGLInfo.vendorUnmasked)) {
 
-          if (results.webGLInfo.rendererUnmasked) {
+          if (results.iOSClientInfo && results.iOSClientInfo.gpu_renderer) {
+            deviceHardware.push("\nGraphics "+results.iOSClientInfo.gpu_renderer);
+
+          } else if (results.webGLInfo.rendererUnmasked) {
+            
             deviceHardware.push("\nGraphics "+results.webGLInfo.rendererUnmasked);
           }
   
