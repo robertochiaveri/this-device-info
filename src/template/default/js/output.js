@@ -272,7 +272,7 @@ module.exports = function() {
                 break;
 
               case 1:
-                deviceHardware.push("has a microphone\n");
+                deviceHardware.push("Microphone\n");
                 break;
 
               case 0:              
@@ -287,7 +287,7 @@ module.exports = function() {
                 break;
 
               case 1:
-                deviceHardware.push("has a camera\n");
+                deviceHardware.push("Camera\n");
                 break;
 
               case 0:              
@@ -302,7 +302,7 @@ module.exports = function() {
                 break;
 
               case 1:
-                deviceHardware.push("has a speaker\n");
+                deviceHardware.push("Speaker\n");
                 break;
 
               case 0:              

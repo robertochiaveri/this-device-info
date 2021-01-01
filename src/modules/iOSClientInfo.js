@@ -366,8 +366,8 @@ module.exports = (function() {
         type: "Smartphone",  
         release_date: "October 2020",                    
         tests: [
-          (window.screen.width == 390),
-          (window.screen.height == 844),
+          (window.screen.width == 390 || window.screen.width == 375),
+          (window.screen.height == 844 || window.screen.height == 812),
           (window.devicePixelRatio == 3),
           checkWebGL("a14 gpu")
         ]
