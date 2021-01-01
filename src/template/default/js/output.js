@@ -266,15 +266,48 @@ module.exports = function() {
         if (results.mediaCaptureInfo) {
 
           if (results.mediaCaptureInfo.Microphones) {
-            deviceHardware.push(results.mediaCaptureInfo.Microphones+" microphone"+(results.mediaCaptureInfo.Microphones>1?"s":"")+"\n");
+            switch (results.mediaCaptureInfo.Microphones) {
+              default:
+                deviceHardware.push(results.mediaCaptureInfo.Microphones+" microphones\n");
+                break;
+
+              case 1:
+                deviceHardware.push("has a microphone\n");
+                break;
+
+              case 0:              
+                break;
+            }
           }
   
           if (results.mediaCaptureInfo.Cameras) {
-            deviceHardware.push(results.mediaCaptureInfo.Cameras+" camera"+(results.mediaCaptureInfo.Cameras>1?"s":"")+"\n");
+            switch (results.mediaCaptureInfo.Cameras) {
+              default:
+                deviceHardware.push(results.mediaCaptureInfo.Cameras+" cameras\n");
+                break;
+
+              case 1:
+                deviceHardware.push("has a camera\n");
+                break;
+
+              case 0:              
+                break;
+            }
           }    
   
           if (results.mediaCaptureInfo.Speakers) {
-            deviceHardware.push(results.mediaCaptureInfo.Speakers+" speaker"+(results.mediaCaptureInfo.Speakers>1?"s":"")+"\n");
+            switch (results.mediaCaptureInfo.Speakers) {
+              default:
+                deviceHardware.push(results.mediaCaptureInfo.Speakers+" speakers\n");
+                break;
+
+              case 1:
+                deviceHardware.push("has a speaker\n");
+                break;
+
+              case 0:              
+                break;
+            }
           } 
 
         }
