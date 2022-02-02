@@ -32,7 +32,7 @@ module.exports = (function() {
     
     /* set the values */
 
-    detail.supported = getPushSupport();
+    detail.support = getPushSupport();
     detail.permission = permission;      
     console.log("User permission for Push Notifications is "+ detail.permission);
      
