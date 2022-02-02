@@ -449,12 +449,6 @@ module.exports = function() {
             deviceBrowser.push("not supported");             
           } else {
             deviceBrowser.push("supported"); 
-            
-            if (results.pushNotificationsInfo.permission == "granted") {
-              deviceBrowser.push("and allowed"); 
-            } else {
-              deviceBrowser.push("but not allowed"); 
-            }
           }
             
         }        
