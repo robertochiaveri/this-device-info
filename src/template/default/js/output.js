@@ -441,6 +441,23 @@ module.exports = function() {
           }
 
         } 
+        
+        if (results.pushNotificationsInfo) {
+          deviceBrowser.push("\n" + "Push notifications: "); 
+          
+          if (!results.pushNotificationsInfo.support) {
+            deviceBrowser.push("not supported");             
+          } else {
+            deviceBrowser.push("supported"); 
+            
+            if (results.pushNotificationsInfo.permission) {
+              deviceBrowser.push("and allowed"); 
+            } else {
+              deviceBrowser.push("but not allowed"); 
+            }
+          }
+            
+        }        
 
         deviceBrowser = deviceBrowser.join(" "); 
         
