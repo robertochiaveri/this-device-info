@@ -382,7 +382,42 @@ module.exports = (function() {
           (window.devicePixelRatio == 3),
           checkWebGL("a14 gpu")
         ]
-      },   
+      }, 
+      
+      
+      {
+        name: "Apple iPhone 13 mini",
+        type: "Smartphone",  
+        release_date: "November 2021",                    
+        tests: [
+          (window.screen.width == 360),
+          (window.screen.height == 780),
+          (window.devicePixelRatio == 3),
+          checkWebGL("a15 gpu")
+        ]
+      },    
+      {
+        name: "Apple iPhone 13 / 13 Pro",
+        type: "Smartphone",  
+        release_date: "October 2021",                    
+        tests: [
+          (window.screen.width == 390 || window.screen.width == 375),
+          (window.screen.height == 844 || window.screen.height == 812),
+          (window.devicePixelRatio == 3),
+          checkWebGL("a15 gpu")
+        ]
+      },    
+      {
+        name: "Apple iPhone 13 Pro Max",
+        type: "Smartphone",  
+        release_date: "November 2021",            
+        tests: [
+          (window.screen.width == 428),
+          (window.screen.height == 926),
+          (window.devicePixelRatio == 3),
+          checkWebGL("a15 gpu")
+        ]
+      },       
       
   
     ];
