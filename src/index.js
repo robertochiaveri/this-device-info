@@ -63,6 +63,7 @@ thisDeviceInfo.loadModule("bluetoothInfo", require('./modules/bluetoothInfo'));
 
 thisDeviceInfo.loadModule("dateTimeInfo", require('./modules/dateTimeInfo'));
 
+thisDeviceInfo.loadModule("pushNotificationsInfo", require('./modules/pushNotifications'));
 
 thisDeviceInfo.init({
   callbackFn: require("./template/default/js/output")
