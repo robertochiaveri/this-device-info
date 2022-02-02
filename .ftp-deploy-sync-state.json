@@ -1,0 +1,155 @@
+{
+    "description": "DO NOT DELETE THIS FILE. This file is used to keep track of which files have been synced in the most recent deployment. If you delete this file a resync will need to be done (which can take a while) - read more: https://github.com/SamKirkland/FTP-Deploy-Action",
+    "version": "1.0.0",
+    "generatedTime": 1643839252894,
+    "data": [
+        {
+            "type": "file",
+            "name": ".DS_Store",
+            "size": 6148,
+            "hash": "8575c0eb3e14aa9ae90394f17d1649c162460cf66d66f24428dd00daab3f45db"
+        },
+        {
+            "type": "file",
+            "name": "404.html",
+            "size": 7005,
+            "hash": "10bf056694c9822d4eb84b6f66a64a12ec3b0f3df732700f2514c2b5e01549d0"
+        },
+        {
+            "type": "file",
+            "name": "detection.js",
+            "size": 83426,
+            "hash": "d79ed759c5210a64af4f74581b3c80f72d27591e9a75e038a8ddc1442db8f13b"
+        },
+        {
+            "type": "file",
+            "name": "index.html",
+            "size": 1218,
+            "hash": "b9bac5dc764d89c998c1d53c944c6046cb232b4596df3fa2fc7d09442f7481b4"
+        },
+        {
+            "type": "folder",
+            "name": "template"
+        },
+        {
+            "type": "file",
+            "name": "template/.DS_Store",
+            "size": 6148,
+            "hash": "f3eaf279ac48d3c4023deac5180a69f6d3861fba03ad578c4f09b06ea57f5c3e"
+        },
+        {
+            "type": "folder",
+            "name": "template/default"
+        },
+        {
+            "type": "folder",
+            "name": "template/ubiss"
+        },
+        {
+            "type": "file",
+            "name": "template/default/.DS_Store",
+            "size": 6148,
+            "hash": "ce806f8df52fded0f66e49a23e75829f42ff3e6dfb1725656a51673d2962520a"
+        },
+        {
+            "type": "folder",
+            "name": "template/default/css"
+        },
+        {
+            "type": "folder",
+            "name": "template/default/favicon"
+        },
+        {
+            "type": "file",
+            "name": "template/ubiss/.DS_Store",
+            "size": 6148,
+            "hash": "ce806f8df52fded0f66e49a23e75829f42ff3e6dfb1725656a51673d2962520a"
+        },
+        {
+            "type": "folder",
+            "name": "template/ubiss/css"
+        },
+        {
+            "type": "folder",
+            "name": "template/ubiss/favicon"
+        },
+        {
+            "type": "file",
+            "name": "template/default/css/style.css",
+            "size": 1707,
+            "hash": "cb4d73c137edf8a0392995f45b0694eecc59c7414ddd3aef5e54fdbaa835a582"
+        },
+        {
+            "type": "file",
+            "name": "template/default/favicon/.DS_Store",
+            "size": 6148,
+            "hash": "d65165279105ca6773180500688df4bdc69a2c7b771752f0a46ef120b7fd8ec3"
+        },
+        {
+            "type": "file",
+            "name": "template/ubiss/css/style.css",
+            "size": 9087,
+            "hash": "fd17864af114a2a7eb89b543a8a87fb611b9eda4bd874bd2f80971c2f2414b64"
+        },
+        {
+            "type": "file",
+            "name": "template/ubiss/favicon/android-chrome-192x192.png",
+            "size": 9089,
+            "hash": "ad84e9d1c5d853c6ec1ec8e1d8a5d71f09cd793805efca6043de641d6fff85e6"
+        },
+        {
+            "type": "file",
+            "name": "template/ubiss/favicon/android-chrome-512x512.png",
+            "size": 26918,
+            "hash": "07beca069d63db278a9d7596fabf96c0d24cc675769b928b8a27d28ff2028f53"
+        },
+        {
+            "type": "file",
+            "name": "template/ubiss/favicon/apple-touch-icon.png",
+            "size": 8442,
+            "hash": "d12c633936aa910e1890ae1bc28437c587d509b482e0a6fa42759836c5cd65a3"
+        },
+        {
+            "type": "file",
+            "name": "template/ubiss/favicon/browserconfig.xml",
+            "size": 270,
+            "hash": "d3108953c73f73562ed5768937c370deeb15fdad0f18485e415986b8054721d5"
+        },
+        {
+            "type": "file",
+            "name": "template/ubiss/favicon/favicon-16x16.png",
+            "size": 736,
+            "hash": "73e5d10bb7c380e30caee4b90d61c083c6b2a22b222163e1feef1c0313d94f49"
+        },
+        {
+            "type": "file",
+            "name": "template/ubiss/favicon/favicon-32x32.png",
+            "size": 1472,
+            "hash": "ff5754a382507b25450c2c5cf24c5e54559fa36c959991a45288a3fed7219d11"
+        },
+        {
+            "type": "file",
+            "name": "template/ubiss/favicon/favicon.ico",
+            "size": 10990,
+            "hash": "1265bf4a446735ac97ec282ae239b57b87eb1890a6ce5c1c51e8dceddb4ceff8"
+        },
+        {
+            "type": "file",
+            "name": "template/ubiss/favicon/manifest.json",
+            "size": 452,
+            "hash": "f5c4b04de146ec1847502c1f846738e58ca9853d08a63382f9b82972248de2bb"
+        },
+        {
+            "type": "file",
+            "name": "template/ubiss/favicon/mstile-150x150.png",
+            "size": 6940,
+            "hash": "186f23fdd3382f1e00481a51b91b866e6b65d3088b54861585b6eb32e242249b"
+        },
+        {
+            "type": "file",
+            "name": "template/ubiss/favicon/safari-pinned-tab.svg",
+            "size": 1176,
+            "hash": "734d2df902ff5da180633e349cd2f65ca526dd2423bb96b4bac94687098a5bf9"
+        }
+    ]
+}
