@@ -417,7 +417,7 @@ module.exports = (function() {
           (window.devicePixelRatio == 3),
           checkWebGL("a15 gpu")
         ]
-      },       
+      }       
       
   
     ];
