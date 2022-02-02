@@ -1,4 +1,4 @@
-name: Build and deploy with Node.js 
+name: Build with Node.js and deplou website on push
 
 on: [push]
 
@@ -26,6 +26,16 @@ jobs:
       with:
         name: build output (dist)
         path: dist
+    - name: Upload to FTP
+      uses: SamKirkland/FTP-Deploy-Action@4.2.0
+      with:
+        protocol: ftps
+        port: 22
+        server: ${{ secrets.FTP_URL }}
+        username: ${{ secrets.FTP_USER }}
+        password: ${{ secrets.FTP_PWD }}  
+        server-dir: public_html/detect/  
+        dry-run: true
     - name: Deploy to Firebase
       uses: lowply/deploy-firebase@v0.0.5
       env:
