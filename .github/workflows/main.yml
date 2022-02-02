@@ -10,26 +10,24 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Node npm build 
-      uses: actions/setup-node@v1
+      uses: actions/setup-node@v2
       with:
         node-version: '12.x'
     - run: cd src && npm install
     - run: cd src && npm run build --if-present
     - name: Save build artifact
-      uses: actions/upload-artifact@v1
+      uses: actions/upload-artifact@v2
       with:
         name: build output (debug)
         path: dist   
     - run: cd src && npm run dist --if-present
     - name: Save dist artifact
-      uses: actions/upload-artifact@v1
+      uses: actions/upload-artifact@v2
       with:
         name: build output (dist)
         path: dist
-    - name: jsut echo a message 
-      run: |
-        echo Hello there! ${{ secrets.FIREBASE_APP_NAME }}
     - name: Deploy to Firebase
+      uses: actions/checkout@v2
       uses: lowply/deploy-firebase@v0.0.5
       env:
         FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
