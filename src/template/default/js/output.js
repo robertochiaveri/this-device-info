@@ -450,7 +450,7 @@ module.exports = function() {
           } else {
             deviceBrowser.push("supported"); 
             
-            if (results.pushNotificationsInfo.permission) {
+            if (results.pushNotificationsInfo.permission == "granted") {
               deviceBrowser.push("and allowed"); 
             } else {
               deviceBrowser.push("but not allowed"); 
