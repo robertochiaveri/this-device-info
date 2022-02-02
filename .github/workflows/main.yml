@@ -1,4 +1,4 @@
-name: Build with Node.js and deplou website on push
+name: Build with Node.js and deploy on push
 
 on: [push]
 
@@ -33,7 +33,6 @@ jobs:
         username: ${{ secrets.FTP_USER }}
         password: ${{ secrets.FTP_PWD }}  
         server-dir: public_html/detect/  
-        dry-run: true
     - name: Deploy to Firebase
       uses: lowply/deploy-firebase@v0.0.5
       env:
