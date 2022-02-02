@@ -1,12 +1,8 @@
 name: Build with Node.js and deploy on push
-
 on: [push]
-
 jobs:
-  build:
-
+  build-and-deploy:
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v2
     - name: Node npm build 
@@ -35,3 +31,8 @@ jobs:
         server-dir: public_html/detect/  
         local-dir: ./dist/
         dangerous-clean-slate: true
+    - name: Deploy to GitHub Pages
+      uses: JamesIves/github-pages-deploy-action@v4.2.3
+      with:
+        branch: gh-pages # The branch the action should deploy to.
+        folder: dist
