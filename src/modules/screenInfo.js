@@ -83,6 +83,33 @@ module.exports = (function() {
         var query = ['(', prefixes.join('touch-enabled),('), 'heartz', ')'].join('');
         return mq(query);
       }
+      
+      var getSafeArea = function() {
+            
+        var css = ":root {--sat: env(safe-area-inset-top);--sar: env(safe-area-inset-right);--sab: env(safe-area-inset-bottom);--sal: env(safe-area-inset-left);}",
+            head = document.head || document.getElementsByTagName('head')[0],
+            style = document.createElement('style');
+
+        head.appendChild(style);
+
+        style.type = 'text/css';
+        if (style.styleSheet){
+          // This is required for IE8 and below.
+          style.styleSheet.cssText = css;
+        } else {
+          style.appendChild(document.createTextNode(css));
+        }
+
+        if (getComputedSyle) {
+          return {
+            top:    getComputedStyle(document.documentElement).getPropertyValue("--sat"),
+            right:  getComputedStyle(document.documentElement).getPropertyValue("--sar"),
+            bottom: getComputedStyle(document.documentElement).getPropertyValue("--sab"),
+            left:   getComputedStyle(document.documentElement).getPropertyValue("--sal")
+          };
+        }
+       
+      }
 
 
       var init = function () {
@@ -124,6 +151,7 @@ module.exports = (function() {
           screenAvailHeight:  window.screen.availHeight,
           screenLeft:         window.screen.left,
           screenTop:          window.screen.top,
+          screenSafeArea:     getSafeArea(),
           viewportRatio:      getRatio(window.screen.availWidth,window.screen.availHeight),
           screenRatio:        getRatio(window.screen.width,window.screen.height),
           windowRatio:        getRatio(window.innerWidth,window.innerHeight),
