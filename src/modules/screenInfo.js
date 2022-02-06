@@ -135,28 +135,48 @@ module.exports = (function() {
             defaultOrientation: defaultOrientation
           };
       }
+
       
-      var pointerType, getPointerType = function(event) {
+
+      if (typeof pointerType == "undefined") {
+        var pointerType = "";
+      } 
+
+      var getPointerType = function(event) {
+
+        console.log("detecting pointerType...",event.type);
+
+        var onlyUnique = function(value, index, self) {
+          return self.indexOf(value) === index;
+        }
         
-        console.log("detecting pointerType...");
+        if (typeof pointerType == "string") {
+          if (pointerType.length = 0) {
+            pointerType = [];            
+          } else {
+            pointerType = pointerType.split(",");            
+          }
+        }
         
         switch (event.pointerType) {
           case 'mouse':
-            pointerType = "using a mouse or touchpad";
+            pointerType.push("mouse or touchpad");
             break;
           case 'pen':
-            pointerType = "using a pen or styus";
+            pointerType.push("styus");
             break;
           case 'touch':
-            pointerType = "using touch";
+            pointerType.push("touchscreen");
             break;
           default:
-            pointerType = "unknown";
+            pointerType.push(event.pointerType);
         }
         
+        pointerType = pointerType.filter(onlyUnique).join(", ");
+
         console.log("pointerType is "+pointerType);  
         
-        return pointerType;
+        return pointerType.toString();
         
       }
   
