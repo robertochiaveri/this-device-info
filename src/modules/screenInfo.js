@@ -111,10 +111,10 @@ module.exports = (function() {
        
       }
 
+      
+  
 
-      var init = function () {
-
-        function getOrientation() {
+      function getOrientation() {
 
           var currentOrientation = window.orientation;
           var defaultOrientation;
@@ -134,9 +134,33 @@ module.exports = (function() {
             currentOrientation: currentOrientation,
             defaultOrientation: defaultOrientation
           };
-
+      }
+      
+      var pointerType;
+      
+      var init = function (event) {
+            
+        
+            
+        if (event && event.type == "pointerdown" && event.hasOwnProperty("pointerType") ) {
+     
+          switch (event.pointerType) {
+            case 'mouse':
+              pointerType = "using a mouse or touchpad";
+              break;
+            case 'pen':
+              pointerType = "using a pen or styus";
+              break;
+            case 'touch':
+              pointerType = "using touch";
+              break;
+            default:
+              pointerType = "unknown";
+          }
+                        
         }
-
+    
+        
         return {
           scrollY:            window.pageYOffset,
           innerWidth:         window.innerWidth,
@@ -166,6 +190,6 @@ module.exports = (function() {
       /* public methods... */
       return {
         init : init,
-        defaultListeners : ["DOMContentLoaded","resize","orientationchange","scroll","visibilitychange"]
+        defaultListeners : ["DOMContentLoaded","resize","orientationchange","scroll","visibilitychange","pointerdown"]
       };
     })()
