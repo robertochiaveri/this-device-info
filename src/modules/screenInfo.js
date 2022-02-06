@@ -88,16 +88,20 @@ module.exports = (function() {
             
         var css = ":root {--sat: env(safe-area-inset-top);--sar: env(safe-area-inset-right);--sab: env(safe-area-inset-bottom);--sal: env(safe-area-inset-left);}",
             head = document.head || document.getElementsByTagName('head')[0],
-            style = document.createElement('style');
+            style;
 
-        head.appendChild(style);
-
-        style.type = 'text/css';
-        if (style.styleSheet){
-          // This is required for IE8 and below.
-          style.styleSheet.cssText = css;
-        } else {
-          style.appendChild(document.createTextNode(css));
+        if (document.getElementById("getSafeAreaStyleElement" == null)) {
+          
+          style = document.createElement('style')
+          head.appendChild(style);
+          style.type = 'text/css';
+          style.id = "getSafeAreaStyleElement";
+          if (style.styleSheet){
+            // This is required for IE8 and below.
+            style.styleSheet.cssText = css;
+          } else {
+            style.appendChild(document.createTextNode(css));
+          }
         }
 
         if (getComputedStyle) {
@@ -110,6 +114,7 @@ module.exports = (function() {
         }
        
       }
+
 
       
   
