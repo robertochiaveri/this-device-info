@@ -151,7 +151,7 @@ module.exports = (function() {
         }
         
         if (typeof pointerType == "string") {
-          if (pointerType.length = 0) {
+          if (pointerType.length == 0) {
             pointerType = [];            
           } else {
             pointerType = pointerType.split(",");            
