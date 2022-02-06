@@ -100,7 +100,7 @@ module.exports = (function() {
           style.appendChild(document.createTextNode(css));
         }
 
-        if (getComputedSyle) {
+        if (getComputedStyle) {
           return {
             top:    getComputedStyle(document.documentElement).getPropertyValue("--sat"),
             right:  getComputedStyle(document.documentElement).getPropertyValue("--sar"),
