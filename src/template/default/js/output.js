@@ -376,10 +376,18 @@ module.exports = function() {
       try {
 
         if (results.UIInfo && results.UIInfo.theme) {
-          deviceOS.push("\nUI theme: "+results.UIInfo.theme);
+          deviceOS.push("\nTheme: "+results.UIInfo.theme + " mode");
         }     
             
       } catch(e) { console.log(e);}      
+    
+      try {
+
+        if (results.screenInfo && results.screenInfo.pointerType) {
+          deviceOS.push("\nUser interacting via "+results.screenInfo.pointerType);
+        }     
+            
+      } catch(e) { console.log(e);}          
 
       deviceOS = deviceOS.join(" ");
       container.appendChild(createGroup("deviceOS","Operating System",deviceOS));
