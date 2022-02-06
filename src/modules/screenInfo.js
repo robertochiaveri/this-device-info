@@ -136,31 +136,38 @@ module.exports = (function() {
           };
       }
       
-      var pointerType;
+      var pointerType, getPointerType = function(event) {
+        
+        console.log("detecting pointerType...");
+        
+        switch (event.pointerType) {
+          case 'mouse':
+            pointerType = "using a mouse or touchpad";
+            break;
+          case 'pen':
+            pointerType = "using a pen or styus";
+            break;
+          case 'touch':
+            pointerType = "using touch";
+            break;
+          default:
+            pointerType = "unknown";
+        }
+        
+        console.log("pointerType is "+pointerType);  
+        
+        return pointerType;
+        
+      }
+  
+  
       
       var init = function (event) {
-            
-        
-            
-        if (event && event.type == "pointerdown" && event.hasOwnProperty("pointerType") ) {
-     
-          switch (event.pointerType) {
-            case 'mouse':
-              pointerType = "using a mouse or touchpad";
-              break;
-            case 'pen':
-              pointerType = "using a pen or styus";
-              break;
-            case 'touch':
-              pointerType = "using touch";
-              break;
-            default:
-              pointerType = "unknown";
-          }
-                        
-        }
-    
-        
+
+        if (event && (event.type == "pointerdown" || event.type == "pointermove" || event.type == "scroll") && event.pointerType ) {
+          getPointerType(event);
+        };
+   
         return {
           scrollY:            window.pageYOffset,
           innerWidth:         window.innerWidth,
@@ -191,6 +198,6 @@ module.exports = (function() {
       /* public methods... */
       return {
         init : init,
-        defaultListeners : ["DOMContentLoaded","resize","orientationchange","scroll","visibilitychange","pointerdown"]
+        defaultListeners : ["DOMContentLoaded","resize","orientationchange","scroll","visibilitychange","pointerdown", "pointermove"]
       };
     })()
