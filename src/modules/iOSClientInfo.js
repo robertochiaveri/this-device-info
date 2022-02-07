@@ -30,6 +30,7 @@ module.exports = (function() {
 
 
   var webgl = false;
+  var ProMotion = false;
 
   var checkWebGL = function(fragment) {
     if (!webgl) { 
@@ -39,13 +40,39 @@ module.exports = (function() {
     }
   }
   
+  var checkProMotion = function() {
+    console.log("Checking for ProMotion...");
+    new Promise(function(resolve) {
+      return requestAnimationFrame(function(t1) {
+        return requestAnimationFrame(function(t2) {
+          return resolve(1000 / (t2 - t1));
+        });
+      });
+    }).then(function(fps) {
+      console.log("ProMotion detection completed");
+      var proMotionInfoEvent = new CustomEvent("__ProMotionInfoEvent", {
+        detail: {
+          webgl: webgl,
+          ProMotion : (parseInt(fps) > 75),
+        },
+        bubbles: true,
+        cancelable: true
+      });
+      dispatchEvent(proMotionInfoEvent);  
+    });
+  }
 
   var init = function(event) {
 
-    if (typeof event == "undefined" || typeof event.detail == "undefined" || event.type !== "__WebGLRendererInfoEvent") {
-      return false; 
-    } else {
-      webgl = event.detail.toLowerCase();    
+    if (event && event.detail) 
+    {
+      if (event.type == "__WebGLRendererInfoEvent") {
+         webgl = event.detail.toLowerCase();    
+      };
+      if (event.type == "__ProMotionInfoEvent") {
+         webgl = event.detail.webgl;
+         ProMotion = event.detail.ProMotion;
+      }
     }
     
 
@@ -351,7 +378,7 @@ module.exports = (function() {
       
 
       {
-        name: "Apple iPhone 12 mini",
+        name: "Apple iPhone Mini",
         type: "Smartphone",  
         release_date: "November 2020",                    
         tests: [
@@ -362,7 +389,7 @@ module.exports = (function() {
         ]
       },    
       {
-        name: "Apple iPhone 12 / 12 Pro",
+        name: "Apple iPhone 12",
         type: "Smartphone",  
         release_date: "October 2020",                    
         tests: [
@@ -383,28 +410,17 @@ module.exports = (function() {
           checkWebGL("a14 gpu")
         ]
       }, 
-      
-      
+       
       {
-        name: "Apple iPhone 13 mini",
-        type: "Smartphone",  
-        release_date: "September 2021",                    
-        tests: [
-          (window.screen.width == 375),
-          (window.screen.height == 812),
-          (window.devicePixelRatio == 3),
-          checkWebGL("a15 gpu")
-        ]
-      },    
-      {
-        name: "Apple iPhone 13 / 13 Pro",
+        name: "Apple iPhone 13 Pro",
         type: "Smartphone",  
         release_date: "September 2021",                    
         tests: [
           (window.screen.width == 390 || window.screen.width == 375),
           (window.screen.height == 844 || window.screen.height == 812),
           (window.devicePixelRatio == 3),
-          checkWebGL("a15 gpu")
+          checkWebGL("a15 gpu"),
+          ProMotion
         ]
       },    
       {
@@ -415,7 +431,8 @@ module.exports = (function() {
           (window.screen.width == 428),
           (window.screen.height == 926),
           (window.devicePixelRatio == 3),
-          checkWebGL("a15 gpu")
+          checkWebGL("a15 gpu"),
+          ProMotion
         ]
       }       
       
@@ -453,7 +470,7 @@ module.exports = (function() {
   /* public methods... */
   return {
     init : init,
-    defaultListeners : ["__WebGLRendererInfoEvent"]
+    defaultListeners : ["__WebGLRendererInfoEvent","__ProMotionInfoEvent"]
   };
 })();
 
