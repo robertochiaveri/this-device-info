@@ -51,6 +51,7 @@ module.exports = (function() {
       });
     }).then(function(fps) {
       console.log("ProMotion detection completed");
+      alert("fps detected: "+fps);
       var proMotionInfoEvent = new CustomEvent("__ProMotionInfoEvent", {
         detail: {
           webgl: webgl,
@@ -70,6 +71,7 @@ module.exports = (function() {
     {
       if (event.type == "__WebGLRendererInfoEvent") {
          webgl = event.detail.toLowerCase();    
+         checkProMotion();
       };
       if (event.type == "__ProMotionInfoEvent") {
          webgl = event.detail.webgl;
