@@ -434,8 +434,7 @@ module.exports = (function() {
           (window.screen.width == 390 || window.screen.width == 375),
           (window.screen.height == 844 || window.screen.height == 812),
           (window.devicePixelRatio == 3),
-          checkWebGL("a15 gpu"),
-          ProMotion
+          checkWebGL("a15 gpu")
         ]
       },    
       {
@@ -446,8 +445,7 @@ module.exports = (function() {
           (window.screen.width == 428),
           (window.screen.height == 926),
           (window.devicePixelRatio == 3),
-          checkWebGL("a15 gpu"),
-          ProMotion
+          checkWebGL("a15 gpu")
         ]
       }       
       
@@ -479,7 +477,9 @@ module.exports = (function() {
     }
     return {
       fail: ":( An unrecognized device width a "+window.screen.width+"x"+window.screen.height+" screen @"+window.devicePixelRatio+"X",
-      gpu_renderer: event.detail
+      gpu_renderer: webgl,
+      fps: fps,
+      pro_motion: ProMotion
     }
 
   }
