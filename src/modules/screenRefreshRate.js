@@ -2,6 +2,8 @@ module.exports = (function() {
 
   "use strict";
 
+  /* --- less accurate method
+  
   var getFPS = function() {
 	  console.log("fps detection...");
     new Promise(function(resolve) {
@@ -23,9 +25,9 @@ module.exports = (function() {
     });
   };
   
-  /* getFPS(); */
+  getFPS(); 
+  */
 	
-'use strict';
 
   var previousTimestamp, divInterval, divFPS;
 
