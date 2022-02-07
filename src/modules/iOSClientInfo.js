@@ -31,6 +31,7 @@ module.exports = (function() {
 
   var webgl = false;
   var ProMotion = false;
+  var fps = 0;
 
   var checkWebGL = function(fragment) {
     if (!webgl) { 
@@ -53,6 +54,7 @@ module.exports = (function() {
       var proMotionInfoEvent = new CustomEvent("__ProMotionInfoEvent", {
         detail: {
           webgl: webgl,
+          fps: fps,
           ProMotion : (parseInt(fps) > 75),
         },
         bubbles: true,
@@ -71,6 +73,7 @@ module.exports = (function() {
       };
       if (event.type == "__ProMotionInfoEvent") {
          webgl = event.detail.webgl;
+         fps = event.detail.fps;
          ProMotion = event.detail.ProMotion;
       }
     }
@@ -455,7 +458,8 @@ module.exports = (function() {
           release_date: devices[i].release_date,
           form_factory: devices[i].type,
           zoom: !!devices[i].zoom,
-          gpu_renderer: event.detail,
+          gpu_renderer: webgl,
+          fps: fps,
           pro_motion: ProMotion
         }
       } 
