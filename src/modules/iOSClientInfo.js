@@ -68,10 +68,10 @@ module.exports = (function() {
   }
   
   
-  setTimeout(function() {
-    console.log("delayed checkProMotion detection started...");
-    checkProMotion();
-  },1000);
+
+  console.log("delayed checkProMotion detection started...");
+  checkProMotion();
+
   
 
   var init = function(event) {
@@ -79,16 +79,14 @@ module.exports = (function() {
     if (event && event.detail) 
     {
       if (event.type == "__WebGLRendererInfoEvent") {
-         webgl = event.detail;
-         fps = fps
-         ProMotion = event.detail.ProMotion;   
+        webgl = event.detail
       };
       if (event.type == "__ProMotionInfoEvent") {
-          fps = event.detail.fps;
-          ProMotion = event.detail.ProMotion;   
-          console.log("checkProMotion detection completed", fps, ProMotion);        
-          console.log("starting WebGL detection getRenderer()...");
-          getRenderer(getRendererCallback);           
+        fps = event.detail.fps;
+        ProMotion = event.detail.ProMotion;   
+        console.log("checkProMotion detection completed", fps, ProMotion);        
+        console.log("starting WebGL detection getRenderer()...");
+        getRenderer(getRendererCallback);           
       }
     }
     
