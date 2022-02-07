@@ -378,13 +378,9 @@ module.exports = function() {
         if (results.UIInfo && results.UIInfo.theme) {
           deviceOS.push("\nTheme: "+results.UIInfo.theme + " mode");
         }     
-            
-      } catch(e) { console.log(e);}      
-    
-      try {
 
-        if (results.screenInfo && results.screenInfo.pointerType) {
-          deviceOS.push("\nUser interacting via "+results.screenInfo.pointerType);
+        if (results.UIInfo && results.UIInfo.pointerType) {
+          deviceOS.push("\nUser interacting via "+results.UIInfo.pointerType);
         }     
             
       } catch(e) { console.log(e);}          
