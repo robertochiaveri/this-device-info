@@ -68,7 +68,7 @@ module.exports = (function() {
 
     if (event && event.detail) 
     {
-      if (event.type == "__WebGLRendererInfoEvent") 
+      if (event.type == "__WebGLRendererInfoEvent") {
          webgl = event.detail.toLowerCase();    
          alert("__WebGLRendererInfoEvent: "+webgl);      
          checkProMotion();
