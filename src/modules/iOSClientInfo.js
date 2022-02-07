@@ -9,367 +9,7 @@ module.exports = (function() {
   var ProMotion = false;
   var fps = 0;
   
-  var devices = [
-      {
-        name: "Apple iPhone 5 series",
-        type: "Smartphone",  
-        release_date: "September 2013",      
-        tests: [
-          (window.screen.width == 320),
-          (window.screen.height == 568),
-          (window.devicePixelRatio == 2),
-          checkWebGL("a7 gpu")
-        ]
-      },
   
-  
-      {
-        name: "Apple iPhone 6",
-        type: "Smartphone",  
-        zoom: true,      
-        release_date: "September 2014",
-        tests: [
-          (window.screen.width == 320),
-          (window.screen.height == 568),
-          (window.devicePixelRatio == 2),
-          checkWebGL("a8 gpu")
-        ]
-      },
-      {
-        name: "Apple iPhone 6",
-        type: "Smartphone",  
-        release_date: "September 2014",        
-        tests: [
-          (window.screen.width == 375),
-          (window.screen.height == 667),
-          (window.devicePixelRatio == 2),
-          checkWebGL("a8 gpu")
-        ]
-      },
-      {
-        name: "Apple iPhone 6 Plus",
-        type: "Smartphone",  
-        zoom: true,
-        release_date: "September 2014",        
-        tests: [
-          (window.screen.width == 375),
-          (window.screen.height == 667),
-          (window.devicePixelRatio == 3),
-          checkWebGL("a8 gpu")
-        ]
-      },
-      {
-        name: "Apple iPhone 6 Plus",
-        type: "Smartphone",  
-        release_date: "September 2014",        
-        tests: [
-          (window.screen.width == 414),
-          (window.screen.height == 736),
-          (window.devicePixelRatio == 3),
-          checkWebGL("a8 gpu")
-        ]
-      },
-      
-      
-      {
-        name: "Apple iPhone 6S",
-        type: "Smartphone",  
-        zoom: true,      
-        release_date: "September 2015",        
-        tests: [
-          (window.screen.width == 320),
-          (window.screen.height == 568),
-          (window.devicePixelRatio == 2),
-          checkWebGL("a9 gpu")
-        ]
-      },
-      {
-        name: "Apple iPhone 6S",
-        type: "Smartphone",  
-        release_date: "September 2015",        
-        tests: [
-          (window.screen.width == 375),
-          (window.screen.height == 667),
-          (window.devicePixelRatio == 2),
-          checkWebGL("a9 gpu")
-        ]
-      },
-      {
-        name: "Apple iPhone 6S Plus",
-        type: "Smartphone",  
-        zoom: true,
-        release_date: "September 2015",        
-        tests: [
-          (window.screen.width == 375),
-          (window.screen.height == 667),
-          (window.devicePixelRatio == 3),
-          checkWebGL("a9 gpu")
-        ]
-      },
-      {
-        name: "Apple iPhone 6S Plus",
-        release_date: "September 2015",        
-        type: "Smartphone",  
-        tests: [
-          (window.screen.width == 414),
-          (window.screen.height == 736),
-          (window.devicePixelRatio == 3),
-          checkWebGL("a9 gpu")
-        ]
-      },
-  
-      
-      {
-        name: "Apple iPhone 7",
-        type: "Smartphone",  
-        zoom: true,      
-        release_date: "September 2016",        
-        tests: [
-          (window.screen.width == 320),
-          (window.screen.height == 568),
-          (window.devicePixelRatio == 2),
-          checkWebGL("a10 gpu")
-        ]
-      },
-      {
-        name: "Apple iPhone 7",
-        type: "Smartphone",  
-        release_date: "September 2016",        
-        tests: [
-          (window.screen.width == 375),
-          (window.screen.height == 667),
-          (window.devicePixelRatio == 2),
-          checkWebGL("a10 gpu")
-        ]
-      },
-      {
-        name: "Apple iPhone 7 Plus",
-        type: "Smartphone",  
-        zoom: true,
-        release_date: "September 2016",        
-        tests: [
-          (window.screen.width == 375),
-          (window.screen.height == 667),
-          (window.devicePixelRatio == 3),
-          checkWebGL("a10 gpu")
-        ]
-      },
-      {
-        name: "Apple iPhone 7 Plus",
-        type: "Smartphone",  
-        release_date: "September 2016",        
-        tests: [
-          (window.screen.width == 414),
-          (window.screen.height == 736),
-          (window.devicePixelRatio == 3),
-          checkWebGL("a10 gpu")
-        ]
-      },
-
-
-      {
-        name: "Apple iPhone 8",
-        type: "Smartphone",     
-        zoom: true,      
-        release_date: "September 2017",             
-        tests: [
-          (window.screen.width == 320),
-          (window.screen.height == 568),
-          (window.devicePixelRatio == 2),
-          checkWebGL("a11 gpu")
-        ]
-      },
-      {
-        name: "Apple iPhone 8",
-        type: "Smartphone",  
-        release_date: "September 2017",                
-        tests: [
-          (window.screen.width == 375),
-          (window.screen.height == 667),
-          (window.devicePixelRatio == 2),
-          checkWebGL("a11 gpu")
-        ]
-      },
-      {
-        name: "Apple iPhone 8 Plus",
-        type: "Smartphone",  
-        zoom: true,
-        release_date: "September 2017",             
-        tests: [
-          (window.screen.width == 375),
-          (window.screen.height == 667),
-          (window.devicePixelRatio == 3),
-          checkWebGL("a11 gpu")
-        ]
-      },
-      {
-        name: "Apple iPhone 8 Plus",
-        type: "Smartphone", 
-        release_date: "September 2017",              
-        tests: [
-          (window.screen.width == 414),
-          (window.screen.height == 736),
-          (window.devicePixelRatio == 3),
-          checkWebGL("a11 gpu")
-        ]
-      },  
-      
-      {
-        name: "Apple iPhone X",
-        type: "Smartphone",  
-        release_date: "November 2017",             
-        tests: [
-          (window.screen.width == 375),
-          (window.screen.height == 812),
-          (window.devicePixelRatio == 3),
-          checkWebGL("a11 gpu")
-        ]
-      },
-  
-      {
-        name: "Apple iPhone XS",
-        type: "Smartphone",  
-        release_date: "September 2018",            
-        tests: [
-          (window.screen.width == 375),
-          (window.screen.height == 812),
-          (window.devicePixelRatio == 3),
-          checkWebGL("a12 gpu")
-        ]
-      },
-
-      {
-        name: "Apple iPhone XS Max",
-        type: "Smartphone",  
-        release_date: "September 2018",            
-        tests: [
-          (window.screen.width == 414),
-          (window.screen.height == 896),
-          (window.devicePixelRatio == 3),
-          checkWebGL("a12 gpu")
-        ]
-      }, 
-      {
-        name: "Apple iPhone XR",
-        type: "Smartphone",  
-        release_date: "September 2018",                    
-        tests: [
-          (window.screen.width == 414),
-          (window.screen.height == 896),
-          (window.devicePixelRatio == 2),
-          checkWebGL("a12 gpu")
-        ]
-      },    
-      
-
-      {
-        name: "Apple iPhone 11",
-        type: "Smartphone",  
-        release_date: "September 2018",                    
-        tests: [
-          (window.screen.width == 414),
-          (window.screen.height == 896),
-          (window.devicePixelRatio == 2),
-          checkWebGL("a13 gpu")
-        ]
-      },
-      {
-        name: "Apple iPhone 11 Pro",
-        type: "Smartphone",  
-        release_date: "September 2019",            
-        tests: [
-          (window.screen.width == 375),
-          (window.screen.height == 812),
-          (window.devicePixelRatio == 3),
-          checkWebGL("a13 gpu")
-        ]
-      },
-      {
-        name: "Apple iPhone 11 Pro Max",
-        type: "Smartphone",  
-        release_date: "September 2019",            
-        tests: [
-          (window.screen.width == 414),
-          (window.screen.height == 896),
-          (window.devicePixelRatio == 3),
-          checkWebGL("a13 gpu")
-        ]
-      },
-      
-
-      {
-        name: "Apple iPhone SE (2020)",
-        type: "Smartphone",       
-        release_date: "April 2020",             
-        tests: [
-          (window.screen.width == 375),
-          (window.screen.height == 667),
-          (window.devicePixelRatio == 2),
-          checkWebGL("a13 gpu")
-        ]
-      },      
-      
-
-      {
-        name: "Apple iPhone Mini",
-        type: "Smartphone",  
-        release_date: "November 2020",                    
-        tests: [
-          (window.screen.width == 375),
-          (window.screen.height == 812),
-          (window.devicePixelRatio == 3),
-          checkWebGL("a14 gpu")
-        ]
-      },    
-      {
-        name: "Apple iPhone 12",
-        type: "Smartphone",  
-        release_date: "October 2020",                    
-        tests: [
-          (window.screen.width == 390 || window.screen.width == 375),
-          (window.screen.height == 844 || window.screen.height == 812),
-          (window.devicePixelRatio == 3),
-          checkWebGL("a14 gpu")
-        ]
-      },    
-      {
-        name: "Apple iPhone 12 Pro Max",
-        type: "Smartphone",  
-        release_date: "November 2020",            
-        tests: [
-          (window.screen.width == 428),
-          (window.screen.height == 926),
-          (window.devicePixelRatio == 3),
-          checkWebGL("a14 gpu")
-        ]
-      }, 
-       
-      {
-        name: "Apple iPhone 13 Pro",
-        type: "Smartphone",  
-        release_date: "September 2021",                    
-        tests: [
-          (window.screen.width == 390 || window.screen.width == 375),
-          (window.screen.height == 844 || window.screen.height == 812),
-          (window.devicePixelRatio == 3),
-          checkWebGL("a15 gpu"),
-          (ProMotion == true)
-        ]
-      },    
-      {
-        name: "Apple iPhone 13 Pro Max",
-        type: "Smartphone",  
-        release_date: "September 2021",            
-        tests: [
-          (window.screen.width == 428),
-          (window.screen.height == 926),
-          (window.devicePixelRatio == 3),
-          checkWebGL("a15 gpu"),
-          (ProMotion == true)
-        ]
-      }       
-      
-    ];
   
   
   /* iOS only */
@@ -457,6 +97,369 @@ module.exports = (function() {
         webgl = event.detail;
         
         /* now that we have a renderer, check devices...*/
+        
+        var devices = [
+          {
+            name: "Apple iPhone 5 series",
+            type: "Smartphone",  
+            release_date: "September 2013",      
+            tests: [
+              (window.screen.width == 320),
+              (window.screen.height == 568),
+              (window.devicePixelRatio == 2),
+              checkWebGL("a7 gpu")
+            ]
+          },
+
+
+          {
+            name: "Apple iPhone 6",
+            type: "Smartphone",  
+            zoom: true,      
+            release_date: "September 2014",
+            tests: [
+              (window.screen.width == 320),
+              (window.screen.height == 568),
+              (window.devicePixelRatio == 2),
+              checkWebGL("a8 gpu")
+            ]
+          },
+          {
+            name: "Apple iPhone 6",
+            type: "Smartphone",  
+            release_date: "September 2014",        
+            tests: [
+              (window.screen.width == 375),
+              (window.screen.height == 667),
+              (window.devicePixelRatio == 2),
+              checkWebGL("a8 gpu")
+            ]
+          },
+          {
+            name: "Apple iPhone 6 Plus",
+            type: "Smartphone",  
+            zoom: true,
+            release_date: "September 2014",        
+            tests: [
+              (window.screen.width == 375),
+              (window.screen.height == 667),
+              (window.devicePixelRatio == 3),
+              checkWebGL("a8 gpu")
+            ]
+          },
+          {
+            name: "Apple iPhone 6 Plus",
+            type: "Smartphone",  
+            release_date: "September 2014",        
+            tests: [
+              (window.screen.width == 414),
+              (window.screen.height == 736),
+              (window.devicePixelRatio == 3),
+              checkWebGL("a8 gpu")
+            ]
+          },
+
+
+          {
+            name: "Apple iPhone 6S",
+            type: "Smartphone",  
+            zoom: true,      
+            release_date: "September 2015",        
+            tests: [
+              (window.screen.width == 320),
+              (window.screen.height == 568),
+              (window.devicePixelRatio == 2),
+              checkWebGL("a9 gpu")
+            ]
+          },
+          {
+            name: "Apple iPhone 6S",
+            type: "Smartphone",  
+            release_date: "September 2015",        
+            tests: [
+              (window.screen.width == 375),
+              (window.screen.height == 667),
+              (window.devicePixelRatio == 2),
+              checkWebGL("a9 gpu")
+            ]
+          },
+          {
+            name: "Apple iPhone 6S Plus",
+            type: "Smartphone",  
+            zoom: true,
+            release_date: "September 2015",        
+            tests: [
+              (window.screen.width == 375),
+              (window.screen.height == 667),
+              (window.devicePixelRatio == 3),
+              checkWebGL("a9 gpu")
+            ]
+          },
+          {
+            name: "Apple iPhone 6S Plus",
+            release_date: "September 2015",        
+            type: "Smartphone",  
+            tests: [
+              (window.screen.width == 414),
+              (window.screen.height == 736),
+              (window.devicePixelRatio == 3),
+              checkWebGL("a9 gpu")
+            ]
+          },
+
+
+          {
+            name: "Apple iPhone 7",
+            type: "Smartphone",  
+            zoom: true,      
+            release_date: "September 2016",        
+            tests: [
+              (window.screen.width == 320),
+              (window.screen.height == 568),
+              (window.devicePixelRatio == 2),
+              checkWebGL("a10 gpu")
+            ]
+          },
+          {
+            name: "Apple iPhone 7",
+            type: "Smartphone",  
+            release_date: "September 2016",        
+            tests: [
+              (window.screen.width == 375),
+              (window.screen.height == 667),
+              (window.devicePixelRatio == 2),
+              checkWebGL("a10 gpu")
+            ]
+          },
+          {
+            name: "Apple iPhone 7 Plus",
+            type: "Smartphone",  
+            zoom: true,
+            release_date: "September 2016",        
+            tests: [
+              (window.screen.width == 375),
+              (window.screen.height == 667),
+              (window.devicePixelRatio == 3),
+              checkWebGL("a10 gpu")
+            ]
+          },
+          {
+            name: "Apple iPhone 7 Plus",
+            type: "Smartphone",  
+            release_date: "September 2016",        
+            tests: [
+              (window.screen.width == 414),
+              (window.screen.height == 736),
+              (window.devicePixelRatio == 3),
+              checkWebGL("a10 gpu")
+            ]
+          },
+
+
+          {
+            name: "Apple iPhone 8",
+            type: "Smartphone",     
+            zoom: true,      
+            release_date: "September 2017",             
+            tests: [
+              (window.screen.width == 320),
+              (window.screen.height == 568),
+              (window.devicePixelRatio == 2),
+              checkWebGL("a11 gpu")
+            ]
+          },
+          {
+            name: "Apple iPhone 8",
+            type: "Smartphone",  
+            release_date: "September 2017",                
+            tests: [
+              (window.screen.width == 375),
+              (window.screen.height == 667),
+              (window.devicePixelRatio == 2),
+              checkWebGL("a11 gpu")
+            ]
+          },
+          {
+            name: "Apple iPhone 8 Plus",
+            type: "Smartphone",  
+            zoom: true,
+            release_date: "September 2017",             
+            tests: [
+              (window.screen.width == 375),
+              (window.screen.height == 667),
+              (window.devicePixelRatio == 3),
+              checkWebGL("a11 gpu")
+            ]
+          },
+          {
+            name: "Apple iPhone 8 Plus",
+            type: "Smartphone", 
+            release_date: "September 2017",              
+            tests: [
+              (window.screen.width == 414),
+              (window.screen.height == 736),
+              (window.devicePixelRatio == 3),
+              checkWebGL("a11 gpu")
+            ]
+          },  
+
+          {
+            name: "Apple iPhone X",
+            type: "Smartphone",  
+            release_date: "November 2017",             
+            tests: [
+              (window.screen.width == 375),
+              (window.screen.height == 812),
+              (window.devicePixelRatio == 3),
+              checkWebGL("a11 gpu")
+            ]
+          },
+
+          {
+            name: "Apple iPhone XS",
+            type: "Smartphone",  
+            release_date: "September 2018",            
+            tests: [
+              (window.screen.width == 375),
+              (window.screen.height == 812),
+              (window.devicePixelRatio == 3),
+              checkWebGL("a12 gpu")
+            ]
+          },
+
+          {
+            name: "Apple iPhone XS Max",
+            type: "Smartphone",  
+            release_date: "September 2018",            
+            tests: [
+              (window.screen.width == 414),
+              (window.screen.height == 896),
+              (window.devicePixelRatio == 3),
+              checkWebGL("a12 gpu")
+            ]
+          }, 
+          {
+            name: "Apple iPhone XR",
+            type: "Smartphone",  
+            release_date: "September 2018",                    
+            tests: [
+              (window.screen.width == 414),
+              (window.screen.height == 896),
+              (window.devicePixelRatio == 2),
+              checkWebGL("a12 gpu")
+            ]
+          },    
+
+
+          {
+            name: "Apple iPhone 11",
+            type: "Smartphone",  
+            release_date: "September 2018",                    
+            tests: [
+              (window.screen.width == 414),
+              (window.screen.height == 896),
+              (window.devicePixelRatio == 2),
+              checkWebGL("a13 gpu")
+            ]
+          },
+          {
+            name: "Apple iPhone 11 Pro",
+            type: "Smartphone",  
+            release_date: "September 2019",            
+            tests: [
+              (window.screen.width == 375),
+              (window.screen.height == 812),
+              (window.devicePixelRatio == 3),
+              checkWebGL("a13 gpu")
+            ]
+          },
+          {
+            name: "Apple iPhone 11 Pro Max",
+            type: "Smartphone",  
+            release_date: "September 2019",            
+            tests: [
+              (window.screen.width == 414),
+              (window.screen.height == 896),
+              (window.devicePixelRatio == 3),
+              checkWebGL("a13 gpu")
+            ]
+          },
+
+
+          {
+            name: "Apple iPhone SE (2020)",
+            type: "Smartphone",       
+            release_date: "April 2020",             
+            tests: [
+              (window.screen.width == 375),
+              (window.screen.height == 667),
+              (window.devicePixelRatio == 2),
+              checkWebGL("a13 gpu")
+            ]
+          },      
+
+
+          {
+            name: "Apple iPhone Mini",
+            type: "Smartphone",  
+            release_date: "November 2020",                    
+            tests: [
+              (window.screen.width == 375),
+              (window.screen.height == 812),
+              (window.devicePixelRatio == 3),
+              checkWebGL("a14 gpu")
+            ]
+          },    
+          {
+            name: "Apple iPhone 12",
+            type: "Smartphone",  
+            release_date: "October 2020",                    
+            tests: [
+              (window.screen.width == 390 || window.screen.width == 375),
+              (window.screen.height == 844 || window.screen.height == 812),
+              (window.devicePixelRatio == 3),
+              checkWebGL("a14 gpu")
+            ]
+          },    
+          {
+            name: "Apple iPhone 12 Pro Max",
+            type: "Smartphone",  
+            release_date: "November 2020",            
+            tests: [
+              (window.screen.width == 428),
+              (window.screen.height == 926),
+              (window.devicePixelRatio == 3),
+              checkWebGL("a14 gpu")
+            ]
+          }, 
+
+          {
+            name: "Apple iPhone 13 Pro",
+            type: "Smartphone",  
+            release_date: "September 2021",                    
+            tests: [
+              (window.screen.width == 390 || window.screen.width == 375),
+              (window.screen.height == 844 || window.screen.height == 812),
+              (window.devicePixelRatio == 3),
+              checkWebGL("a15 gpu"),
+              (ProMotion == true)
+            ]
+          },    
+          {
+            name: "Apple iPhone 13 Pro Max",
+            type: "Smartphone",  
+            release_date: "September 2021",            
+            tests: [
+              (window.screen.width == 428),
+              (window.screen.height == 926),
+              (window.devicePixelRatio == 3),
+              checkWebGL("a15 gpu"),
+              (ProMotion == true)
+            ]
+          }       
+
+        ];        
+        
         var ok;
         for (var i = 0; i < devices.length; i++) {
 
