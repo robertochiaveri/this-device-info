@@ -140,8 +140,7 @@ module.exports = (function() {
             defaultOrientation: defaultOrientation
           };
       }
-
-      
+  
       var init = function (event) {
    
         return {
@@ -173,6 +172,6 @@ module.exports = (function() {
       /* public methods... */
       return {
         init : init,
-        defaultListeners : ["DOMContentLoaded","resize","orientationchange","scroll","visibilitychange","pointerdown", "pointermove"]
+        defaultListeners : ["DOMContentLoaded","resize","orientationchange","scroll","visibilitychange"]
       };
     })()
