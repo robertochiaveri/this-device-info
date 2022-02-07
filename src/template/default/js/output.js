@@ -479,6 +479,10 @@ module.exports = function() {
           displayRes_HW.push("High resolution (@" + (Math.round(results.screenInfo.pixelRatio * 100) / 100) + "X)\n" );
         }        
 
+        if (results.screenRefreshRateInfo > 0) {
+          displayRes_HW.push("Refresh rate "+results.screenRefreshRateInfo+"hz\n" );
+        }        
+        
         if (results.screenInfo.hasOwnProperty("touch")) {
           if (results.screenInfo.touch) {
             displayRes_HW.push("Touchscreen: yes");
