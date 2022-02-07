@@ -51,7 +51,6 @@ module.exports = (function() {
       });
     }).then(function(fps) {
       console.log("ProMotion detection completed");
-      alert("fps detected: "+fps);
       var proMotionInfoEvent = new CustomEvent("__ProMotionInfoEvent", {
         detail: {
           webgl: webgl,
@@ -69,14 +68,16 @@ module.exports = (function() {
 
     if (event && event.detail) 
     {
-      if (event.type == "__WebGLRendererInfoEvent") {
+      if (event.type == "__WebGLRendererInfoEvent") 
          webgl = event.detail.toLowerCase();    
+         alert("__WebGLRendererInfoEvent: "+webgl);      
          checkProMotion();
       };
       if (event.type == "__ProMotionInfoEvent") {
          webgl = event.detail.webgl;
          fps = event.detail.fps;
          ProMotion = event.detail.ProMotion;
+         alert("__ProMotionInfoEvent: fps "+fps+" PM: "+ProMotion);        
       }
     }
     
