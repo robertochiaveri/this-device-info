@@ -455,7 +455,8 @@ module.exports = (function() {
           release_date: devices[i].release_date,
           form_factory: devices[i].type,
           zoom: !!devices[i].zoom,
-          gpu_renderer: event.detail
+          gpu_renderer: event.detail,
+          pro_motion: ProMotion
         }
       } 
       
