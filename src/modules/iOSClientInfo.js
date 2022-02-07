@@ -39,7 +39,6 @@ module.exports = (function() {
   
 
   var checkWebGL = function(fragment) {
-    console.log("checkWebGL: "+fragment+" in "+webgl.toLowerCase());
     if (!webgl) { 
       return false; 
     } else {
@@ -465,14 +464,16 @@ module.exports = (function() {
         
         var ok;
         for (var i = 0; i < devices.length; i++) {
-
+         
           ok = 0;
 
           for (var j = 0; j < devices[i].tests.length; j++) {
-            if (!devices[i].tests[j]) { continue; }
+            if (!devices[i].tests[j]) { 
+              continue; 
+            }
             ok++;
           }
-
+          
           if (ok == devices[i].tests.length) {
             return {
               complete_device_name : devices[i].name,
@@ -483,15 +484,16 @@ module.exports = (function() {
               fps: fps,
               pro_motion: ProMotion
             }
-          } else {
-            return {
-              fail: ":( An unrecognized device width a "+window.screen.width+"x"+window.screen.height+" screen @"+window.devicePixelRatio+"X",
-              webgl: webgl,
-              fps: fps,
-              pro_motion: ProMotion
-            }            
-          }          
+          }           
         }
+
+        return {
+          fail: "An unrecognized device width a "+window.screen.width+"x"+window.screen.height+" screen @"+window.devicePixelRatio+"X",
+          webgl: webgl,
+          fps: fps,
+          pro_motion: ProMotion
+        }    
+        
       } 
     }
   }
