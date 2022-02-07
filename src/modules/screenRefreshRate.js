@@ -34,7 +34,7 @@ module.exports = (function() {
   var raf = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
 
   var rafLoopCount = 0;
-  var rafLoopMax = 30;
+  var rafLoopMax = 9;
   var rafLoop = function rafLoop(timestamp) {
       var interval = timestamp - previousTimestamp;
       var fps = 1000 / interval;
