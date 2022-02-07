@@ -46,7 +46,7 @@ module.exports = (function() {
     }
   }
   
-  
+/*  
   var checkProMotion = function() {
     console.log("Checking for ProMotion...");
     new Promise(function(resolve) {
@@ -70,11 +70,46 @@ module.exports = (function() {
     });
   }
   
-  
-
   console.log("delayed checkProMotion detection started...");
   checkProMotion();
 
+
+*/
+  
+  var previousTimestamp, divInterval, divFPS;
+
+  var raf = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
+
+  var rafLoopCount = 0;
+  var rafLoopMax = 60;
+  var rafLoop = function rafLoop(timestamp) {
+      var interval = timestamp - previousTimestamp;
+      var fps = 1000 / interval;
+      previousTimestamp = timestamp;
+      if (rafLoopCount >= rafLoopMax) {
+        console.log("ProMotion detection completed");
+        var proMotionInfoEvent = new CustomEvent("__ProMotionInfoEvent", {
+          detail: {
+            webgl: webgl,
+            fps: fps,
+            ProMotion : (parseInt(fps) > 100),
+          },
+          bubbles: true,
+          cancelable: true
+        })
+        dispatchEvent(proMotionInfoEvent);  
+      } else {
+        rafLoopCount++;
+        raf(rafLoop);
+      }
+  };
+
+  // This is run first to set the previousTimestamp variable with an initial value, and then call the rafLoop function.
+  console.log("delayed ProMotion detection started...");
+  raf(function (timestamp) {
+      previousTimestamp = timestamp;
+      raf(rafLoop);
+  });	
   
 
   var init = function(event) {
