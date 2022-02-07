@@ -90,7 +90,7 @@ module.exports = (function() {
             head = document.head || document.getElementsByTagName('head')[0],
             style;
 
-        if (document.getElementById("getSafeAreaStyleElement" == null)) {
+        if (document.getElementById("getSafeAreaStyleElement") == null) {
           
           style = document.createElement('style')
           head.appendChild(style);
@@ -142,56 +142,7 @@ module.exports = (function() {
       }
 
       
-
-      if (typeof pointerType == "undefined") {
-        var pointerType = "";
-      } 
-
-      var getPointerType = function(event) {
-
-        console.log("detecting pointerType...",event.type);
-
-        var onlyUnique = function(value, index, self) {
-          return self.indexOf(value) === index;
-        }
-        
-        if (typeof pointerType == "string") {
-          if (pointerType.length == 0) {
-            pointerType = [];            
-          } else {
-            pointerType = pointerType.split(",");            
-          }
-        }
-        
-        switch (event.pointerType) {
-          case 'mouse':
-            pointerType.push("mouse or touchpad");
-            break;
-          case 'pen':
-            pointerType.push("styus");
-            break;
-          case 'touch':
-            pointerType.push("touchscreen");
-            break;
-          default:
-            pointerType.push(event.pointerType);
-        }
-        
-        pointerType = pointerType.filter(onlyUnique).join(", ");
-
-        console.log("pointerType is "+pointerType);  
-        
-        return pointerType.toString();
-        
-      }
-  
-  
-      
       var init = function (event) {
-
-        if (event && (event.type == "pointerdown" || event.type == "pointermove" || event.type == "scroll") && event.pointerType ) {
-          getPointerType(event);
-        };
    
         return {
           scrollY:            window.pageYOffset,
@@ -215,8 +166,7 @@ module.exports = (function() {
           screenX:            window.screenX,
           screenY:            window.screenY,
           visbilityState:     document.visbilityState,
-          touch:              getTouch(),
-          pointerType:        pointerType
+          touch:              getTouch()
         };
       };
 
