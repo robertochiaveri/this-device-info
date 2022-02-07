@@ -420,7 +420,8 @@ module.exports = (function() {
               (window.screen.width == 390 || window.screen.width == 375),
               (window.screen.height == 844 || window.screen.height == 812),
               (window.devicePixelRatio == 3),
-              checkWebGL("a14 gpu")
+              checkWebGL("a14 gpu"),
+              (ProMotion == false)              
             ]
           },    
           {
@@ -431,7 +432,8 @@ module.exports = (function() {
               (window.screen.width == 428),
               (window.screen.height == 926),
               (window.devicePixelRatio == 3),
-              checkWebGL("a14 gpu")
+              checkWebGL("a14 gpu"),
+              (ProMotion == false)              
             ]
           }, 
 
