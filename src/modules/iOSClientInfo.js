@@ -2,13 +2,22 @@ module.exports = (function() {
 
   "use strict";
 
+  
+  /* private vars and methods... */
+  
+  var webgl = false;
+  var ProMotion = false;
+  var fps = 0;
+  
+  
   if (!!navigator.platform && !(/iPad|iPhone|iPod/.test(navigator.platform))) {
     return false;
   }  
 
+  /* import library */
   var getRenderer = require("../lib/51degrees/renderer.min.js");
-
-  getRenderer(function(renderer) { 
+  
+  var getRendererCallback = function(renderer) { 
     
     console.log("WebGL detection getRenderer() completed",renderer);
 
@@ -23,15 +32,9 @@ module.exports = (function() {
       dispatchEvent(WebGLRendererInfoEvent); 
     },500);
     
-  });
+  }
+  
 
-
-  /* private vars and methods... */
-
-
-  var webgl = false;
-  var ProMotion = false;
-  var fps = 0;
 
   var checkWebGL = function(fragment) {
     if (!webgl) { 
@@ -60,24 +63,32 @@ module.exports = (function() {
         bubbles: true,
         cancelable: true
       });
-      dispatchEvent(proMotionInfoEvent);  
+      dispatchEvent(proMotionInfoEvent);   
     });
   }
+  
+  
+  setTimeout(function() {
+    console.log("delayed checkProMotion detection started...");
+    checkProMotion();
+  },1000);
+  
 
   var init = function(event) {
 
     if (event && event.detail) 
     {
       if (event.type == "__WebGLRendererInfoEvent") {
-         webgl = event.detail.toLowerCase();    
-         alert("__WebGLRendererInfoEvent: "+webgl);      
-         checkProMotion();
+         webgl = event.detail;
+         fps = fps
+         ProMotion = event.detail.ProMotion;   
       };
       if (event.type == "__ProMotionInfoEvent") {
-         webgl = event.detail.webgl;
-         fps = event.detail.fps;
-         ProMotion = event.detail.ProMotion;
-         alert("__ProMotionInfoEvent: fps "+fps+" PM: "+ProMotion);        
+          fps = event.detail.fps;
+          ProMotion = event.detail.ProMotion;   
+          console.log("checkProMotion detection completed", fps, ProMotion);        
+          console.log("starting WebGL detection getRenderer()...");
+          getRenderer(getRendererCallback);           
       }
     }
     
