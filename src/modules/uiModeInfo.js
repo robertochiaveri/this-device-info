@@ -17,7 +17,7 @@ module.exports = (function() {
       if (pointerType.length == 0) {
         pointerType = [];            
       } else {
-        pointerType = pointerType.split(",");            
+        pointerType = pointerType.split(", ");            
       }
     }
 
