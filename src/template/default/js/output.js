@@ -380,7 +380,7 @@ module.exports = function() {
         }     
 
         if (results.UIInfo && results.UIInfo.pointerType) {
-          deviceOS.push("\nUser interacting via "+results.UIInfo.pointerType);
+          deviceOS.push("\nInteraction via "+results.UIInfo.pointerType);
         }     
             
       } catch(e) { console.log(e);}          
