@@ -39,11 +39,11 @@ module.exports = (function() {
   
 
   var checkWebGL = function(fragment) {
-    console.log("checkWebGL: "+fragment+" in "+webgl);
+    console.log("checkWebGL: "+fragment+" in "+webgl.toLowerCase());
     if (!webgl) { 
       return false; 
     } else {
-      return (webgl.indexOf(fragment) >= 0)
+      return (webgl.toLowerCase().indexOf(fragment.toLowerCase()) >= 0)
     }
   }
   
