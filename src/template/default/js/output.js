@@ -481,11 +481,9 @@ module.exports = function() {
 
         if (results.screenRefreshRateInfo > 0) {
           var rate = "";
-          if (results.screenRefreshRateInfo < 61)  { rate = "60hz"; } else
-          if (results.screenRefreshRateInfo < 76)  { rate = "75hz"; } else            
+          if (results.screenRefreshRateInfo < 75)  { rate = "60hz"; } else          
           if (results.screenRefreshRateInfo < 91)  { rate = "90hz"; } else
-          if (results.screenRefreshRateInfo < 121) { rate = "120hz"; } else
-          if (results.screenRefreshRateInfo < 145) { rate = "144hz or higher"; }
+          if (results.screenRefreshRateInfo < 121) { rate = "120hz or higher"; } 
           
           displayRes_HW.push("Refresh rate at "+rate+"\n" );
         }        
