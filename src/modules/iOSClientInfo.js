@@ -9,89 +9,7 @@ module.exports = (function() {
   var ProMotion = false;
   var fps = 0;
   
-  
-  if (!!navigator.platform && !(/iPad|iPhone|iPod/.test(navigator.platform))) {
-    return false;
-  }  
-
-  /* import library */
-  var getRenderer = require("../lib/51degrees/renderer.min.js");
-  
-  var getRendererCallback = function(renderer) { 
-    
-    console.log("WebGL detection getRenderer() completed",renderer);
-
-    var WebGLRendererInfoEvent = new CustomEvent("__WebGLRendererInfoEvent", {
-      detail: renderer,
-      bubbles: true,
-      cancelable: true
-    });
-    
-    setTimeout(function() { 
-      console.log("delayed getRenderer event dispatched",renderer);
-      dispatchEvent(WebGLRendererInfoEvent); 
-    },500);
-    
-  }
-  
-
-
-  var checkWebGL = function(fragment) {
-    if (!webgl) { 
-      return false; 
-    } else {
-      return (webgl.indexOf(fragment) >= 0)
-    }
-  }
-  
-  var checkProMotion = function() {
-    console.log("Checking for ProMotion...");
-    new Promise(function(resolve) {
-      return requestAnimationFrame(function(t1) {
-        return requestAnimationFrame(function(t2) {
-          return resolve(1000 / (t2 - t1));
-        });
-      });
-    }).then(function(fps) {
-      console.log("ProMotion detection completed");
-      var proMotionInfoEvent = new CustomEvent("__ProMotionInfoEvent", {
-        detail: {
-          webgl: webgl,
-          fps: fps,
-          ProMotion : (parseInt(fps) > 75),
-        },
-        bubbles: true,
-        cancelable: true
-      });
-      dispatchEvent(proMotionInfoEvent);   
-    });
-  }
-  
-  
-
-  console.log("delayed checkProMotion detection started...");
-  checkProMotion();
-
-  
-
-  var init = function(event) {
-
-    if (event && event.detail) 
-    {
-      if (event.type == "__WebGLRendererInfoEvent") {
-        webgl = event.detail
-      };
-      if (event.type == "__ProMotionInfoEvent") {
-        fps = event.detail.fps;
-        ProMotion = event.detail.ProMotion;   
-        console.log("checkProMotion detection completed", fps, ProMotion);        
-        console.log("starting WebGL detection getRenderer()...");
-        getRenderer(getRendererCallback);           
-      }
-    }
-    
-
-    var devices = [
+  var devices = [
       {
         name: "Apple iPhone 5 series",
         type: "Smartphone",  
@@ -434,7 +352,8 @@ module.exports = (function() {
           (window.screen.width == 390 || window.screen.width == 375),
           (window.screen.height == 844 || window.screen.height == 812),
           (window.devicePixelRatio == 3),
-          checkWebGL("a15 gpu")
+          checkWebGL("a15 gpu"),
+          (ProMotion == true)
         ]
       },    
       {
@@ -445,43 +364,130 @@ module.exports = (function() {
           (window.screen.width == 428),
           (window.screen.height == 926),
           (window.devicePixelRatio == 3),
-          checkWebGL("a15 gpu")
+          checkWebGL("a15 gpu"),
+          (ProMotion == true)
         ]
       }       
       
-  
     ];
+  
+  
+  /* iOS only */
+  if (!!navigator.platform && !(/iPad|iPhone|iPod/.test(navigator.platform))) {
+    return false;
+  }  
+
+  /* import library */
+  var getRenderer = require("../lib/51degrees/renderer.min.js");
+  
+  var getRendererCallback = function(renderer) { 
     
-    var ok;
-    for (var i = 0; i < devices.length; i++) {
+    console.log("WebGL detection getRenderer() completed",renderer);
 
-      ok = 0;
-      
-      for (var j = 0; j < devices[i].tests.length; j++) {
-        if (!devices[i].tests[j]) { continue; }
-        ok++;
-      }
+    var WebGLRendererInfoEvent = new CustomEvent("__WebGLRendererInfoEvent", {
+      detail: renderer,
+      bubbles: true,
+      cancelable: true
+    });
+    
+    setTimeout(function() { 
+      console.log("delayed getRenderer event dispatched",renderer);
+      dispatchEvent(WebGLRendererInfoEvent); 
+    },500);
+    
+  }
+  
 
-      if (ok == devices[i].tests.length) {
-        return {
-          complete_device_name : devices[i].name,
-          release_date: devices[i].release_date,
-          form_factory: devices[i].type,
-          zoom: !!devices[i].zoom,
-          gpu_renderer: webgl,
+  var checkWebGL = function(fragment) {
+    if (!webgl) { 
+      return false; 
+    } else {
+      return (webgl.indexOf(fragment) >= 0)
+    }
+  }
+  
+  
+  var checkProMotion = function() {
+    console.log("Checking for ProMotion...");
+    new Promise(function(resolve) {
+      return requestAnimationFrame(function(t1) {
+        return requestAnimationFrame(function(t2) {
+          return resolve(1000 / (t2 - t1));
+        });
+      });
+    }).then(function(fps) {
+      console.log("ProMotion detection completed");
+      var proMotionInfoEvent = new CustomEvent("__ProMotionInfoEvent", {
+        detail: {
+          webgl: webgl,
           fps: fps,
-          pro_motion: ProMotion
+          ProMotion : (parseInt(fps) > 100),
+        },
+        bubbles: true,
+        cancelable: true
+      });
+      dispatchEvent(proMotionInfoEvent);   
+    });
+  }
+  
+  
+
+  console.log("delayed checkProMotion detection started...");
+  checkProMotion();
+
+  
+
+  var init = function(event) {
+
+    if (event && event.detail) {
+      
+      /* first round: check ProMotion... */
+      if (event.type == "__ProMotionInfoEvent") {
+        fps = event.detail.fps;
+        ProMotion = event.detail.ProMotion;   
+        console.log("checkProMotion detection completed", fps, ProMotion);        
+        console.log("starting WebGL detection getRenderer()...");
+        getRenderer(getRendererCallback);   
+        return;
+      }
+      
+      /* second round: check for WebGL Renderer info...*/
+      if (event.type == "__WebGLRendererInfoEvent") {
+        
+        webgl = event.detail;
+        
+        /* now that we have a renderer, check devices...*/
+        var ok;
+        for (var i = 0; i < devices.length; i++) {
+
+          ok = 0;
+
+          for (var j = 0; j < devices[i].tests.length; j++) {
+            if (!devices[i].tests[j]) { continue; }
+            ok++;
+          }
+
+          if (ok == devices[i].tests.length) {
+            return {
+              complete_device_name : devices[i].name,
+              release_date: devices[i].release_date,
+              form_factory: devices[i].type,
+              zoom: !!devices[i].zoom,
+              gpu_renderer: webgl,
+              fps: fps,
+              pro_motion: ProMotion
+            }
+          } else {
+            return {
+              fail: ":( An unrecognized device width a "+window.screen.width+"x"+window.screen.height+" screen @"+window.devicePixelRatio+"X",
+              gpu_renderer: webgl,
+              fps: fps,
+              pro_motion: ProMotion
+            }            
+          }          
         }
       } 
-      
     }
-    return {
-      fail: ":( An unrecognized device width a "+window.screen.width+"x"+window.screen.height+" screen @"+window.devicePixelRatio+"X",
-      gpu_renderer: webgl,
-      fps: fps,
-      pro_motion: ProMotion
-    }
-
   }
 
   /* public methods... */
