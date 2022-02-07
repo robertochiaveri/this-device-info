@@ -39,6 +39,7 @@ module.exports = (function() {
   
 
   var checkWebGL = function(fragment) {
+    console.log("checkWebGL: "+fragment+" in "+webgl);
     if (!webgl) { 
       return false; 
     } else {
@@ -95,6 +96,8 @@ module.exports = (function() {
       if (event.type == "__WebGLRendererInfoEvent") {
         
         webgl = event.detail;
+        
+        console.log("checkWebGL detection completed", webgl);                
         
         /* now that we have a renderer, check devices...*/
         
@@ -476,14 +479,14 @@ module.exports = (function() {
               release_date: devices[i].release_date,
               form_factory: devices[i].type,
               zoom: !!devices[i].zoom,
-              gpu_renderer: webgl,
+              webgl: webgl,
               fps: fps,
               pro_motion: ProMotion
             }
           } else {
             return {
               fail: ":( An unrecognized device width a "+window.screen.width+"x"+window.screen.height+" screen @"+window.devicePixelRatio+"X",
-              gpu_renderer: webgl,
+              webgl: webgl,
               fps: fps,
               pro_motion: ProMotion
             }            
