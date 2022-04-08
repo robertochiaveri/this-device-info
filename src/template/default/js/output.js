@@ -490,15 +490,15 @@ module.exports = function() {
         
         if (results.screenInfo.hasOwnProperty("touch")) {
           if (results.screenInfo.touch) {
-            displayRes_HW.push("Touchscreen: yes");
+            displayRes_HW.push("Touchscreen: yes\n");
           } else {
-            displayRes_HW.push("Touchscreen: no");
+            displayRes_HW.push("Touchscreen: no\n");
           }
         }
                
         if (results.screenInfo.hasOwnProperty("multipleScreens")) {
           if (results.screenInfo.multipleScreens) {
-            displayRes_HW.push("Multiple screens: yes");
+            displayRes_HW.push("Multiple screens: yes\n");
           } 
         }        
 
