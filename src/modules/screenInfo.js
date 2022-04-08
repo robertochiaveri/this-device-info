@@ -165,7 +165,8 @@ module.exports = (function() {
           screenX:            window.screenX,
           screenY:            window.screenY,
           visbilityState:     document.visbilityState,
-          touch:              getTouch()
+          touch:              getTouch(),
+          multipleScreens:    window.screen.isExtended
         };
       };
 
