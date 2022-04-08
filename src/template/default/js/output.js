@@ -495,6 +495,12 @@ module.exports = function() {
             displayRes_HW.push("Touchscreen: no");
           }
         }
+               
+        if (results.screenInfo.hasOwnProperty("multipleScreens")) {
+          if (results.screenInfo.multipleScreens) {
+            displayRes_HW.push("Multiple screens: yes");
+          } 
+        }        
 
         displayRes_HW = displayRes_HW.join(" ");
         container.appendChild(createGroup("displayRes_HW","Display",displayRes_HW));
@@ -588,6 +594,8 @@ module.exports = function() {
         displayOrientation = displayOrientation.join(" ");
         container.appendChild(createGroup("displayOrientation","Orientation",displayOrientation,"wide"));
 
+        
+        
       } catch(e) {console.log(e);}
 
 
