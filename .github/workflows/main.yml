@@ -8,9 +8,9 @@ jobs:
     - name: Replace string in file
       uses: nguyenvanuyn96/str-find-and-replace-action@master
       with:
-       find: "SET_ENDPOINT_HERE"
+       find: 'SET_ENDPOINT_HERE'
        replace: ${{ secrets.IP_LOOKUP_ENDPOINT }}
-       include: "*.php"
+       include: '*.php'
     - name: Node npm build 
       uses: actions/setup-node@v3
       with:
