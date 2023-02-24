@@ -62,7 +62,7 @@ if(curl_errno($curl)) {
     // return data
     $output = array(
        "success" => "true", 
-       "data" => $response
+       "data" => json_decode($response)
     );
 };
 
