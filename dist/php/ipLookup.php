@@ -11,7 +11,7 @@ if (!extension_loaded("curl")) {
 }
 
 // Specify the URL of the web server to make the request to
-$url = SET_ENDPOINT_HERE;
+$url = "SET_ENDPOINT_HERE";
 
 echo "url: ".$url;
 
