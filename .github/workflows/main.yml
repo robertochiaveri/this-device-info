@@ -6,11 +6,11 @@ jobs:
     steps:
     - uses: actions/checkout@v3    
     - name: Replace string in file
-      uses: MathieuSoysal/replace-string-in-file@v1.0.0
+      uses: nguyenvanuyn96/str-find-and-replace-action@master
       with:
-       file: dist/php/ipLookup.php
-       old-string: SET_ENDPOINT_HERE
-       new-string: ${{ secrets.IP_LOOKUP_ENDPOINT }}
+       find: "SET_ENDPOINT_HERE"
+       replace: ${{ secrets.IP_LOOKUP_ENDPOINT }}
+       include: "*.php"
     - name: Node npm build 
       uses: actions/setup-node@v3
       with:
