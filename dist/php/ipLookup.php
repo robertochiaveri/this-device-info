@@ -54,7 +54,7 @@ $response = curl_exec($curl);
 
 // Check if there was an error with the cURL request
 if(curl_errno($curl)) {
-    die "Error: " . curl_error($curl);
+    die ("Error: ".curl_error($curl));
 } 
 echo $response;
 
