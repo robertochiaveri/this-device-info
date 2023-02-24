@@ -4,9 +4,9 @@ jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
     - name: Node npm build 
-      uses: actions/setup-node@v2
+      uses: actions/setup-node@v3
       with:
         node-version: '12.x'
     - run: cd src && npm install
@@ -18,7 +18,7 @@ jobs:
         path: dist   
     - run: cd src && npm run dist --if-present
     - name: Save dist artifact
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
         name: build output (dist)
         path: dist
