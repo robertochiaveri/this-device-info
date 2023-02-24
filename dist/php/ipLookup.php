@@ -59,7 +59,7 @@ if(curl_errno($curl)) {
     // return a handled error
     $output = array(
        "success" => "false", 
-       "error" => "cURL error: ".curl_error($curl))
+       "error" => "cURL error: ".curl_error($curl)
     )
 } else {
     // return data
