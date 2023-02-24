@@ -51,9 +51,6 @@ curl_setopt_array($curl, array(
 // Execute the cURL request and get the response
 $response = curl_exec($curl);
 
-// Close the cURL session
-curl_close($curl);
-
 // Check if there was an error with the cURL request
 if(curl_errno($curl)) {
     // return a handled error
@@ -68,6 +65,9 @@ if(curl_errno($curl)) {
        "data" => $response
     );
 };
+
+// Close the cURL session
+curl_close($curl);
 
 // return output as json
 die(json_encode($output));
