@@ -6,54 +6,35 @@ if($_SERVER['HTTP_REFERER'] !== "SET_ALLOWED_DOMAIN_HERE"){
 }
 */
 
-// check for cURL
-if (!extension_loaded("curl")) {
-    $output = array(
-       "success" => "false", 
-       "error" => "cURL not available on server."
-    );
-    die(json_encode($output));
-}
+// Include the autoloader - edit this path! 
+require_once 'wurfl-cloud-client-php/src/autoload.php'; 
 
-// get UserAgent string
+// Create a configuration object  
+$config = new ScientiaMobile\WurflCloud\Config();  
 
-// Specify the URL of the web server to make the request to
-$url = "SET_ENDPOINT_HERE"."/";
+// Set your WURFL Cloud API Key  
+$config->api_key = 'SET_WURFL_API_KEY_HERE';   
 
-// Initialize a new cURL session
-$curl = curl_init();
+// Create the WURFL Cloud Client  
+$client = new ScientiaMobile\WurflCloud\Client($config);  
 
-// Set the cURL options
-curl_setopt_array($curl, array(
-    CURLOPT_RETURNTRANSFER => true,
-    CURLOPT_URL => $url,
-    CURLOPT_HTTPHEADER => array(
-        'Content-Type: application/json',
-        'Accept: application/json',
-        'Cache-Control: must-revalidate'
-    )
-));
+// Detect your device  
+$client->detectDevice();  
 
-// Execute the cURL request and get the response
-$response = curl_exec($curl);
+// Use the capabilities  
+$capabilities = array(
+    "form_factor"           => $client->getDeviceCapability('form_factor'),
+    "model_name"            => $client->getDeviceCapability('model_name'),
+    "model_extra_info"      => $client->getDeviceCapability('model_extra_info'),
+    "complete_device_name"  => $client->getDeviceCapability('complete_device_name'),
+    "release_date"          => $client->getDeviceCapability('release_date')
+);
 
-// Check if there was an error with the cURL request
-if(curl_errno($curl)) {
-    // return a handled error
-    $output = array(
-       "success" => "false", 
-       "error" => "cURL error: ".curl_error($curl)
-    );
-} else {
-    // return data
-    $output = array(
-       "success" => "true", 
-       "data" => json_decode($response)
-    );
-};
-
-// Close the cURL session
-curl_close($curl);
+// return data
+$output = array(
+   "success" => "true", 
+   "data" => $capabilities
+);
 
 // return output as json
 die(json_encode($output));
