@@ -18,7 +18,7 @@ module.exports = (function() {
   }  
 
   /* import library */
-  var getRenderer = require("../lib/51degrees/renderer.min.js");
+  var getRenderer = require("../../dist/js/renderer/renderer.min.js");
   
   var getRendererCallback = function(renderer) { 
     
