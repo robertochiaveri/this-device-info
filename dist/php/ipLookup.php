@@ -8,7 +8,11 @@ if($_SERVER['HTTP_REFERER'] !== "SET_ALLOWED_DOMAIN_HERE"){
 
 // check for cURL
 if (!extension_loaded("curl")) {
-    die("Error: cURL not loaded.");
+    $output = array(
+       "success" => "false", 
+       "error" => "cURL not available on server.")
+    )
+    die json_encode($output);
 }
 
 
@@ -47,16 +51,25 @@ curl_setopt_array($curl, array(
 // Execute the cURL request and get the response
 $response = curl_exec($curl);
 
-// Check if there was an error with the cURL request
-if(curl_errno($curl)) {
-    die ("Error: ".curl_error($curl));
-} 
-echo $response;
-
-
 // Close the cURL session
 curl_close($curl);
 
-die();
+// Check if there was an error with the cURL request
+if(curl_errno($curl)) {
+    // return a handled error
+    $output = array(
+       "success" => "false", 
+       "error" => "cURL error: ".curl_error($curl))
+    )
+} else {
+    // return data
+    $output = array(
+       "success" => "true", 
+       "data" => $response
+    )
+}
+
+die json_encode($output);
+
 
 ?>
