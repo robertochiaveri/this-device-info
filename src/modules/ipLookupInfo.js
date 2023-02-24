@@ -15,7 +15,7 @@ module.exports = (function() {
   var httpGetAsync = require("../lib/xhttpGetAsync/xhttpGetAsync");
 
   httpGetAsync(
-    "https://thisdeviceinfo.herokuapp.com/iplookup",
+    "./php/ipLookup.php",
     function(responseText) {
 
       var IPLookupInfoEvent,
