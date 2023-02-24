@@ -5,8 +5,13 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
+// check for cURL
+if (!extension_loaded("curl")) {
+    die("cURL not loaded.");
+}
+
 // Specify the URL of the web server to make the request to
-$url = "https://example.com/api";
+$url = "https://reqbin.com/echo";
 
 // Initialize a new cURL session
 $curl = curl_init();
@@ -26,7 +31,7 @@ $response = curl_exec($curl);
 
 // Check if there was an error with the cURL request
 if(curl_error($curl)) {
-    echo 'Error: ' . curl_error($curl);
+    echo "Error: " . curl_error($curl);
 } else {
     // Decode the JSON response
     $data = json_decode($response);
