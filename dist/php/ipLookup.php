@@ -60,16 +60,16 @@ if(curl_errno($curl)) {
     $output = array(
        "success" => "false", 
        "error" => "cURL error: ".curl_error($curl)
-    )
+    );
 } else {
     // return data
     $output = array(
        "success" => "true", 
        "data" => $response
-    )
+    );
 };
 
+// return output as json
 die(json_encode($output));
-
 
 ?>
