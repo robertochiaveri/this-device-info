@@ -12,7 +12,7 @@ if (!extension_loaded("curl")) {
        "success" => "false", 
        "error" => "cURL not available on server."
     );
-    die json_encode($output);
+    die(json_encode($output));
 }
 
 
@@ -69,7 +69,7 @@ if(curl_errno($curl)) {
     )
 };
 
-die json_encode($output);
+die(json_encode($output));
 
 
 ?>
