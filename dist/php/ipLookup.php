@@ -22,7 +22,8 @@ curl_setopt_array($curl, array(
     CURLOPT_URL => $url,
     CURLOPT_HTTPHEADER => array(
         'Content-Type: application/json',
-        'Accept: application/json'
+        'Accept: application/json',
+        'Cache-Control: must-revalidate'
     )
 ));
 
@@ -30,7 +31,7 @@ curl_setopt_array($curl, array(
 $response = curl_exec($curl);
 
 // Check if there was an error with the cURL request
-if(curl_error($curl)) {
+if(curl_errno($curl)) {
     echo "Error: " . curl_error($curl);
 } else {
     // Decode the JSON response
@@ -42,5 +43,7 @@ if(curl_error($curl)) {
 
 // Close the cURL session
 curl_close($curl);
+
+die("x_x");
 
 ?>
