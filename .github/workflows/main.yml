@@ -5,7 +5,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3    
-    - name: Replace string in file
+    - name: checkout WURFL client external repo
+      uses: actions/checkout@v3
+      with:
+       repository: WURFL/wurfl-cloud-client-php
+       path: 'dist/php/wurfl-cloud-client-php'
+    - name: Replace lookup endpoint with secret
       uses: nguyenvanuyn96/str-find-and-replace-action@master
       with:
        find: 'SET_ENDPOINT_HERE'
