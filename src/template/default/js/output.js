@@ -575,20 +575,43 @@ module.exports = function() {
 
         }
      
-        if (results.gyroscopeInfo && results.gyroscopeInfo.alpha) {
+        if (results.gyroscopeInfo && 
+          (
+            typeof results.gyroscopeInfo.alpha !=== "undefined"
+            ||
+            typeof results.gyroscopeInfo.beta  !=== "undefined"
+            ||
+            typeof results.gyroscopeInfo.gamma !=== "undefined"
+           )
+        ) {
           
           displayOrientation.push("\nGyroscope rotation:");
           displayOrientation.push("α " + results.gyroscopeInfo.alpha+",");
           displayOrientation.push("β " + results.gyroscopeInfo.beta+",");
           displayOrientation.push("γ " + results.gyroscopeInfo.gamma);          
+        } else {
+          displayOrientation.push("\nGyroscope rotation: not available");
         }
 
-        if (results.motionSensorsInfo && results.motionSensorsInfo.x) {
+        if (
+          results.motionSensorsInfo 
+          && 
+          (
+            typeof results.motionSensorsInfo.x !=== "undefined"
+            ||
+            typeof results.motionSensorsInfo.y !=== "undefined"
+            ||
+            typeof results.motionSensorsInfo.z !=== "undefined"
+           )
+        ) {
           
           displayOrientation.push("\nMotion:");
           displayOrientation.push("x " + results.motionSensorsInfo.x+",");
           displayOrientation.push("y " + results.motionSensorsInfo.y+",");
           displayOrientation.push("z " + results.motionSensorsInfo.z);          
+        } 
+        else {
+          displayOrientation.push("\nMotion: no movement detected");
         }
         
         displayOrientation = displayOrientation.join(" ");
