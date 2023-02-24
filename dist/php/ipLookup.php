@@ -1,10 +1,5 @@
 <?php
 
-// Display errors 
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-
 /*
 if($_SERVER['HTTP_REFERER'] !== "SET_ALLOWED_DOMAIN_HERE"){
     die('Unauthorized access');
