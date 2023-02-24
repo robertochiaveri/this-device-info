@@ -7,11 +7,13 @@ error_reporting(E_ALL);
 
 // check for cURL
 if (!extension_loaded("curl")) {
-    die("cURL not loaded.");
+    die("Error: cURL not loaded.");
 }
 
 // Specify the URL of the web server to make the request to
-$url = "https://reqbin.com/echo";
+$url = SET_ENDPOINT_HERE;
+
+echo "url: ".$url;
 
 // Initialize a new cURL session
 $curl = curl_init();
