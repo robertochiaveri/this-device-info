@@ -10,7 +10,7 @@ if($_SERVER['HTTP_REFERER'] !== "SET_ALLOWED_DOMAIN_HERE"){
 if (!extension_loaded("curl")) {
     $output = array(
        "success" => "false", 
-       "error" => "cURL not available on server.")
+       "error" => "cURL not available on server."
     )
     die json_encode($output);
 }
