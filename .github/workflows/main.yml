@@ -10,12 +10,18 @@ jobs:
       with:
        repository: WURFL/wurfl-cloud-client-php
        path: 'dist/php/wurfl-cloud-client-php'
+    - name: Set WURFL api key from secret
+      uses: nguyenvanuyn96/str-find-and-replace-action@master
+      with:
+       find: 'SET_WURFL_API_KEY_HERE'
+       replace: ${{ secrets.WURFL_API_KEY }}
+       include: 'UserAgentLookup.php'     
     - name: Replace lookup endpoint with secret
       uses: nguyenvanuyn96/str-find-and-replace-action@master
       with:
        find: 'SET_ENDPOINT_HERE'
        replace: ${{ secrets.IP_LOOKUP_ENDPOINT }}
-       include: 'ipLookup.php'
+       include: 'ipLookup.php'       
     - name: Node npm build 
       uses: actions/setup-node@v3
       with:
