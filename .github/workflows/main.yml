@@ -10,7 +10,7 @@ jobs:
       with:
        find: 'SET_ENDPOINT_HERE'
        replace: ${{ secrets.IP_LOOKUP_ENDPOINT }}
-       include: '*.php'
+       include: 'ipLookup.php'
     - name: Node npm build 
       uses: actions/setup-node@v3
       with:
