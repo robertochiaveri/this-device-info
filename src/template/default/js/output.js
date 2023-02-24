@@ -525,7 +525,7 @@ module.exports = function() {
       }
 
 
-      // Orientation
+      // Orientation and movement
       var displayOrientation = defaultValue;
       try {
 
@@ -577,11 +577,11 @@ module.exports = function() {
      
         if (results.gyroscopeInfo && 
           (
-            typeof results.gyroscopeInfo.alpha !=== "undefined"
+            typeof results.gyroscopeInfo.alpha !== "undefined"
             ||
-            typeof results.gyroscopeInfo.beta  !=== "undefined"
+            typeof results.gyroscopeInfo.beta  !== "undefined"
             ||
-            typeof results.gyroscopeInfo.gamma !=== "undefined"
+            typeof results.gyroscopeInfo.gamma !== "undefined"
            )
         ) {
           
@@ -597,11 +597,11 @@ module.exports = function() {
           results.motionSensorsInfo 
           && 
           (
-            typeof results.motionSensorsInfo.x !=== "undefined"
+            typeof results.motionSensorsInfo.x !== "undefined"
             ||
-            typeof results.motionSensorsInfo.y !=== "undefined"
+            typeof results.motionSensorsInfo.y !== "undefined"
             ||
-            typeof results.motionSensorsInfo.z !=== "undefined"
+            typeof results.motionSensorsInfo.z !== "undefined"
            )
         ) {
           
@@ -615,7 +615,7 @@ module.exports = function() {
         }
         
         displayOrientation = displayOrientation.join(" ");
-        container.appendChild(createGroup("displayOrientation","Orientation",displayOrientation,"wide"));
+        container.appendChild(createGroup("displayOrientation","Orientation and motion",displayOrientation,"wide"));
 
         
         
