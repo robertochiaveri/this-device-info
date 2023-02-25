@@ -4,12 +4,7 @@ jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
-    - name: checkout 51Degrees GPU renderer
-      uses: actions/checkout@v3
-      with:
-       repository: 51Degrees/Renderer   
-       path: 'dist/js/renderer'  
+    - uses: actions/checkout@v
     - name: checkout WURFL client external repo
       uses: actions/checkout@v3
       with:
