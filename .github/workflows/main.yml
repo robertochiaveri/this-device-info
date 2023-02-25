@@ -4,7 +4,7 @@ jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v
+    - uses: actions/checkout@v3
     - name: checkout WURFL client external repo
       uses: actions/checkout@v3
       with:
