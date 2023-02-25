@@ -57,7 +57,7 @@ thisDeviceInfo.loadModule("IPLookupInfo", require('./modules/ipLookupInfo'));
 
 thisDeviceInfo.loadModule("UIInfo", require('./modules/uiModeInfo'));
 
-thisDeviceInfo.loadModule("iOSClientInfo", require('./modules/iOSClientInfo'));
+/* thisDeviceInfo.loadModule("iOSClientInfo", require('./modules/iOSClientInfo')); */
 
 thisDeviceInfo.loadModule("bluetoothInfo", require('./modules/bluetoothInfo'));
 
