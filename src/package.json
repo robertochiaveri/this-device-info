@@ -6,7 +6,7 @@
   "main": "index.js",
   "devDependencies": {
     "browserify": "^17.0.0",
-    "ua-parser-js": "^0.7.24",
+    "ua-parser-js": "^0.7.33",
     "uglify-js": "^2.8.5",
     "watchify": "^4.00.0"
   },
