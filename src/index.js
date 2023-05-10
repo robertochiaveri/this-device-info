@@ -67,8 +67,6 @@ thisDeviceInfo.loadModule("pushNotificationsInfo", require('./modules/pushNotifi
 
 thisDeviceInfo.loadModule("screenRefreshRateInfo", require('./modules/screenRefreshRate'));
 
-thisDeviceInfo.loadModule("paymentsInfo", require('./modules/paymentsInfo'));
-
 thisDeviceInfo.init({
   callbackFn: require("./template/default/js/output")
 });
