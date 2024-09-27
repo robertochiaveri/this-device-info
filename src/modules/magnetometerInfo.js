@@ -9,7 +9,8 @@ module.exports = (function() {
     var MagnetometerInfoEvent,
         detail = {
             event: event,
-            obj: obj
+            obj: obj,
+            reading: obj.x
         };
 
     MagnetometerInfoEvent = new CustomEvent("__MagnetometerInfoEvent", {
@@ -48,7 +49,7 @@ module.exports = (function() {
     var MagSensor = new Magnetometer({frequency:10});
 
     console.log("...adding Magnetometer event listener");
-    MagSensor.addEventListener("reading",function(e) { getMagnetometer(e,this); } );
+    MagSensor.addEventListener("reading",function(e) { getMagnetometer(e,MagSensor); } );
     console.log("...Starting Magnetometer sensor");
     MagSensor.start();  
     
