@@ -67,6 +67,8 @@ thisDeviceInfo.loadModule("pushNotificationsInfo", require('./modules/pushNotifi
 
 thisDeviceInfo.loadModule("screenRefreshRateInfo", require('./modules/screenRefreshRate'));
 
+thisDeviceInfo.loadModule("magnetometerInfo", require('./modules/magnetometerInfo'));
+
 thisDeviceInfo.init({
   callbackFn: require("./template/default/js/output")
 });
