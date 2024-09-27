@@ -11,7 +11,8 @@ module.exports = function(url, callback, method, params, timeout) {
       if (xmlHttp.readyState == 4) {
         if (xmlHttp.status == 200) {
           console.log("**** Async request to " + this._url + " received a response");
-          callback(xmlHttp.responseText);
+          var headers = xmlHttp.getAllResponseHeaders();  //coach added to retrieve sec-ch-* headers requested via php accept header
+          callback(xmlHttp.responseText,headers);
         } else {
           console.log("**** Async request to " + this._url + " FAILED (" + xmlHttp.status + ")");
         }
