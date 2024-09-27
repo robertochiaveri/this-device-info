@@ -8,9 +8,9 @@ module.exports = (function() {
 
     var MagnetometerInfoEvent,
         detail = {
-          x: false,
-          y: false,
-          z: false
+          x: event.x,
+          y: event.y,
+          z: event.z
         };
 
     MagnetometerInfoEvent = new CustomEvent("__MagnetometerInfoEvent", {
