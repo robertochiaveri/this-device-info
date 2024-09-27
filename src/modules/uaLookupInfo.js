@@ -16,15 +16,18 @@ module.exports = (function() {
 
   httpGetAsync(
     "./php/UserAgentLookup.php",
-    function(responseText) {
+    function(responseText,headers) {
 
       var UALookupInfoEvent,
           detail = responseText;
-
-
+  
+            
+      
       if (window.JSON && window.JSON.parse) {
         detail = JSON.parse(responseText);
       }
+
+      detail.headers = headers;
 
       UALookupInfoEvent = new CustomEvent("__UALookupInfoEvent", {
         detail: detail,
