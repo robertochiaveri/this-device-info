@@ -334,7 +334,7 @@ module.exports = function() {
             ambientLight += results.ambientLightInfo.luminosity;            
           }
 
-          deviceHardware.push("A light sensor (reading " + ambientLight+")");
+          deviceHardware.push("Light sensor (reading " + ambientLight+")");
         } 
 
         deviceHardware = deviceHardware.join(" ");   
@@ -613,7 +613,27 @@ module.exports = function() {
         else {
           displayOrientation.push("\nMotion: no movement detected");
         }
-        
+
+        if (
+          results.magnetometerInfo 
+          && 
+          (
+            typeof results.magnetometerInfo.x !== "undefined"
+            ||
+            typeof results.magnetometerInfo.y !== "undefined"
+            ||
+            typeof results.magnetometerInfo.z !== "undefined"
+           )
+        ) {
+          
+          displayOrientation.push("\nMagnetometer:");
+          displayOrientation.push("x-axis: " + results.magnetometerInfo.x+",");
+          displayOrientation.push("y-axis: " + results.magnetometerInfo.y+",");
+          displayOrientation.push("z-axis: " + results.magnetometerInfo.z);          
+        } 
+
+
+  
         displayOrientation = displayOrientation.join(" ");
         container.appendChild(createGroup("displayOrientation","Orientation and motion",displayOrientation,"wide"));
 
