@@ -14,7 +14,7 @@ module.exports = (function() {
         };
 
     MagnetometerInfoEvent = new CustomEvent("__MagnetometerInfoEvent", {
-      detail: detail,
+      detail: event,
       bubbles: true,
       cancelable: true
     });
