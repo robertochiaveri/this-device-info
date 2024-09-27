@@ -8,9 +8,9 @@ module.exports = (function() {
 
     var MagnetometerInfoEvent,
         detail = {
-            x: sensor.x,
-            y: sensor.y,
-            z: sensor.z
+            x: sensor.x.toFixed(2),
+            y: sensor.y.toFixed(2),
+            z: sensor.z.toFixed(2)
         };
 
     MagnetometerInfoEvent = new CustomEvent("__MagnetometerInfoEvent", {
