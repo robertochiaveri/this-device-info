@@ -5,7 +5,7 @@ if($_SERVER['HTTP_REFERER'] !== "SET_ALLOWED_DOMAIN_HERE"){
     die('Unauthorized access');
 }
 */
-header('Accept-CH: sec-ch-ua-platform,sec-ch-ua-arch,sec-ch-ua-model,sec-ch-ua-platform-version,sec-ch-ua-full-version,sec-ch-ua-bitness,sec-ch-ua-full-version-list', true);
+header('Accept-CH: sec-ch-ua-arch,sec-ch-ua-platform,sec-ch-ua-platform-version,sec-ch-ua-mobile,sec-ch-ua-model,sec-ch-ua-full-version,sec-ch-ua-bitness,sec-ch-device-memory,sec-ch-dpr', true);
 header('Content-Type: text/html; charset=utf-8');
 
 // Include the autoloader - edit this path! 
