@@ -1,5 +1,4 @@
 <?php
-
 /*
 if($_SERVER['HTTP_REFERER'] !== "SET_ALLOWED_DOMAIN_HERE"){
     die('Unauthorized access');
