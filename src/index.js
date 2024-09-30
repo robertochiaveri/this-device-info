@@ -49,9 +49,9 @@ thisDeviceInfo.loadModule("mediaCaptureInfo", require('./modules/mediaCaptureInf
 
 thisDeviceInfo.loadModule("ambientLightInfo", require('./modules/ambientLightInfo'));
 
-thisDeviceInfo.loadModule("userAgentInfo", require('./modules/userAgentInfo'));
+/* thisDeviceInfo.loadModule("userAgentInfo", require('./modules/userAgentInfo')); -- unreliable after client hints user agent freeze */
 
-/* thisDeviceInfo.loadModule("UALookupInfo", require('./modules/uaLookupInfo')); -- unreliable after client hints user agent freeze */
+thisDeviceInfo.loadModule("UALookupInfo", require('./modules/uaLookupInfo')); 
 
 thisDeviceInfo.loadModule("IPLookupInfo", require('./modules/ipLookupInfo'));
 
