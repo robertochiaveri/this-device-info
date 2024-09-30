@@ -51,7 +51,7 @@ thisDeviceInfo.loadModule("ambientLightInfo", require('./modules/ambientLightInf
 
 thisDeviceInfo.loadModule("userAgentInfo", require('./modules/userAgentInfo'));
 
-thisDeviceInfo.loadModule("UALookupInfo", require('./modules/uaLookupInfo'));
+/* thisDeviceInfo.loadModule("UALookupInfo", require('./modules/uaLookupInfo')); -- unreliable after client hints user agent freeze */
 
 thisDeviceInfo.loadModule("IPLookupInfo", require('./modules/ipLookupInfo'));
 
