@@ -5,6 +5,7 @@ if($_SERVER['HTTP_REFERER'] !== "SET_ALLOWED_DOMAIN_HERE"){
     die('Unauthorized access');
 }
 */
+header('Accept-CH: sec-ch-ua,sec-ch-ua-mobile,sec-ch-ua-full-version,sec-ch-ua-model', true);
 
 // Include the autoloader - edit this path! 
 require_once 'wurfl-cloud-client-php/src/autoload.php'; 
@@ -27,7 +28,9 @@ $capabilities = array(
     "model_name"            => $client->getDeviceCapability('model_name'),
     "model_extra_info"      => $client->getDeviceCapability('model_extra_info'),
     "complete_device_name"  => $client->getDeviceCapability('complete_device_name'),
-    "release_date"          => $client->getDeviceCapability('release_date')
+    "release_date"          => $client->getDeviceCapability('release_date'),
+    "debug_referrer"        => $_SERVER['HTTP_REFERER'],
+    "debug_CH"              => apache_request_headers()
 );
 
 // return data
